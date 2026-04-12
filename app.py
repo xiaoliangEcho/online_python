@@ -1004,27 +1004,32 @@ def maxSlidingWindow(nums, k):
 }
 
 def run_python_code(code, timeout=5):
-    """安全执行 Python 代码"""
+    """安全执行 Python 代码（Docker 沙箱）"""
     try:
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as f:
-            f.write(code)
-            temp_file = f.name
-        
+        # 使用 Docker 沙箱执行代码
         result = subprocess.run(
-            ['python3', temp_file],
+            [
+                'docker', 'run', '--rm',
+                '--network=none',           # 禁止网络访问
+                '--memory=128m',            # 内存限制 128MB
+                '--cpus=0.5',               # CPU 限制 0.5 核
+                '--pids-limit=50',          # 进程数限制
+                '--security-opt=no-new-privileges',  # 禁止提权
+                '--cap-drop=ALL',           # 移除所有 Linux capabilities
+                '-i',                       # 交互模式
+                'python-sandbox:latest',    # 沙箱镜像
+            ],
+            input=code,
             capture_output=True,
             text=True,
-            timeout=timeout
+            timeout=timeout + 2  # Docker 额外给 2 秒
         )
-        
-        os.unlink(temp_file)
         
         if result.returncode == 0:
             return {"success": True, "output": result.stdout.strip()}
         else:
             return {"success": False, "output": result.stderr.strip()}
     except subprocess.TimeoutExpired:
-        os.unlink(temp_file)
         return {"success": False, "output": f"代码执行超时（{timeout}秒）"}
     except Exception as e:
         return {"success": False, "output": str(e)}
