@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python 自由编辑</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e4e4e4;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 12px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            height: 56px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #4CAF50;
+            cursor: pointer;
+        }
+
+        .logo span { color: #64B5F6; }
+
+        .header-nav {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: #e4e4e4;
+            text-decoration: none;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover { background: rgba(255, 255, 255, 0.2); }
+        .nav-btn.active {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: #4CAF50;
+        }
+
+        .toolbar {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .toolbar-left {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .toolbar-right {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .btn-run {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+        }
+        .btn-run:hover { transform: translateY(-2px); }
+
+        .btn-clear {
+            background: rgba(244, 67, 54, 0.2);
+            color: #F44336;
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        .btn-example {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196F3;
+            border: 1px solid rgba(33, 150, 243, 0.3);
+        }
+
+        .btn-saved {
+            background: rgba(156, 39, 176, 0.2);
+            color: #9C27B0;
+            border: 1px solid rgba(156, 39, 176, 0.3);
+        }
+
+        .file-name {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 6px 12px;
+            color: #e4e4e4;
+            font-size: 13px;
+            width: 150px;
+        }
+
+        .shortcuts {
+            font-size: 11px;
+            opacity: 0.5;
+        }
+
+        /* 主区域 - 上下布局 */
+        .main-area {
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 56px - 50px);
+        }
+
+        /* 编辑器区域 */
+        .editor-panel {
+            background: #1e1e1e;
+            display: flex;
+            flex-direction: column;
+            height: 50%;
+            min-height: 100px;
+        }
+
+        .editor-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 20px;
+            font-size: 12px;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        #code-editor {
+            width: 100%;
+            height: 100%;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Monaco', 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            padding: 15px 20px;
+            border: none;
+            outline: none;
+            resize: none;
+            line-height: 1.6;
+            tab-size: 4;
+        }
+
+        /* 拖动条 */
+        .resizer {
+            height: 8px;
+            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.5), transparent);
+            cursor: ns-resize;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .resizer:hover {
+            background: linear-gradient(90deg, transparent, rgba(76, 175, 80, 0.8), transparent);
+        }
+
+        .resizer::after {
+            content: '═══';
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 10px;
+            letter-spacing: 2px;
+        }
+
+        /* 输出区域 */
+        .output-panel {
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            height: 50%;
+            min-height: 100px;
+        }
+
+        .output-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 20px;
+            font-size: 12px;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .output-status {
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .output-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px 20px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .success { color: #4CAF50; }
+        .error { color: #F44336; }
+        .info { color: #64B5F6; }
+        .warning { color: #FF9800; }
+
+        /* 示例面板 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 100;
+            display: none;
+        }
+
+        .modal-overlay.show { display: block; }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(30, 30, 30, 0.98);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 25px;
+            width: 500px;
+            max-height: 70vh;
+            overflow-y: auto;
+            z-index: 101;
+            display: none;
+        }
+
+        .modal.show { display: block; }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #4CAF50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn {
+            background: rgba(244, 67, 54, 0.2);
+            border: none;
+            color: #F44336;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .example-item, .saved-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .example-item:hover, .saved-item:hover {
+            background: rgba(76, 175, 80, 0.2);
+        }
+
+        .item-title {
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .item-desc {
+            font-size: 11px;
+            opacity: 0.6;
+            margin-top: 4px;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .item-actions button {
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-load { background: #4CAF50; color: white; }
+        .btn-delete { background: #F44336; color: white; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo" onclick="window.location.href='/'">🐍 Python <span>自由编辑</span></div>
+        <div class="header-nav">
+            <a href="/" class="nav-btn">📝 算法练习</a>
+            <a href="/free" class="nav-btn active">🆓 自由编辑</a>
+            <a href="/stats" class="nav-btn">📊 访问统计</a>
+        </div>
+    </div>
+
+    <div class="toolbar">
+        <div class="toolbar-left">
+            <input type="text" class="file-name" id="filename" value="main.py" placeholder="文件名">
+            <span class="shortcuts">Ctrl+Enter 运行 | Ctrl+S 保存</span>
+        </div>
+        <div class="toolbar-right">
+            <button class="btn btn-saved" onclick="showSaved()">💾 已保存</button>
+            <button class="btn btn-example" onclick="showExamples()">📚 示例</button>
+            <button class="btn btn-clear" onclick="clearAll()">🗑️ 清空</button>
+            <button class="btn btn-run" onclick="runCode()">▶ 运行</button>
+        </div>
+    </div>
+
+    <div class="main-area">
+        <!-- 上方：编辑器 -->
+        <div class="editor-panel" id="editor-panel">
+            <div class="editor-header">
+                <span>📝 代码编辑器</span>
+                <span id="line-count">0 行</span>
+            </div>
+            <div class="editor-wrapper">
+                <textarea id="code-editor" placeholder="# 在这里编写 Python 代码..." spellcheck="false"></textarea>
+            </div>
+        </div>
+
+        <!-- 拖动条 -->
+        <div class="resizer" id="resizer"></div>
+
+        <!-- 下方：输出 -->
+        <div class="output-panel" id="output-panel">
+            <div class="output-header">
+                <span>📤 输出结果</span>
+                <span class="output-status" id="output-status">就绪</span>
+            </div>
+            <div class="output-content" id="output-content">点击「运行」或按 Ctrl+Enter 执行代码</div>
+        </div>
+    </div>
+
+    <!-- 示例代码弹窗 -->
+    <div class="modal-overlay" id="examples-overlay" onclick="closeModals()"></div>
+    <div class="modal" id="examples-modal">
+        <div class="modal-title">
+            📚 示例代码
+            <button class="close-btn" onclick="closeModals()">×</button>
+        </div>
+        <div id="examples-list"></div>
+    </div>
+
+    <!-- 已保存代码弹窗 -->
+    <div class="modal" id="saved-modal">
+        <div class="modal-title">
+            💾 已保存的代码
+            <button class="close-btn" onclick="closeModals()">×</button>
+        </div>
+        <div id="saved-list"></div>
+    </div>
+
+    <script>
+        // 示例代码
+        const examples = {
+            hello: `# Hello World
+print("Hello, World!")
+name = "Python"
+print(f"欢迎, {name}!")`,
+            loop: `# 循环示例
+print("=== for 循环 ===")
+for i in range(5):
+    print(f"第 {i+1} 次")
+
+print("\\n=== while 循环 ===")
+n = 3
+while n > 0:
+    print(f"n = {n}")
+    n -= 1`,
+            list: `# 列表操作
+nums = [1, 2, 3, 4, 5]
+print(f"列表: {nums}")
+print(f"平方: {[x**2 for x in nums]}")
+print(f"偶数: {[x for x in nums if x % 2 == 0]}")`,
+            dict: `# 字典操作
+student = {"name": "张三", "age": 20}
+print(f"学生: {student}")
+print(f"姓名: {student['name']}")
+
+for k, v in student.items():
+    print(f"  {k}: {v}")`,
+            function: `# 函数定义
+def greet(name, greeting="你好"):
+    return f"{greeting}, {name}!"
+
+print(greet("Python"))
+print(greet("World", "Hello"))
+
+# 递归
+def fib(n):
+    return n if n <= 1 else fib(n-1) + fib(n-2)
+
+print(f"fib(10) = {fib(10)}")`,
+            class_demo: `# 类定义
+class Student:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    def introduce(self):
+        print(f"我是{self.name}，{self.age}岁")
+
+s = Student("张三", 20)
+s.introduce()`,
+            algorithm: `# 排序算法
+def bubble_sort(arr):
+    arr = arr.copy()
+    for i in range(len(arr)):
+        for j in range(len(arr)-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+
+nums = [64, 34, 25, 12, 22]
+print(f"原数组: {nums}")
+print(f"排序后: {bubble_sort(nums)}")`
+        };
+
+        const exampleNames = {
+            hello: "👋 Hello World",
+            loop: "🔄 循环示例",
+            list: "📋 列表操作",
+            dict: "📖 字典操作",
+            function: "⚙️ 函数定义",
+            class_demo: "🏗️ 类与对象",
+            algorithm: "🧮 排序算法"
+        };
+
+        // 拖动调整大小
+        const resizer = document.getElementById('resizer');
+        const editorPanel = document.getElementById('editor-panel');
+        const outputPanel = document.getElementById('output-panel');
+        let isResizing = false;
+
+        resizer.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            document.body.style.cursor = 'ns-resize';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+            
+            const containerRect = document.querySelector('.main-area').getBoundingClientRect();
+            const toolbarHeight = 56 + 50;
+            const minHeight = 100;
+            
+            let editorHeight = e.clientY - containerRect.top;
+            let outputHeight = containerRect.height - editorHeight - 8;
+            
+            if (editorHeight < minHeight) editorHeight = minHeight;
+            if (outputHeight < minHeight) {
+                outputHeight = minHeight;
+                editorHeight = containerRect.height - outputHeight - 8;
+            }
+            
+            editorPanel.style.height = editorHeight + 'px';
+            outputPanel.style.height = outputHeight + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            isResizing = false;
+            document.body.style.cursor = '';
+        });
+
+        // 保存代码
+        function saveCode() {
+            const filename = document.getElementById('filename').value || 'main.py';
+            const code = document.getElementById('code-editor').value;
+            
+            if (!code.trim()) {
+                setStatus('代码为空', 'warning');
+                return;
+            }
+            
+            let saved = JSON.parse(localStorage.getItem('python_saved_codes') || '{}');
+            saved[filename] = {
+                code: code,
+                time: new Date().toLocaleString('zh-CN')
+            };
+            localStorage.setItem('python_saved_codes', JSON.stringify(saved));
+            
+            setStatus('已保存: ' + filename, 'success');
+        }
+
+        // 显示已保存列表
+        function showSaved() {
+            const saved = JSON.parse(localStorage.getItem('python_saved_codes') || '{}');
+            const list = document.getElementById('saved-list');
+            
+            const files = Object.entries(saved);
+            if (files.length === 0) {
+                list.innerHTML = '<div style="text-align: center; opacity: 0.5; padding: 20px;">暂无保存的代码</div>';
+            } else {
+                list.innerHTML = files.map(([name, data]) => `
+                    <div class="saved-item">
+                        <div class="item-title">📄 ${name}</div>
+                        <div class="item-desc">保存于: ${data.time}</div>
+                        <div class="item-actions">
+                            <button class="btn-load" onclick="loadSaved('${name}')">加载</button>
+                            <button class="btn-delete" onclick="deleteSaved('${name}')">删除</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            document.getElementById('examples-overlay').classList.add('show');
+            document.getElementById('saved-modal').classList.add('show');
+        }
+
+        function loadSaved(name) {
+            const saved = JSON.parse(localStorage.getItem('python_saved_codes') || '{}');
+            if (saved[name]) {
+                document.getElementById('filename').value = name;
+                document.getElementById('code-editor').value = saved[name].code;
+                closeModals();
+                setStatus('已加载: ' + name, 'info');
+                updateLineCount();
+            }
+        }
+
+        function deleteSaved(name) {
+            if (!confirm('确定删除 ' + name + ' ?')) return;
+            let saved = JSON.parse(localStorage.getItem('python_saved_codes') || '{}');
+            delete saved[name];
+            localStorage.setItem('python_saved_codes', JSON.stringify(saved));
+            showSaved();
+        }
+
+        // 显示示例
+        function showExamples() {
+            const list = document.getElementById('examples-list');
+            list.innerHTML = Object.entries(examples).map(([key, code]) => `
+                <div class="example-item" onclick="loadExample('${key}')">
+                    <div class="item-title">${exampleNames[key]}</div>
+                    <div class="item-desc">${code.split('\\n')[0].replace('#', '')}</div>
+                </div>
+            `).join('');
+            
+            document.getElementById('examples-overlay').classList.add('show');
+            document.getElementById('examples-modal').classList.add('show');
+        }
+
+        function loadExample(key) {
+            document.getElementById('code-editor').value = examples[key];
+            closeModals();
+            setStatus('已加载示例', 'info');
+            updateLineCount();
+        }
+
+        function closeModals() {
+            document.getElementById('examples-overlay').classList.remove('show');
+            document.getElementById('examples-modal').classList.remove('show');
+            document.getElementById('saved-modal').classList.remove('show');
+        }
+
+        // 运行代码
+        async function runCode() {
+            const code = document.getElementById('code-editor').value;
+            if (!code.trim()) {
+                setOutput('请输入代码', 'warning');
+                return;
+            }
+            
+            setStatus('运行中...', 'info');
+            setOutput('⏳ 执行中...', 'info');
+            
+            try {
+                const res = await fetch('/api/run', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({code})
+                });
+                const result = await res.json();
+                
+                if (result.success) {
+                    setStatus('成功', 'success');
+                    setOutput(result.output || '(无输出)', 'success');
+                } else {
+                    setStatus('失败', 'error');
+                    setOutput(result.output, 'error');
+                }
+            } catch (e) {
+                setStatus('错误', 'error');
+                setOutput('网络错误: ' + e.message, 'error');
+            }
+        }
+
+        function setOutput(text, type) {
+            const el = document.getElementById('output-content');
+            el.innerHTML = `<span class="${type}">${text}</span>`;
+        }
+
+        function setStatus(text, type) {
+            const el = document.getElementById('output-status');
+            el.textContent = text;
+            el.style.color = type === 'success' ? '#4CAF50' : 
+                            type === 'error' ? '#F44336' : 
+                            type === 'warning' ? '#FF9800' : '#64B5F6';
+        }
+
+        function updateLineCount() {
+            const code = document.getElementById('code-editor').value;
+            const lines = code.split('\n').length;
+            document.getElementById('line-count').textContent = lines + ' 行';
+        }
+
+        function clearAll() {
+            document.getElementById('code-editor').value = '';
+            document.getElementById('filename').value = 'main.py';
+            setOutput('已清空', 'info');
+            setStatus('就绪', '');
+            updateLineCount();
+        }
+
+        // 快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                e.preventDefault();
+                runCode();
+            }
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                saveCode();
+            }
+            if (e.key === 'Escape') {
+                closeModals();
+            }
+        });
+
+        // Tab 缩进 & 行数统计
+        document.getElementById('code-editor').addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                const start = this.selectionStart;
+                const end = this.selectionEnd;
+                this.value = this.value.substring(0, start) + '    ' + this.value.substring(end);
+                this.selectionStart = this.selectionEnd = start + 4;
+            }
+        });
+
+        document.getElementById('code-editor').addEventListener('input', updateLineCount);
+
+        // 初始化
+        updateLineCount();
+    </script>
+</body>
+</html>
