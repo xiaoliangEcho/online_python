@@ -1016,6 +1016,9 @@ def run_python_code(code, timeout=5):
                 '--pids-limit=50',          # 进程数限制
                 '--security-opt=no-new-privileges',  # 禁止提权
                 '--cap-drop=ALL',           # 移除所有 Linux capabilities
+                '--security-opt', 'seccomp=unconfined',  # 使用默认 seccomp 配置
+                '--read-only',              # 只读文件系统（仅允许 /tmp）
+                '--tmpfs', '/tmp:size=10M,mode=1777',  # 临时目录
                 '-i',                       # 交互模式
                 'python-sandbox:latest',    # 沙箱镜像
             ],
