@@ -1,0 +1,18 @@
+[Unit]
+Description=Python Online Practice Platform
+After=network.target docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+User=admin
+WorkingDirectory=/home/admin/online_python
+Environment="FLASK_ENV=production"
+ExecStart=/usr/bin/python3 /home/admin/online_python/app.py
+Restart=always
+RestartSec=5
+StandardOutput=append:/var/log/online-python.log
+StandardError=append:/var/log/online-python.log
+
+[Install]
+WantedBy=multi-user.target

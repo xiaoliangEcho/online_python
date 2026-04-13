@@ -1474,4 +1474,6 @@ if __name__ == '__main__':
     for d, count in difficulties.items():
         print(f"   - {d}: {count} 道")
     
-    app.run(host='0.0.0.0', port=5088, debug=True)
+    # 生产环境不使用 debug 模式
+    debug_mode = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
+    app.run(host='0.0.0.0', port=5088, debug=debug_mode)
