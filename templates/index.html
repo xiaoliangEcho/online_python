@@ -455,20 +455,27 @@
             /* 移动端侧边栏变成顶部标题 */
             .sidebar {
                 width: 100%;
-                max-height: 50vh;
+                max-height: 40vh;
                 border-right: none;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                flex-shrink: 0;
             }
             
             /* 问题面板和编辑器 */
             .problem-panel-wrapper {
                 width: 100%;
-                max-height: 40vh;
+                max-height: 35vh;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                overflow-y: auto;
+                display: block;
+                flex-shrink: 0;
             }
             
             .problem-panel {
                 width: 100%;
+                height: auto;
+                max-height: 100%;
+                border-right: none;
             }
             
             .collapse-btn {
@@ -476,8 +483,9 @@
             }
             
             .editor-panel {
-                flex: 1;
+                width: 100%;
                 min-height: 300px;
+                flex-shrink: 0;
             }
             
             .sidebar-header {
