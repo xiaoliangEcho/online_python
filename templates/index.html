@@ -787,6 +787,16 @@
             
             // 清空输出
             clearOutput();
+            
+            // 移动端自动滚动到编辑器区域
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    document.querySelector('.editor-panel').scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 100);
+            }
         }
 
         // 清空输出
