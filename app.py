@@ -1000,7 +1000,508 @@ def maxSlidingWindow(nums, k):
     return result
 """,
         "hints": ["使用单调队列", "队列中存储索引，保持递减顺序"]
+    },
+    # ========== LeetCode 792: Binary Search ==========
+    "21": {
+        "id": "21",
+        "title": "Binary Search",
+        "difficulty": "简单",
+        "tags": ['Array', 'Binary Search'],
+        "description": 'Given an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`. If `target` exists, then return its index. Otherwise, return `-1`.\n\nYou must write an algorithm with `O(log n)` runtime complexity.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [-1,0,3,5,9,12], target = 9\n**Output:** 4\n**Explanation:** 9 exists in nums and its index is 4\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [-1,0,3,5,9,12], target = 2\n**Output:** -1\n**Explanation:** 2 does not exist in nums so return -1\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &l',
+        "template": 'class Solution:\n    def search(self, nums: List[int], target: int) -> int:\n        ',
+        "test_cases": [{"input": "[-1,0,3,5,9,12]", "expected": "9"}, {"input": "[-1,0,3,5,9,12]", "expected": "2"}]
+    },
+    # ========== LeetCode 153: Find Minimum in Rotated Sorted Array ==========
+    "22": {
+        "id": "22",
+        "title": "Find Minimum in Rotated Sorted Array",
+        "difficulty": "中等",
+        "tags": ['Array', 'Binary Search'],
+        "description": 'Suppose an array of length `n` sorted in ascending order is **rotated** between `1` and `n` times. For example, the array `nums = [0,1,2,4,5,6,7]` might become:\n\n\t- `[4,5,6,7,0,1,2]` if it was rotated `4` times.\n\n\t- `[0,1,2,4,5,6,7]` if it was rotated `7` times.\n\nNotice that **rotating** an array `[a[0], a[1], a[2], ..., a[n-1]]` 1 time results in the array `[a[n-1], a[0], a[1], a[2], ..., a[n-2]]`.\n\nGiven the sorted rotated array `nums` of **unique** elements, return the minimum element of this array.\n\nYou must write an algorithm that runs in&nbsp;`O(log n) time`.\n\n&nbsp;\n\n**Example 1:**\n\n```',
+        "template": 'class Solution:\n    def findMin(self, nums: List[int]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 33: Search in Rotated Sorted Array ==========
+    "23": {
+        "id": "23",
+        "title": "Search in Rotated Sorted Array",
+        "difficulty": "中等",
+        "tags": ['Array', 'Binary Search'],
+        "description": 'There is an integer array `nums` sorted in ascending order (with **distinct** values).\n\nPrior to being passed to your function, `nums` is **possibly left rotated** at an unknown index `k` (`1 &lt;= k &lt; nums.length`) such that the resulting array is `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]` (**0-indexed**). For example, `[0,1,2,4,5,6,7]` might be left rotated by&nbsp;`3`&nbsp;indices and become `[4,5,6,7,0,1,2]`.\n\nGiven the array `nums` **after** the possible rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not',
+        "template": 'class Solution:\n    def search(self, nums: List[int], target: int) -> int:\n        ',
+        "test_cases": [{"input": "[4,5,6,7,0,1,2]", "expected": "0"}, {"input": "[4,5,6,7,0,1,2]", "expected": "3"}, {"input": "[1]", "expected": "0"}]
+    },
+    # ========== LeetCode 882: Peak Index in a Mountain Array ==========
+    "24": {
+        "id": "24",
+        "title": "Peak Index in a Mountain Array",
+        "difficulty": "中等",
+        "tags": ['Array', 'Binary Search'],
+        "description": 'You are given an integer **mountain** array `arr` of length `n` where the values increase to a **peak element** and then decrease.\n\nReturn the index of the peak element.\n\nYour task is to solve it in `O(log(n))` time complexity.\n\n&nbsp;\n\n**Example 1:**\n\n**Input:** arr = [0,1,0]\n\n**Output:** 1\n\n**Example 2:**\n\n**Input:** arr = [0,2,1,0]\n\n**Output:** 1\n\n**Example 3:**\n\n**Input:** arr = [0,10,5,2]\n\n**Output:** 1\n\n&nbsp;\n\n**Constraints:**\n\n\t- `3 &lt;= arr.length &lt;= 105`\n\n\t- `0 &lt;= arr[i] &lt;= 106`\n\n\t- `arr` is **guaranteed** to be a mountain array.',
+        "template": 'class Solution:\n    def peakIndexInMountainArray(self, arr: List[int]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 278: First Bad Version ==========
+    "25": {
+        "id": "25",
+        "title": "First Bad Version",
+        "difficulty": "简单",
+        "tags": ['Binary Search', 'Interactive'],
+        "description": 'You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.\n\nSuppose you have `n` versions `[1, 2, ..., n]` and you want to find out the first bad one, which causes all the following ones to be bad.\n\nYou are given an API `bool isBadVersion(version)` which returns whether `version` is bad. Implement a function to find the first bad version. You should minimize the number of calls to the A',
+        "template": '# The isBadVersion API is already defined for you.\n# def isBadVersion(version: int) -> bool:\n\nclass Solution:\n    def firstBadVersion(self, n: int) -> int:\n        ',
+        "test_cases": [{"input": "5", "expected": "4"}, {"input": "1", "expected": "1"}]
+    },
+    # ========== LeetCode 35: Search Insert Position ==========
+    "26": {
+        "id": "26",
+        "title": "Search Insert Position",
+        "difficulty": "简单",
+        "tags": ['Array', 'Binary Search'],
+        "description": 'Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.\n\nYou must&nbsp;write an algorithm with&nbsp;`O(log n)` runtime complexity.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [1,3,5,6], target = 5\n**Output:** 2\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [1,3,5,6], target = 2\n**Output:** 1\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** nums = [1,3,5,6], target = 7\n**Output:** 4\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= nums.length &lt;= 104`\n\n\t- `-104 &lt;= nums[i] &lt;= 104`\n\n',
+        "template": 'class Solution:\n    def searchInsert(self, nums: List[int], target: int) -> int:\n        ',
+        "test_cases": [{"input": "[1,3,5,6]", "expected": "5"}, {"input": "[1,3,5,6]", "expected": "2"}, {"input": "[1,3,5,6]", "expected": "7"}]
+    },
+    # ========== LeetCode 69: Sqrt(x) ==========
+    "27": {
+        "id": "27",
+        "title": "Sqrt(x)",
+        "difficulty": "简单",
+        "tags": ['Math', 'Binary Search'],
+        "description": 'Given a non-negative integer `x`, return the square root of `x` rounded down to the nearest integer. The returned integer should be **non-negative** as well.\n\nYou **must not use** any built-in exponent function or operator.\n\n\t- For example, do not use `pow(x, 0.5)` in c++ or `x ** 0.5` in python.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** x = 4\n**Output:** 2\n**Explanation:** The square root of 4 is 2, so we return 2.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** x = 8\n**Output:** 2\n**Explanation:** The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.\n\n```',
+        "template": 'class Solution:\n    def mySqrt(self, x: int) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 367: Valid Perfect Square ==========
+    "28": {
+        "id": "28",
+        "title": "Valid Perfect Square",
+        "difficulty": "简单",
+        "tags": ['Math', 'Binary Search'],
+        "description": 'Given a positive integer num, return `true` if `num` is a perfect square or `false` otherwise.\n\nA **perfect square** is an integer that is the square of an integer. In other words, it is the product of some integer with itself.\n\nYou must not use any built-in library function, such as `sqrt`.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** num = 16\n**Output:** true\n**Explanation:** We return true because 4 * 4 = 16 and 4 is an integer.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** num = 14\n**Output:** false\n**Explanation:** We return false because 3.742 * 3.742 = 14 and 3.742 is not an integer.\n\n```\n\n&nbsp;\n\n',
+        "template": 'class Solution:\n    def isPerfectSquare(self, num: int) -> bool:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 374: Guess Number Higher or Lower ==========
+    "29": {
+        "id": "29",
+        "title": "Guess Number Higher or Lower",
+        "difficulty": "简单",
+        "tags": ['Binary Search', 'Interactive'],
+        "description": 'We are playing the Guess Game. The game is as follows:\n\nI pick a number from `1` to `n`. You have to guess which number I picked (the number I picked stays the same throughout the game).\n\nEvery time you guess wrong, I will tell you whether the number I picked is higher or lower than your guess.\n\nYou call a pre-defined API `int guess(int num)`, which returns three possible results:\n\n\t- `-1`: Your guess is higher than the number I picked (i.e. `num &gt; pick`).\n\n\t- `1`: Your guess is lower than the number I picked (i.e. `num &lt; pick`).\n\n\t- `0`: your guess is equal to the number I picked (i.e. ',
+        "template": '# The guess API is already defined for you.\n# @param num, your guess\n# @return -1 if num is higher than the picked number\n#          1 if num is lower than the picked number\n#          otherwise return 0\n# def guess(num: int) -> int:\n\nclass Solution:\n    def guessNumber(self, n: int) -> int:\n        ',
+        "test_cases": [{"input": "10", "expected": "6"}, {"input": "1", "expected": "1"}, {"input": "2", "expected": "1"}]
+    },
+    # ========== LeetCode 74: Search a 2D Matrix ==========
+    "30": {
+        "id": "30",
+        "title": "Search a 2D Matrix",
+        "difficulty": "中等",
+        "tags": ['Array', 'Binary Search', 'Matrix'],
+        "description": 'You are given an `m x n` integer matrix `matrix` with the following two properties:\n\n\t- Each row is sorted in non-decreasing order.\n\n\t- The first integer of each row is greater than the last integer of the previous row.\n\nGiven an integer `target`, return `true` if `target` is in `matrix` or `false` otherwise.\n\nYou must write a solution in `O(log(m * n))` time complexity.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3\n**Output:** true\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13\n**Outpu',
+        "template": 'class Solution:\n    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:\n        ',
+        "test_cases": [{"input": "[[1,3,5,7],[10,11,16,20],[23,30,34,60]]", "expected": "3"}, {"input": "[[1,3,5,7],[10,11,16,20],[23,30,34,60]]", "expected": "13"}]
+    },
+    # ========== LeetCode 1: Two Sum ==========
+    "31": {
+        "id": "31",
+        "title": "Two Sum",
+        "difficulty": "简单",
+        "tags": ['Array', 'Hash Table'],
+        "description": 'Given an array of integers `nums`&nbsp;and an integer `target`, return indices of the two numbers such that they add up to `target`.\n\nYou may assume that each input would have **exactly one solution**, and you may not use the same element twice.\n\nYou can return the answer in any order.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [2,7,11,15], target = 9\n**Output:** [0,1]\n**Explanation:** Because nums[0] + nums[1] == 9, we return [0, 1].\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [3,2,4], target = 6\n**Output:** [1,2]\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** nums = [3,3], target = 6\n**Output:*',
+        "template": 'class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        ',
+        "test_cases": [{"input": "[2,7,11,15]", "expected": "9"}, {"input": "[3,2,4]", "expected": "6"}, {"input": "[3,3]", "expected": "6"}]
+    },
+    # ========== LeetCode 167: Two Sum II - Input Array Is Sorted ==========
+    "32": {
+        "id": "32",
+        "title": "Two Sum II - Input Array Is Sorted",
+        "difficulty": "中等",
+        "tags": ['Array', 'Two Pointers', 'Binary Search'],
+        "description": 'Given a **1-indexed** array of integers `numbers` that is already **sorted in non-decreasing order**, find two numbers such that they add up to a specific `target` number. Let these two numbers be `numbers[index1]` and `numbers[index2]` where `1 &lt;= index1 &lt; index2 &lt;= numbers.length`.\n\nReturn the indices of the two numbers&nbsp;`index1` and `index2`, **each incremented by one,** as an integer array `[index1, index2]` of length 2.\n\nThe tests are generated such that there is **exactly one solution**. You **may not** use the same element twice.\n\nYour solution must use only constant extra ',
+        "template": 'class Solution:\n    def twoSum(self, numbers: List[int], target: int) -> List[int]:\n        ',
+        "test_cases": [{"input": "[2,7,11,15]", "expected": "9"}, {"input": "[2,3,4]", "expected": "6"}, {"input": "[-1,0]", "expected": "-1"}]
+    },
+    # ========== LeetCode 15: 3Sum ==========
+    "33": {
+        "id": "33",
+        "title": "3Sum",
+        "difficulty": "中等",
+        "tags": ['Array', 'Two Pointers', 'Sorting'],
+        "description": 'Given an integer array nums, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.\n\nNotice that the solution set must not contain duplicate triplets.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [-1,0,1,2,-1,-4]\n**Output:** [[-1,-1,2],[-1,0,1]]\n**Explanation:** \nnums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.\nnums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.\nnums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.\nThe distinct triplets are [-1,0,1] and [-1,-1,2].\nNotice that the order of the output and the order of ',
+        "template": 'class Solution:\n    def threeSum(self, nums: list[int]) -> list[list[int]]:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 11: Container With Most Water ==========
+    "34": {
+        "id": "34",
+        "title": "Container With Most Water",
+        "difficulty": "中等",
+        "tags": ['Array', 'Two Pointers', 'Greedy'],
+        "description": 'You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the `ith` line are `(i, 0)` and `(i, height[i])`.\n\nFind two lines that together with the x-axis form a container, such that the container contains the most water.\n\nReturn the maximum amount of water a container can store.\n\n**Notice** that you may not slant the container.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** height = [1,8,6,2,5,4,8,3,7]\n**Output:** 49\n**Explanation:** The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of wate',
+        "template": 'class Solution:\n    def maxArea(self, height: List[int]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 125: Valid Palindrome ==========
+    "35": {
+        "id": "35",
+        "title": "Valid Palindrome",
+        "difficulty": "简单",
+        "tags": ['Two Pointers', 'String'],
+        "description": 'A phrase is a **palindrome** if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.\n\nGiven a string `s`, return `true` if it is a **palindrome**, or `false` otherwise.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** s = &quot;A man, a plan, a canal: Panama&quot;\n**Output:** true\n**Explanation:** &quot;amanaplanacanalpanama&quot; is a palindrome.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** s = &quot;race a car&quot;\n**Output:** false\n**Explanation:** &quot;rac',
+        "template": 'class Solution:\n    def isPalindrome(self, s: str) -> bool:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 283: Move Zeroes ==========
+    "36": {
+        "id": "36",
+        "title": "Move Zeroes",
+        "difficulty": "简单",
+        "tags": ['Array', 'Two Pointers'],
+        "description": 'Given an integer array `nums`, move all `0`&#39;s to the end of it while maintaining the relative order of the non-zero elements.\n\n**Note** that you must do this in-place without making a copy of the array.\n\n&nbsp;\n\n**Example 1:**\n\n```\n**Input:** nums = [0,1,0,3,12]\n**Output:** [1,3,12,0,0]\n\n```\n\n**Example 2:**\n\n```\n**Input:** nums = [0]\n**Output:** [0]\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= nums.length &lt;= 104`\n\n\t- `-231 &lt;= nums[i] &lt;= 231 - 1`\n\n&nbsp;\n\n**Follow up:** Could you minimize the total number of operations done?',
+        "template": 'class Solution:\n    def moveZeroes(self, nums: List[int]) -> None:\n        """\n        Do not return anything, modify nums in-place instead.\n        """\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 26: Remove Duplicates from Sorted Array ==========
+    "37": {
+        "id": "37",
+        "title": "Remove Duplicates from Sorted Array",
+        "difficulty": "简单",
+        "tags": ['Array', 'Two Pointers'],
+        "description": 'Given an integer array `nums` sorted in **non-decreasing order**, remove the duplicates **in-place** such that each unique element appears only **once**. The **relative order** of the elements should be kept the **same**.\n\nConsider the number of unique elements in&nbsp;`nums` to be `k**\u200b\u200b\u200b\u200b\u200b\u200b\u200b**`\u200b\u200b\u200b\u200b\u200b\u200b\u200b. After removing duplicates, return the number of unique elements&nbsp;`k`.\n\nThe first&nbsp;`k`&nbsp;elements of&nbsp;`nums`&nbsp;should contain the unique numbers in **sorted order**. The remaining elements beyond index&nbsp;`k - 1`&nbsp;can be ignored.\n\n**Custom Judge:**\n\nThe judge will test y',
+        "template": 'class Solution:\n    def removeDuplicates(self, nums: List[int]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 27: Remove Element ==========
+    "38": {
+        "id": "38",
+        "title": "Remove Element",
+        "difficulty": "简单",
+        "tags": ['Array', 'Two Pointers'],
+        "description": 'Given an integer array `nums` and an integer `val`, remove all occurrences of `val` in `nums` **in-place**. The order of the elements may be changed. Then return the number of elements in `nums` which are not equal to `val`.\n\nConsider the number of elements in `nums` which are not equal to `val` be `k`, to get accepted, you need to do the following things:\n\n\t- Change the array `nums` such that the first `k` elements of `nums` contain the elements which are not equal to `val`. The remaining elements of `nums` are not important as well as the size of `nums`.\n\n\t- Return `k`.\n\n**Custom Judge:**\n\nT',
+        "template": 'class Solution:\n    def removeElement(self, nums: List[int], val: int) -> int:\n        ',
+        "test_cases": [{"input": "[3,2,2,3]", "expected": "3"}, {"input": "[0,1,2,2,3,0,4,2]", "expected": "2"}]
+    },
+    # ========== LeetCode 75: Sort Colors ==========
+    "39": {
+        "id": "39",
+        "title": "Sort Colors",
+        "difficulty": "中等",
+        "tags": ['Array', 'Two Pointers', 'Sorting'],
+        "description": 'Given an array `nums` with `n` objects colored red, white, or blue, sort them **in-place **so that objects of the same color are adjacent, with the colors in the order red, white, and blue.\n\nWe will use the integers `0`, `1`, and `2` to represent the color red, white, and blue, respectively.\n\nYou must solve this problem without using the library&#39;s sort function.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [2,0,2,1,1,0]\n**Output:** [0,0,1,1,2,2]\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [2,0,1]\n**Output:** [0,1,2]\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `n == nums.length`\n\n\t- `1 &lt;= n &',
+        "template": 'class Solution:\n    def sortColors(self, nums: List[int]) -> None:\n        """\n        Do not return anything, modify nums in-place instead.\n        """\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 344: Reverse String ==========
+    "40": {
+        "id": "40",
+        "title": "Reverse String",
+        "difficulty": "简单",
+        "tags": ['Two Pointers', 'String'],
+        "description": 'Write a function that reverses a string. The input string is given as an array of characters `s`.\n\nYou must do this by modifying the input array in-place with `O(1)` extra memory.\n\n&nbsp;\n\n**Example 1:**\n\n```\n**Input:** s = ["h","e","l","l","o"]\n**Output:** ["o","l","l","e","h"]\n\n```\n\n**Example 2:**\n\n```\n**Input:** s = ["H","a","n","n","a","h"]\n**Output:** ["h","a","n","n","a","H"]\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= s.length &lt;= 105`\n\n\t- `s[i]` is a printable ascii character.',
+        "template": 'class Solution:\n    def reverseString(self, s: List[str]) -> None:\n        """\n        Do not return anything, modify s in-place instead.\n        """\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 3: Longest Substring Without Repeating Characters ==========
+    "41": {
+        "id": "41",
+        "title": "Longest Substring Without Repeating Characters",
+        "difficulty": "中等",
+        "tags": ['Hash Table', 'String', 'Sliding Window'],
+        "description": 'Given a string `s`, find the length of the **longest** **substring** without duplicate characters.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** s = &quot;abcabcbb&quot;\n**Output:** 3\n**Explanation:** The answer is &quot;abc&quot;, with the length of 3. Note that `&quot;bca&quot;` and `&quot;cab&quot;` are also correct answers.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** s = &quot;bbbbb&quot;\n**Output:** 1\n**Explanation:** The answer is &quot;b&quot;, with the length of 1.\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** s = &quot;pwwkew&quot;\n**Output:** 3\n**Explanation:** The answer is &quot;wke&quot;, with the l',
+        "template": 'class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 209: Minimum Size Subarray Sum ==========
+    "42": {
+        "id": "42",
+        "title": "Minimum Size Subarray Sum",
+        "difficulty": "中等",
+        "tags": ['Array', 'Binary Search', 'Sliding Window', 'Prefix Sum'],
+        "description": 'Given an array of positive integers `nums` and a positive integer `target`, return the **minimal length** of a subarray whose sum is greater than or equal to `target`. If there is no such subarray, return `0` instead.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** target = 7, nums = [2,3,1,2,4,3]\n**Output:** 2\n**Explanation:** The subarray [4,3] has the minimal length under the problem constraint.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** target = 4, nums = [1,4,4]\n**Output:** 1\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** target = 11, nums = [1,1,1,1,1,1,1,1]\n**Output:** 0\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `',
+        "template": 'class Solution:\n    def minSubArrayLen(self, target: int, nums: List[int]) -> int:\n        ',
+        "test_cases": [{"input": "7", "expected": "[2,3,1,2,4,3]"}, {"input": "4", "expected": "[1,4,4]"}, {"input": "11", "expected": "[1,1,1,1,1,1,1,1]"}]
+    },
+    # ========== LeetCode 438: Find All Anagrams in a String ==========
+    "43": {
+        "id": "43",
+        "title": "Find All Anagrams in a String",
+        "difficulty": "中等",
+        "tags": ['Hash Table', 'String', 'Sliding Window'],
+        "description": 'Given two strings `s` and `p`, return an array of all the start indices of `p`&#39;s anagrams in `s`. You may return the answer in **any order**.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** s = &quot;cbaebabacd&quot;, p = &quot;abc&quot;\n**Output:** [0,6]\n**Explanation:**\nThe substring with start index = 0 is &quot;cba&quot;, which is an anagram of &quot;abc&quot;.\nThe substring with start index = 6 is &quot;bac&quot;, which is an anagram of &quot;abc&quot;.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** s = &quot;abab&quot;, p = &quot;ab&quot;\n**Output:** [0,1,2]\n**Explanation:**\nThe substring with start',
+        "template": 'class Solution:\n    def findAnagrams(self, s: str, p: str) -> List[int]:\n        ',
+        "test_cases": [{"input": "\"cbaebabacd\"", "expected": "\"abc\""}, {"input": "\"abab\"", "expected": "\"ab\""}]
+    },
+    # ========== LeetCode 567: Permutation in String ==========
+    "44": {
+        "id": "44",
+        "title": "Permutation in String",
+        "difficulty": "中等",
+        "tags": ['Hash Table', 'Two Pointers', 'String', 'Sliding Window'],
+        "description": 'Given two strings `s1` and `s2`, return `true` if `s2` contains a permutation of `s1`, or `false` otherwise.\n\nIn other words, return `true` if one of `s1`&#39;s permutations is the substring of `s2`.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** s1 = &quot;ab&quot;, s2 = &quot;eidbaooo&quot;\n**Output:** true\n**Explanation:** s2 contains one permutation of s1 (&quot;ba&quot;).\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** s1 = &quot;ab&quot;, s2 = &quot;eidboaoo&quot;\n**Output:** false\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= s1.length, s2.length &lt;= 104`\n\n\t- `s1` and `s2` consist of lowercase English ',
+        "template": 'class Solution:\n    def checkInclusion(self, s1: str, s2: str) -> bool:\n        ',
+        "test_cases": [{"input": "\"ab\"", "expected": "\"eidbaooo\""}, {"input": "\"ab\"", "expected": "\"eidboaoo\""}]
+    },
+    # ========== LeetCode 643: Maximum Average Subarray I ==========
+    "45": {
+        "id": "45",
+        "title": "Maximum Average Subarray I",
+        "difficulty": "简单",
+        "tags": ['Array', 'Sliding Window'],
+        "description": 'You are given an integer array `nums` consisting of `n` elements, and an integer `k`.\n\nFind a contiguous subarray whose **length is equal to** `k` that has the maximum average value and return this value. Any answer with a calculation error less than `10-5` will be accepted.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [1,12,-5,-6,50,3], k = 4\n**Output:** 12.75000\n**Explanation:** Maximum average is (12 - 5 - 6 + 50) / 4 = 51 / 4 = 12.75\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [5], k = 1\n**Output:** 5.00000\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `n == nums.length`\n\n\t- `1 &lt;= k &lt;= n &l',
+        "template": 'class Solution:\n    def findMaxAverage(self, nums: List[int], k: int) -> float:\n        ',
+        "test_cases": [{"input": "[1,12,-5,-6,50,3]", "expected": "4"}, {"input": "[5]", "expected": "1"}]
+    },
+    # ========== LeetCode 200: Number of Islands ==========
+    "46": {
+        "id": "46",
+        "title": "Number of Islands",
+        "difficulty": "中等",
+        "tags": ['Array', 'Depth-First Search', 'Breadth-First Search', 'Union-Find', 'Matrix'],
+        "description": 'Given an `m x n` 2D binary grid `grid` which represents a map of `&#39;1&#39;`s (land) and `&#39;0&#39;`s (water), return the number of islands.\n\nAn **island** is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** grid = [\n  [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;0&quot;],\n  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;],\n  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],\n',
+        "template": 'class Solution:\n    def numIslands(self, grid: List[List[str]]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 695: Max Area of Island ==========
+    "47": {
+        "id": "47",
+        "title": "Max Area of Island",
+        "difficulty": "中等",
+        "tags": ['Array', 'Depth-First Search', 'Breadth-First Search', 'Union-Find', 'Matrix'],
+        "description": 'You are given an `m x n` binary matrix `grid`. An island is a group of `1`&#39;s (representing land) connected **4-directionally** (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.\n\nThe **area** of an island is the number of cells with a value `1` in the island.\n\nReturn the maximum **area** of an island in `grid`. If there is no island, return `0`.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,',
+        "template": 'class Solution:\n    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 79: Word Search ==========
+    "48": {
+        "id": "48",
+        "title": "Word Search",
+        "difficulty": "中等",
+        "tags": ['Array', 'String', 'Backtracking', 'Depth-First Search', 'Matrix'],
+        "description": 'Given an `m x n` grid of characters `board` and a string `word`, return `true` if `word` exists in the grid.\n\nThe word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** board = [[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;E&quot;],[&quot;S&quot;,&quot;F&quot;,&quot;C&quot;,&quot;S&quot;],[&quot;A&quot;,&quot;D&quot;,&quot;E&quot;,&quot;E&quot;]], word = &quot;ABCCED&quot;\n**Output:** true\n\n```\n\n**Example 2:**\n\n```\n\n**I',
+        "template": 'class Solution:\n    def exist(self, board: List[List[str]], word: str) -> bool:\n        ',
+        "test_cases": [{"input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]", "expected": "\"ABCCED\""}, {"input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]", "expected": "\"SEE\""}, {"input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]", "expected": "\"ABCB\""}]
+    },
+    # ========== LeetCode 733: Flood Fill ==========
+    "49": {
+        "id": "49",
+        "title": "Flood Fill",
+        "difficulty": "简单",
+        "tags": ['Array', 'Depth-First Search', 'Breadth-First Search', 'Matrix'],
+        "description": 'You are given an image represented by an `m x n` grid of integers `image`, where `image[i][j]` represents the pixel value of the image. You are also given three integers `sr`, `sc`, and `color`. Your task is to perform a **flood fill** on the image starting from the pixel `image[sr][sc]`.\n\nTo perform a **flood fill**:\n\n\t- Begin with the starting pixel and change its color to `color`.\n\n\t- Perform the same process for each pixel that is **directly adjacent** (pixels that share a side with the original pixel, either horizontally or vertically) and shares the **same color** as the starting pixel.\n',
+        "template": 'class Solution:\n    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:\n        ',
+        "test_cases": [{"input": "[[1,1,1],[1,1,0],[1,0,1]]", "expected": "1"}, {"input": "[[0,0,0],[0,0,0]]", "expected": "0"}]
+    },
+    # ========== LeetCode 133: Clone Graph ==========
+    "50": {
+        "id": "50",
+        "title": "Clone Graph",
+        "difficulty": "中等",
+        "tags": ['Hash Table', 'Depth-First Search', 'Breadth-First Search', 'Graph Theory'],
+        "description": 'Given a reference of a node in a **connected** undirected graph.\n\nReturn a **deep copy** (clone) of the graph.\n\nEach node in the graph contains a value (`int`) and a list (`List[Node]`) of its neighbors.\n\n```\n\nclass Node {\n    public int val;\n    public List&lt;Node&gt; neighbors;\n}\n\n```\n\n&nbsp;\n\n**Test case format:**\n\nFor simplicity, each node&#39;s value is the same as the node&#39;s index (1-indexed). For example, the first node with `val == 1`, the second node with `val == 2`, and so on. The graph is represented in the test case using an adjacency list.\n\nAn adjacency list is a collection o',
+        "template": '"""\n# Definition for a Node.\nclass Node:\n    def __init__(self, val = 0, neighbors = None):\n        self.val = val\n        self.neighbors = neighbors if neighbors is not None else []\n"""\n\nfrom typing import Optional\nclass Solution:\n    def cloneGraph(self, node: Optional[\'Node\']) -> Optional[\'Node\']:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 207: Course Schedule ==========
+    "51": {
+        "id": "51",
+        "title": "Course Schedule",
+        "difficulty": "中等",
+        "tags": ['Depth-First Search', 'Breadth-First Search', 'Graph Theory', 'Topological Sort'],
+        "description": 'There are a total of `numCourses` courses you have to take, labeled from `0` to `numCourses - 1`. You are given an array `prerequisites` where `prerequisites[i] = [ai, bi]` indicates that you **must** take course `bi` first if you want to take course `ai`.\n\n\t- For example, the pair `[0, 1]`, indicates that to take course `0` you have to first take course `1`.\n\nReturn `true` if you can finish all courses. Otherwise, return `false`.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** numCourses = 2, prerequisites = [[1,0]]\n**Output:** true\n**Explanation:** There are a total of 2 courses to take. \nTo take c',
+        "template": 'class Solution:\n    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:\n        ',
+        "test_cases": [{"input": "2", "expected": "[[1,0]]"}, {"input": "2", "expected": "[[1,0],[0,1]]"}]
+    },
+    # ========== LeetCode 102: Binary Tree Level Order Traversal ==========
+    "52": {
+        "id": "52",
+        "title": "Binary Tree Level Order Traversal",
+        "difficulty": "中等",
+        "tags": ['Tree', 'Breadth-First Search', 'Binary Tree'],
+        "description": 'Given the `root` of a binary tree, return the level order traversal of its nodes&#39; values. (i.e., from left to right, level by level).\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** root = [3,9,20,null,null,15,7]\n**Output:** [[3],[9,20],[15,7]]\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** root = [1]\n**Output:** [[1]]\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** root = []\n**Output:** []\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- The number of nodes in the tree is in the range `[0, 2000]`.\n\n\t- `-1000 &lt;= Node.val &lt;= 1000`',
+        "template": '# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 104: Maximum Depth of Binary Tree ==========
+    "53": {
+        "id": "53",
+        "title": "Maximum Depth of Binary Tree",
+        "difficulty": "简单",
+        "tags": ['Tree', 'Depth-First Search', 'Breadth-First Search', 'Binary Tree'],
+        "description": 'Given the `root` of a binary tree, return its maximum depth.\n\nA binary tree&#39;s **maximum depth**&nbsp;is the number of nodes along the longest path from the root node down to the farthest leaf node.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** root = [3,9,20,null,null,15,7]\n**Output:** 3\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** root = [1,null,2]\n**Output:** 2\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- The number of nodes in the tree is in the range `[0, 104]`.\n\n\t- `-100 &lt;= Node.val &lt;= 100`',
+        "template": '# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def maxDepth(self, root: Optional[TreeNode]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 101: Symmetric Tree ==========
+    "54": {
+        "id": "54",
+        "title": "Symmetric Tree",
+        "difficulty": "简单",
+        "tags": ['Tree', 'Depth-First Search', 'Breadth-First Search', 'Binary Tree'],
+        "description": 'Given the `root` of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** root = [1,2,2,3,4,4,3]\n**Output:** true\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** root = [1,2,2,null,3,null,3]\n**Output:** false\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- The number of nodes in the tree is in the range `[1, 1000]`.\n\n\t- `-100 &lt;= Node.val &lt;= 100`\n\n&nbsp;\n\n**Follow up:** Could you solve it both recursively and iteratively?',
+        "template": '# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isSymmetric(self, root: Optional[TreeNode]) -> bool:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 226: Invert Binary Tree ==========
+    "55": {
+        "id": "55",
+        "title": "Invert Binary Tree",
+        "difficulty": "简单",
+        "tags": ['Tree', 'Depth-First Search', 'Breadth-First Search', 'Binary Tree'],
+        "description": 'Given the `root` of a binary tree, invert the tree, and return its root.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** root = [4,2,7,1,3,6,9]\n**Output:** [4,7,2,9,6,3,1]\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** root = [2,1,3]\n**Output:** [2,3,1]\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** root = []\n**Output:** []\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- The number of nodes in the tree is in the range `[0, 100]`.\n\n\t- `-100 &lt;= Node.val &lt;= 100`',
+        "template": '# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 70: Climbing Stairs ==========
+    "56": {
+        "id": "56",
+        "title": "Climbing Stairs",
+        "difficulty": "简单",
+        "tags": ['Math', 'Dynamic Programming', 'Memoization'],
+        "description": 'You are climbing a staircase. It takes `n` steps to reach the top.\n\nEach time you can either climb `1` or `2` steps. In how many distinct ways can you climb to the top?\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** n = 2\n**Output:** 2\n**Explanation:** There are two ways to climb to the top.\n1. 1 step + 1 step\n2. 2 steps\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** n = 3\n**Output:** 3\n**Explanation:** There are three ways to climb to the top.\n1. 1 step + 1 step + 1 step\n2. 1 step + 2 steps\n3. 2 steps + 1 step\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= n &lt;= 45`',
+        "template": 'class Solution:\n    def climbStairs(self, n: int) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 198: House Robber ==========
+    "57": {
+        "id": "57",
+        "title": "House Robber",
+        "difficulty": "中等",
+        "tags": ['Array', 'Dynamic Programming'],
+        "description": 'You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.\n\nGiven an integer array `nums` representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [1,2,3,1]\n**Output:** 4\n**Explanation:** Rob house ',
+        "template": 'class Solution:\n    def rob(self, nums: List[int]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 62: Unique Paths ==========
+    "58": {
+        "id": "58",
+        "title": "Unique Paths",
+        "difficulty": "中等",
+        "tags": ['Math', 'Dynamic Programming', 'Combinatorics'],
+        "description": 'There is a robot on an `m x n` grid. The robot is initially located at the **top-left corner** (i.e., `grid[0][0]`). The robot tries to move to the **bottom-right corner** (i.e., `grid[m - 1][n - 1]`). The robot can only move either down or right at any point in time.\n\nGiven the two integers `m` and `n`, return the number of possible unique paths that the robot can take to reach the bottom-right corner.\n\nThe test cases are generated so that the answer will be less than or equal to `2 * 109`.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** m = 3, n = 7\n**Output:** 28\n\n```\n\n**Example 2:**\n\n```\n\n**Input',
+        "template": 'class Solution:\n    def uniquePaths(self, m: int, n: int) -> int:\n        ',
+        "test_cases": [{"input": "3", "expected": "7"}, {"input": "3", "expected": "2"}]
+    },
+    # ========== LeetCode 322: Coin Change ==========
+    "59": {
+        "id": "59",
+        "title": "Coin Change",
+        "difficulty": "中等",
+        "tags": ['Array', 'Dynamic Programming', 'Breadth-First Search'],
+        "description": 'You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money.\n\nReturn the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return `-1`.\n\nYou may assume that you have an infinite number of each kind of coin.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** coins = [1,2,5], amount = 11\n**Output:** 3\n**Explanation:** 11 = 5 + 5 + 1\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** coins = [2], amount = 3\n**Output:** -1\n\n```\n\n**Example 3:**\n\n```\n\n*',
+        "template": 'class Solution:\n    def coinChange(self, coins: List[int], amount: int) -> int:\n        ',
+        "test_cases": [{"input": "[1,2,5]", "expected": "11"}, {"input": "[2]", "expected": "3"}, {"input": "[1]", "expected": "0"}]
+    },
+    # ========== LeetCode 300: Longest Increasing Subsequence ==========
+    "60": {
+        "id": "60",
+        "title": "Longest Increasing Subsequence",
+        "difficulty": "中等",
+        "tags": ['Array', 'Binary Search', 'Dynamic Programming'],
+        "description": 'Given an integer array `nums`, return the length of the longest **strictly increasing ****subsequence**.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [10,9,2,5,3,7,101,18]\n**Output:** 4\n**Explanation:** The longest increasing subsequence is [2,3,7,101], therefore the length is 4.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [0,1,0,3,2,3]\n**Output:** 4\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** nums = [7,7,7,7,7,7,7]\n**Output:** 1\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= nums.length &lt;= 2500`\n\n\t- `-104 &lt;= nums[i] &lt;= 104`\n\n&nbsp;\n\nFollow up:&nbsp;Can you come up with an algorithm that r',
+        "template": 'class Solution:\n    def lengthOfLIS(self, nums: List[int]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 53: Maximum Subarray ==========
+    "61": {
+        "id": "61",
+        "title": "Maximum Subarray",
+        "difficulty": "中等",
+        "tags": ['Array', 'Divide and Conquer', 'Dynamic Programming'],
+        "description": 'Given an integer array `nums`, find the subarray with the largest sum, and return its sum.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [-2,1,-3,4,-1,2,1,-5,4]\n**Output:** 6\n**Explanation:** The subarray [4,-1,2,1] has the largest sum 6.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [1]\n**Output:** 1\n**Explanation:** The subarray [1] has the largest sum 1.\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** nums = [5,4,-1,7,8]\n**Output:** 23\n**Explanation:** The subarray [5,4,-1,7,8] has the largest sum 23.\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= nums.length &lt;= 105`\n\n\t- `-104 &lt;= nums[i] &lt;= 10',
+        "template": 'class Solution:\n    def maxSubArray(self, nums: List[int]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 121: Best Time to Buy and Sell Stock ==========
+    "62": {
+        "id": "62",
+        "title": "Best Time to Buy and Sell Stock",
+        "difficulty": "简单",
+        "tags": ['Array', 'Dynamic Programming'],
+        "description": 'You are given an array `prices` where `prices[i]` is the price of a given stock on the `ith` day.\n\nYou want to maximize your profit by choosing a **single day** to buy one stock and choosing a **different day in the future** to sell that stock.\n\nReturn the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return `0`.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** prices = [7,1,5,3,6,4]\n**Output:** 5\n**Explanation:** Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.\nNote that buying on day 2 and selling on day 1 is not allowed because you ',
+        "template": 'class Solution:\n    def maxProfit(self, prices: List[int]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 120: Triangle ==========
+    "63": {
+        "id": "63",
+        "title": "Triangle",
+        "difficulty": "中等",
+        "tags": ['Array', 'Dynamic Programming'],
+        "description": 'Given a `triangle` array, return the minimum path sum from top to bottom.\n\nFor each step, you may move to an adjacent number of the row below. More formally, if you are on index `i` on the current row, you may move to either index `i` or index `i + 1` on the next row.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]\n**Output:** 11\n**Explanation:** The triangle looks like:\n   2\n  3 4\n 6 5 7\n4 1 8 3\nThe minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above).\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** triangle = [[-10]]\n**Output:** -10\n\n```\n\n&nbsp',
+        "template": 'class Solution:\n    def minimumTotal(self, triangle: List[List[int]]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 747: Min Cost Climbing Stairs ==========
+    "64": {
+        "id": "64",
+        "title": "Min Cost Climbing Stairs",
+        "difficulty": "简单",
+        "tags": ['Array', 'Dynamic Programming'],
+        "description": 'You are given an integer array `cost` where `cost[i]` is the cost of `ith` step on a staircase. Once you pay the cost, you can either climb one or two steps.\n\nYou can either start from the step with index `0`, or the step with index `1`.\n\nReturn the minimum cost to reach the top of the floor.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** cost = [10,15,20]\n**Output:** 15\n**Explanation:** You will start at index 1.\n- Pay 15 and climb two steps to reach the top.\nThe total cost is 15.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** cost = [1,100,1,1,1,100,1,1,100,1]\n**Output:** 6\n**Explanation:** You will start ',
+        "template": 'class Solution:\n    def minCostClimbingStairs(self, cost: List[int]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 416: Partition Equal Subset Sum ==========
+    "65": {
+        "id": "65",
+        "title": "Partition Equal Subset Sum",
+        "difficulty": "中等",
+        "tags": ['Array', 'Dynamic Programming'],
+        "description": 'Given an integer array `nums`, return `true` if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or `false` otherwise.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [1,5,11,5]\n**Output:** true\n**Explanation:** The array can be partitioned as [1, 5, 5] and [11].\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [1,2,3,5]\n**Output:** false\n**Explanation:** The array cannot be partitioned into equal sum subsets.\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= nums.length &lt;= 200`\n\n\t- `1 &lt;= nums[i] &lt;= 100`',
+        "template": 'class Solution:\n    def canPartition(self, nums: List[int]) -> bool:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 20: Valid Parentheses ==========
+    "66": {
+        "id": "66",
+        "title": "Valid Parentheses",
+        "difficulty": "简单",
+        "tags": ['String', 'Stack'],
+        "description": 'Given a string `s` containing just the characters `&#39;(&#39;`, `&#39;)&#39;`, `&#39;{&#39;`, `&#39;}&#39;`, `&#39;[&#39;` and `&#39;]&#39;`, determine if the input string is valid.\n\nAn input string is valid if:\n\n\t- Open brackets must be closed by the same type of brackets.\n\n\t- Open brackets must be closed in the correct order.\n\n\t- Every close bracket has a corresponding open bracket of the same type.\n\n&nbsp;\n\n**Example 1:**\n\n**Input:** s = &quot;()&quot;\n\n**Output:** true\n\n**Example 2:**\n\n**Input:** s = &quot;()[]{}&quot;\n\n**Output:** true\n\n**Example 3:**\n\n**Input:** s = &quot;(]&quot;\n\n**Ou',
+        "template": 'class Solution:\n    def isValid(self, s: str) -> bool:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 155: Min Stack ==========
+    "67": {
+        "id": "67",
+        "title": "Min Stack",
+        "difficulty": "中等",
+        "tags": ['Stack', 'Design'],
+        "description": 'Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.\n\nImplement the `MinStack` class:\n\n\t- `MinStack()` initializes the stack object.\n\n\t- `void push(int val)` pushes the element `val` onto the stack.\n\n\t- `void pop()` removes the element on the top of the stack.\n\n\t- `int top()` gets the top element of the stack.\n\n\t- `int getMin()` retrieves the minimum element in the stack.\n\nYou must implement a solution with `O(1)` time complexity for each function.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input**\n[&quot;MinStack&quot;,&quot;push&quot;,&quot;push&quot;,&quot;',
+        "template": 'class MinStack:\n\n    def __init__(self):\n        \n\n    def push(self, val: int) -> None:\n        \n\n    def pop(self) -> None:\n        \n\n    def top(self) -> int:\n        \n\n    def getMin(self) -> int:\n        \n\n\n# Your MinStack object will be instantiated and called as such:\n# obj = MinStack()\n# obj.push(val)\n# obj.pop()\n# param_3 = obj.top()\n# param_4 = obj.getMin()',
+        "test_cases": [{"input": "[\"MinStack\",\"push\",\"push\",\"push\",\"getMin\",\"pop\",\"top\",\"getMin\"]", "expected": "[[],[-2],[0],[-3],[],[],[],[]]"}]
+    },
+    # ========== LeetCode 150: Evaluate Reverse Polish Notation ==========
+    "68": {
+        "id": "68",
+        "title": "Evaluate Reverse Polish Notation",
+        "difficulty": "中等",
+        "tags": ['Array', 'Math', 'Stack'],
+        "description": 'You are given an array of strings `tokens` that represents an arithmetic expression in a Reverse Polish Notation.\n\nEvaluate the expression. Return an integer that represents the value of the expression.\n\n**Note** that:\n\n\t- The valid operators are `&#39;+&#39;`, `&#39;-&#39;`, `&#39;*&#39;`, and `&#39;/&#39;`.\n\n\t- Each operand may be an integer or another expression.\n\n\t- The division between two integers always **truncates toward zero**.\n\n\t- There will not be any division by zero.\n\n\t- The input represents a valid arithmetic expression in a reverse polish notation.\n\n\t- The answer and all the int',
+        "template": 'class Solution:\n    def evalRPN(self, tokens: List[str]) -> int:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 739: Daily Temperatures ==========
+    "69": {
+        "id": "69",
+        "title": "Daily Temperatures",
+        "difficulty": "中等",
+        "tags": ['Array', 'Stack', 'Monotonic Stack'],
+        "description": 'Given an array of integers `temperatures` represents the daily temperatures, return an array `answer` such that `answer[i]` is the number of days you have to wait after the `ith` day to get a warmer temperature. If there is no future day for which this is possible, keep `answer[i] == 0` instead.\n\n&nbsp;\n\n**Example 1:**\n\n```\n**Input:** temperatures = [73,74,75,71,69,72,76,73]\n**Output:** [1,1,4,2,1,1,0,0]\n\n```\n\n**Example 2:**\n\n```\n**Input:** temperatures = [30,40,50,60]\n**Output:** [1,1,1,0]\n\n```\n\n**Example 3:**\n\n```\n**Input:** temperatures = [30,60,90]\n**Output:** [1,1,0]\n\n```\n\n&nbsp;\n\n**Const',
+        "template": 'class Solution:\n    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:\n        ',
+        "test_cases": []
+    },
+    # ========== LeetCode 883: Car Fleet ==========
+    "70": {
+        "id": "70",
+        "title": "Car Fleet",
+        "difficulty": "中等",
+        "tags": ['Array', 'Stack', 'Sorting', 'Monotonic Stack'],
+        "description": 'There are `n` cars at given miles away from the starting mile 0, traveling to reach the mile `target`.\n\nYou are given two integer arrays&nbsp;`position` and `speed`, both of length `n`, where `position[i]` is the starting mile of the `ith` car and `speed[i]` is the speed of the `ith` car in miles per hour.\n\nA car cannot pass another car, but it can catch up and then travel next to it at the speed of the slower car.\n\nA **car fleet** is a single car or a group of cars driving next to each other. The speed of the car fleet is the **minimum** speed of any car in the fleet.\n\nIf a car catches up to ',
+        "template": 'class Solution:\n    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:\n        ',
+        "test_cases": [{"input": "12", "expected": "[10,8,0,5,3]"}, {"input": "10", "expected": "[3]"}, {"input": "100", "expected": "[0,2,4]"}]
     }
+
 }
 
 def run_python_code(code, timeout=5):
