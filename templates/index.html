@@ -460,6 +460,26 @@
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
             
+            /* 问题面板和编辑器 */
+            .problem-panel-wrapper {
+                width: 100%;
+                max-height: 40vh;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .problem-panel {
+                width: 100%;
+            }
+            
+            .collapse-btn {
+                display: none; /* 移动端隐藏折叠按钮 */
+            }
+            
+            .editor-panel {
+                flex: 1;
+                min-height: 300px;
+            }
+            
             .sidebar-header {
                 padding: 12px 15px;
                 font-size: 14px;
@@ -489,13 +509,6 @@
             
             .problem-title {
                 font-size: 13px;
-            }
-            
-            /* 主内容区 */
-            .main-content {
-                width: 100%;
-                flex: 1;
-                min-width: auto;
             }
             
             .problem-header h2 {
@@ -531,6 +544,14 @@
                 font-size: 12px;
                 min-height: 200px;
                 padding: 10px;
+            }
+            
+            .editor-wrapper {
+                min-height: 200px;
+            }
+            
+            .output-panel {
+                height: 200px;
             }
             
             /* 按钮组 */
