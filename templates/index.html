@@ -478,8 +478,37 @@
                 border-right: none;
             }
             
+            /* 移动端折叠按钮 - 改成上下折叠 */
             .collapse-btn {
-                display: none; /* 移动端隐藏折叠按钮 */
+                display: block !important;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 60px;
+                height: 24px;
+                border-radius: 12px 12px 0 0;
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                border: none;
+                cursor: pointer;
+                font-size: 12px;
+                z-index: 10;
+            }
+            
+            .problem-panel-wrapper.collapsed {
+                max-height: 40px;
+                min-height: 40px;
+            }
+            
+            .problem-panel-wrapper.collapsed .problem-panel {
+                display: none;
+            }
+            
+            .problem-panel-wrapper.collapsed .collapse-btn {
+                bottom: auto;
+                top: 50%;
+                transform: translate(-50%, -50%);
             }
             
             .editor-panel {
@@ -764,7 +793,14 @@
             const btn = wrapper.querySelector('.collapse-btn');
             wrapper.classList.toggle('collapsed');
             panel.classList.toggle('collapsed');
-            btn.textContent = wrapper.classList.contains('collapsed') ? '▶' : '◀';
+            
+            // 移动端用 ▲/▼，PC端用 ▶/◀
+            const isMobile = window.innerWidth <= 768;
+            if (isMobile) {
+                btn.textContent = wrapper.classList.contains('collapsed') ? '▼ 题目' : '▲ 收起';
+            } else {
+                btn.textContent = wrapper.classList.contains('collapsed') ? '▶' : '◀';
+            }
         }
 
         // 加载题目详情
@@ -785,7 +821,10 @@
             const panel = document.getElementById('problem-panel');
             wrapper.classList.remove('collapsed');
             panel.classList.remove('collapsed');
-            wrapper.querySelector('.collapse-btn').textContent = '◀';
+            
+            // 移动端用 ▲/▼，PC端用 ▶/◀
+            const isMobile = window.innerWidth <= 768;
+            wrapper.querySelector('.collapse-btn').textContent = isMobile ? '▲ 收起' : '◀';
             
             // 更新题目描述
             const descHtml = problem.description
