@@ -269,12 +269,102 @@
             background: rgba(76, 175, 80, 0.3);
         }
 
+        /* ========== 移动端适配 ========== */
         @media (max-width: 1000px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
             .charts-row {
                 grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 10px 15px;
+                flex-wrap: wrap;
+            }
+            
+            .logo {
+                font-size: 18px;
+            }
+            
+            .nav {
+                width: 100%;
+                justify-content: center;
+                margin-top: 10px;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            
+            .nav a {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .stat-value {
+                font-size: 28px;
+            }
+            
+            .stat-label {
+                font-size: 12px;
+            }
+            
+            .section-title {
+                font-size: 16px;
+                margin-bottom: 15px;
+            }
+            
+            .log-table {
+                font-size: 12px;
+            }
+            
+            .log-table th,
+            .log-table td {
+                padding: 8px 10px;
+            }
+            
+            .log-table th:nth-child(4),
+            .log-table td:nth-child(4) {
+                display: none; /* 移动端隐藏 User-Agent 列 */
+            }
+            
+            .refresh-btn {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .nav {
+                gap: 6px;
+            }
+            
+            .nav a {
+                padding: 5px 10px;
+                font-size: 11px;
+            }
+            
+            .stat-value {
+                font-size: 24px;
+            }
+            
+            .log-table th:nth-child(3),
+            .log-table td:nth-child(3) {
+                display: none; /* 超小屏幕再隐藏 IP 列 */
             }
         }
     </style>
