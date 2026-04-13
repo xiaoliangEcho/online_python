@@ -484,7 +484,8 @@
             
             .editor-panel {
                 width: 100%;
-                min-height: 300px;
+                min-height: 400px;
+                flex: 1;
                 flex-shrink: 0;
             }
             
@@ -546,20 +547,31 @@
             .editor-header {
                 font-size: 13px;
                 padding: 8px 10px;
+                flex-wrap: wrap;
+            }
+            
+            .editor-buttons {
+                gap: 6px;
+            }
+            
+            .btn {
+                padding: 6px 10px;
+                font-size: 11px;
             }
             
             .code-editor {
                 font-size: 12px;
-                min-height: 200px;
+                min-height: 250px;
                 padding: 10px;
             }
             
             .editor-wrapper {
-                min-height: 200px;
+                min-height: 250px;
+                flex: 1;
             }
             
             .output-panel {
-                height: 200px;
+                height: 150px;
             }
             
             /* 按钮组 */
