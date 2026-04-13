@@ -1449,3 +1449,477 @@ def minWindow(s, t):
         "test_cases": [{"input": "12, [10, 8, 0, 5, 3], [2, 4, 1, 1, 3]", "expected": "3"}]
     },
 }
+def run_python_code(code, timeout=5):
+    """安全执行 Python 代码（Docker 沙箱）"""
+    try:
+        # 使用 Docker 沙箱执行代码
+        result = subprocess.run(
+            [
+                'docker', 'run', '--rm',
+                '--network=none',           # 禁止网络访问
+                '--memory=128m',            # 内存限制 128MB
+                '--cpus=0.5',               # CPU 限制 0.5 核
+                '--pids-limit=50',          # 进程数限制
+                '--security-opt=no-new-privileges',  # 禁止提权
+                '--cap-drop=ALL',           # 移除所有 Linux capabilities
+                '--security-opt', 'seccomp=unconfined',  # 使用默认 seccomp 配置
+                '--read-only',              # 只读文件系统（仅允许 /tmp）
+                '--tmpfs', '/tmp:size=10M,mode=1777',  # 临时目录
+                '-i',                       # 交互模式
+                'python-sandbox:latest',    # 沙箱镜像
+            ],
+            input=code,
+            capture_output=True,
+            text=True,
+            timeout=timeout + 2  # Docker 额外给 2 秒
+        )
+        
+        if result.returncode == 0:
+            return {"success": True, "output": result.stdout.strip()}
+        else:
+            return {"success": False, "output": result.stderr.strip()}
+    except subprocess.TimeoutExpired:
+        return {"success": False, "output": f"代码执行超时（{timeout}秒）"}
+    except Exception as e:
+        return {"success": False, "output": str(e)}
+
+def analyze_code(code, problem_id):
+    """分析代码质量"""
+    analysis = {
+        "score": 100,  # 从100分开始扣
+        "comments": [],
+        "suggestions": []
+    }
+    
+    # 基本检查
+    if not code.strip():
+        analysis["score"] = 0
+        analysis["comments"].append("❌ 代码为空")
+        return analysis
+    
+    # 检查是否有注释 - 没有注释扣50分
+    has_comment = False
+    if "#" in code:
+        # 检查是否是真正的注释（不是字符串内的#）
+        lines = code.split('\n')
+        for line in lines:
+            stripped = line.strip()
+            if stripped.startswith('#'):
+                has_comment = True
+                break
+    if '"""' in code or "'''" in code:
+        has_comment = True
+    
+    if has_comment:
+        analysis["comments"].append("✅ 代码包含注释")
+    else:
+        analysis["score"] -= 50
+        analysis["comments"].append("❌ 代码缺少注释 (-50分)")
+        analysis["suggestions"].append("💡 建议添加代码注释，说明函数功能和关键逻辑")
+    
+    # 检查是否有pass
+    if "pass" in code and "def " in code:
+        analysis["score"] -= 30
+        analysis["comments"].append("⚠️ 函数中包含 pass，可能未完成实现 (-30分)")
+    
+    # 检查代码长度
+    lines = [l for l in code.split('\n') if l.strip()]
+    if len(lines) < 3:
+        analysis["comments"].append("⚠️ 代码行数较少，可能实现不完整")
+    
+    # 检查是否使用了数据结构
+    if "dict" in code or "{" in code:
+        analysis["comments"].append("✅ 使用了字典/哈希表")
+    
+    if "for" in code or "while" in code:
+        analysis["comments"].append("✅ 使用了循环结构")
+    
+    # 针对题目的特定建议
+    if problem_id in PROBLEMS:
+        problem = PROBLEMS[problem_id]
+        tags = problem.get("tags", [])
+        
+        if "动态规划" in tags and "dp" not in code.lower():
+            analysis["suggestions"].append("💡 本题可用动态规划优化，建议尝试使用 dp 数组")
+        
+        if "双指针" in tags and "left" not in code.lower() and "right" not in code.lower():
+            analysis["suggestions"].append("💡 本题可用双指针方法，建议尝试左右指针")
+        
+        if "递归" in tags and "return" not in code:
+            analysis["suggestions"].append("💡 递归解法需要有返回值")
+    
+    # 确保分数在0-100之间
+    analysis["score"] = min(100, max(0, analysis["score"]))
+    
+    if analysis["score"] >= 80:
+        analysis["comments"].insert(0, "🎉 代码质量优秀！")
+    elif analysis["score"] >= 60:
+        analysis["comments"].insert(0, "📝 代码质量良好")
+    else:
+        analysis["comments"].insert(0, "⚠️ 代码需要改进")
+    
+    return analysis
+
+@app.route('/')
+def index():
+    return render_template('index.html', problems=PROBLEMS)
+
+@app.route('/api/problems')
+def get_problems():
+    difficulty_filter = request.args.get('difficulty', 'all')
+    
+    problems = []
+    for p in PROBLEMS.values():
+        if difficulty_filter == 'all' or p["difficulty"] == difficulty_filter:
+            problems.append({
+                "id": p["id"],
+                "title": p["title"],
+                "difficulty": p["difficulty"],
+                "tags": p.get("tags", [])
+            })
+    
+    return jsonify(problems)
+
+@app.route('/api/problem/<problem_id>')
+def get_problem(problem_id):
+    if problem_id in PROBLEMS:
+        problem = PROBLEMS[problem_id]
+        
+        # 获取函数名（从 template 中提取）
+        template = problem["template"]
+        func_match = re.search(r'def (\w+)\(', template)
+        func_name = func_match.group(1) if func_match else "solution"
+        
+        # 生成测试用例调用代码
+        test_calls = []
+        for tc in problem["test_cases"]:
+            # input 格式如 "twoSum([2, 7, 11, 15], 9)"
+            test_calls.append(f"    print({tc['input']})  # 预期: {tc['expected']}")
+        
+        main_code = f'''
+
+if __name__ == "__main__":
+    # 测试用例
+{chr(10).join(test_calls)}
+'''
+        full_template = template.rstrip() + main_code
+        
+        return jsonify({
+            "id": problem["id"],
+            "title": problem["title"],
+            "difficulty": problem["difficulty"],
+            "description": problem["description"],
+            "template": full_template,
+            "test_cases": problem["test_cases"],
+            "tags": problem.get("tags", []),
+            "hints": problem.get("hints", [])
+        })
+    return jsonify({"error": "题目不存在"}), 404
+
+@app.route('/api/run', methods=['POST'])
+def run_code():
+    code = request.json.get('code', '')
+    result = run_python_code(code)
+    return jsonify(result)
+
+@app.route('/api/submit/<problem_id>', methods=['POST'])
+def submit_code(problem_id):
+    if problem_id not in PROBLEMS:
+        return jsonify({"error": "题目不存在"}), 404
+    
+    code = request.json.get('code', '')
+    
+    # 过滤掉 if __name__ == "__main__" 部分，只保留函数定义
+    main_index = code.find('if __name__ == "__main__"')
+    if main_index != -1:
+        code = code[:main_index].rstrip()
+    
+    problem = PROBLEMS[problem_id]
+    
+    results = []
+    all_passed = True
+    
+    for test_case in problem["test_cases"]:
+        test_code = f"{code}\nprint({test_case['input']})"
+        result = run_python_code(test_code)
+        
+        if result["success"]:
+            actual = result["output"]
+            expected = test_case["expected"]
+            passed = actual == expected
+            if not passed:
+                all_passed = False
+            results.append({
+                "input": test_case["input"],
+                "expected": expected,
+                "actual": actual,
+                "passed": passed
+            })
+        else:
+            all_passed = False
+            results.append({
+                "input": test_case["input"],
+                "expected": test_case["expected"],
+                "actual": result["output"],
+                "passed": False,
+                "error": True
+            })
+    
+    return jsonify({
+        "all_passed": all_passed,
+        "results": results
+    })
+
+@app.route('/api/analyze/<problem_id>', methods=['POST'])
+def analyze(problem_id):
+    """分析代码质量"""
+    if problem_id not in PROBLEMS:
+        return jsonify({"error": "题目不存在"}), 404
+    
+    code = request.json.get('code', '')
+    analysis = analyze_code(code, problem_id)
+    
+    return jsonify(analysis)
+
+@app.route('/api/solution/<problem_id>')
+def get_solution(problem_id):
+    if problem_id in PROBLEMS:
+        problem = PROBLEMS[problem_id]
+        solution = problem["solution"]
+        
+        # 获取函数名
+        func_match = re.search(r'def (\w+)\(', solution)
+        func_name = func_match.group(1) if func_match else "solution"
+        
+        # 生成测试用例调用
+        test_calls = []
+        for tc in problem["test_cases"]:
+            test_calls.append(f"    print({tc['input']})  # 预期: {tc['expected']}")
+        
+        main_code = f'''
+
+if __name__ == "__main__":
+    # 测试用例
+{chr(10).join(test_calls)}
+'''
+        full_solution = solution.rstrip() + main_code
+        
+        return jsonify({
+            "solution": full_solution,
+            "hints": problem.get("hints", [])
+        })
+    return jsonify({"error": "题目不存在"}), 404
+
+@app.route('/api/hints/<problem_id>')
+def get_hints(problem_id):
+    if problem_id in PROBLEMS:
+        return jsonify({"hints": PROBLEMS[problem_id].get("hints", [])})
+    return jsonify({"error": "题目不存在"}), 404
+
+@app.route('/free')
+def free_editor():
+    """自由编辑模式"""
+    return render_template('free.html')
+
+# ========== 访问统计功能 ==========
+
+# 统计页面密码（从环境变量读取）
+import os
+STATS_PASSWORD = os.environ.get('STATS_PASSWORD', 'admin123')
+STATS_TOKEN = os.environ.get('STATS_TOKEN', 'python_stats_2026')
+
+def check_stats_auth():
+    """检查统计页面权限"""
+    token = request.cookies.get('stats_token')
+    return token == STATS_TOKEN
+
+@app.route('/stats')
+def stats_page():
+    """统计页面"""
+    if not check_stats_auth():
+        return render_template('stats_login.html')
+    return render_template('stats.html')
+
+@app.route('/api/stats/login', methods=['POST'])
+def stats_login():
+    """统计页面登录"""
+    password = request.json.get('password', '')
+    if password == STATS_PASSWORD:
+        response = jsonify({'success': True})
+        response.set_cookie('stats_token', STATS_TOKEN, max_age=86400*30)  # 30天有效
+        return response
+    return jsonify({'success': False, 'error': '密码错误'})
+
+@app.route('/api/stats/logout')
+def stats_logout():
+    """退出登录"""
+    response = jsonify({'success': True})
+    response.delete_cookie('stats_token')
+    return response
+
+@app.route('/api/stats/check_auth')
+def stats_check_auth():
+    """检查登录状态"""
+    return jsonify({'authenticated': check_stats_auth()})
+
+@app.route('/api/stats/overview')
+def stats_overview():
+    """总览统计"""
+    if not check_stats_auth():
+        return jsonify({'error': '未授权'}), 401
+    
+    db = get_db()
+    
+    # 总访问量
+    total = db.execute('SELECT COUNT(*) as count FROM visits').fetchone()['count']
+    
+    # 今日访问量
+    today = db.execute(
+        "SELECT COUNT(*) as count FROM visits WHERE date(timestamp) = date('now', 'localtime')"
+    ).fetchone()['count']
+    
+    # 独立IP数
+    unique_ips = db.execute('SELECT COUNT(DISTINCT ip) as count FROM visits').fetchone()['count']
+    
+    # 页面访问量
+    page_views = db.execute(
+        'SELECT path, COUNT(*) as count FROM visits GROUP BY path ORDER BY count DESC LIMIT 10'
+    ).fetchall()
+    
+    return jsonify({
+        'total': total,
+        'today': today,
+        'unique_ips': unique_ips,
+        'page_views': [dict(row) for row in page_views]
+    })
+
+@app.route('/api/stats/daily')
+def stats_daily():
+    """每日访问统计"""
+    if not check_stats_auth():
+        return jsonify({'error': '未授权'}), 401
+    db = get_db()
+    
+    days = request.args.get('days', 7, type=int)
+    
+    daily = db.execute(f'''
+        SELECT date(timestamp) as date, COUNT(*) as count
+        FROM visits
+        WHERE timestamp >= date('now', '-{days} days', 'localtime')
+        GROUP BY date(timestamp)
+        ORDER BY date DESC
+    ''').fetchall()
+    
+    return jsonify([dict(row) for row in daily])
+
+@app.route('/api/stats/hourly')
+def stats_hourly():
+    """今日每小时访问统计"""
+    if not check_stats_auth():
+        return jsonify({'error': '未授权'}), 401
+    db = get_db()
+    
+    hourly = db.execute('''
+        SELECT strftime('%H', timestamp) as hour, COUNT(*) as count
+        FROM visits
+        WHERE date(timestamp) = date('now', 'localtime')
+        GROUP BY hour
+        ORDER BY hour
+    ''').fetchall()
+    
+    return jsonify([dict(row) for row in hourly])
+
+@app.route('/api/stats/sources')
+def stats_sources():
+    """访问来源统计"""
+    if not check_stats_auth():
+        return jsonify({'error': '未授权'}), 401
+    db = get_db()
+    
+    # IP 来源
+    ip_stats = db.execute('''
+        SELECT ip, COUNT(*) as count,
+               MIN(timestamp) as first_visit,
+               MAX(timestamp) as last_visit
+        FROM visits
+        GROUP BY ip
+        ORDER BY count DESC
+        LIMIT 20
+    ''').fetchall()
+    
+    # Referer 来源
+    referer_stats = db.execute('''
+        SELECT 
+            CASE 
+                WHEN referer = '' OR referer IS NULL THEN '直接访问'
+                ELSE referer
+            END as source,
+            COUNT(*) as count
+        FROM visits
+        GROUP BY source
+        ORDER BY count DESC
+        LIMIT 10
+    ''').fetchall()
+    
+    # User-Agent 统计
+    ua_stats = db.execute('''
+        SELECT 
+            CASE 
+                WHEN user_agent LIKE '%Mobile%' THEN '移动端'
+                WHEN user_agent LIKE '%Windows%' THEN 'Windows'
+                WHEN user_agent LIKE '%Mac%' THEN 'Mac'
+                WHEN user_agent LIKE '%Linux%' THEN 'Linux'
+                ELSE '其他'
+            END as platform,
+            COUNT(*) as count
+        FROM visits
+        GROUP BY platform
+        ORDER BY count DESC
+    ''').fetchall()
+    
+    return jsonify({
+        'ip_stats': [dict(row) for row in ip_stats],
+        'referer_stats': [dict(row) for row in referer_stats],
+        'platform_stats': [dict(row) for row in ua_stats]
+    })
+
+@app.route('/api/stats/recent')
+def stats_recent():
+    """最近访问记录"""
+    if not check_stats_auth():
+        return jsonify({'error': '未授权'}), 401
+    db = get_db()
+    
+    limit = request.args.get('limit', 50, type=int)
+    
+    recent = db.execute(f'''
+        SELECT ip, path, user_agent, referer, timestamp
+        FROM visits
+        ORDER BY timestamp DESC
+        LIMIT {limit}
+    ''').fetchall()
+    
+    return jsonify([dict(row) for row in recent])
+
+if __name__ == '__main__':
+    # 初始化数据库
+    init_db()
+    
+    print("🚀 Python 在线练习平台启动中...")
+    print(f"📖 访问地址: http://localhost:5088")
+    print(f"🆓 自由模式: http://localhost:5088/free")
+    print(f"📊 访问统计: http://localhost:5088/stats")
+    print(f"📚 已加载 {len(PROBLEMS)} 道题目")
+    
+    # 统计各难度题目数量
+    difficulties = {}
+    for p in PROBLEMS.values():
+        d = p["difficulty"]
+        difficulties[d] = difficulties.get(d, 0) + 1
+    
+    for d, count in difficulties.items():
+        print(f"   - {d}: {count} 道")
+    
+    # 生产环境不使用 debug 模式
+    debug_mode = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
+    app.run(host='0.0.0.0', port=5088, debug=debug_mode)
