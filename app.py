@@ -1146,7 +1146,7 @@ def minWindow(s, t):
         "tags": ["\u5b57\u7b26\u4e32", "\u53cc\u6307\u9488"],
         "description": '原地反转字符数组。',
         "template": 'def reverse_string(s):\n    pass',
-        "test_cases": [{"input": "[\"h\", \"e\", \"l\", \"l\", \"o\"]", "expected": "[\"o\", \"l\", \"l\", \"e\", \"h\"]"}]
+        "test_cases": [{"input": "[\"h\", \"e\", \"l\", \"l\", \"o\"]", "expected": "[\"o\", \"l\", \"l\", \"e\", \"h\"]"}, {"input": "[\"H\", \"a\", \"n\", \"n\", \"a\", \"h\"]", "expected": "[\"h\", \"a\", \"n\", \"n\", \"a\", \"H\"]"}, {"input": "[\"a\"]", "expected": "[\"a\"]"}, {"input": "[]", "expected": "[]"}]
     },
 
     "41": {
@@ -1216,7 +1216,7 @@ def minWindow(s, t):
         "tags": ["\u56fe", "DFS", "BFS"],
         "description": '给定二维网格，计算最大岛屿的面积。',
         "template": 'def max_area_of_island(grid):\n    pass',
-        "test_cases": [{"input": "[[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]", "expected": "6"}]
+        "test_cases": [{"input": "[[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]", "expected": "6"}, {"input": "[[0,0,0,0,0,0,0,0]]", "expected": "0"}, {"input": "[[1,1,1],[1,1,1]]", "expected": "6"}, {"input": "[[1]]", "expected": "1"}]
     },
 
     "48": {
@@ -1236,7 +1236,7 @@ def minWindow(s, t):
         "tags": ["\u56fe", "DFS", "BFS"],
         "description": '给定图像和起始点，将与起始点相连的相同颜色区域染成新颜色。',
         "template": 'def flood_fill(image, sr, sc, color):\n    pass',
-        "test_cases": [{"input": "[[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2", "expected": "[[2,2,2],[2,2,0],[2,0,1]]"}]
+        "test_cases": [{"input": "[[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2", "expected": "[[2,2,2],[2,2,0],[2,0,1]]"}, {"input": "[[0,0,0],[0,0,0]], 0, 0, 2", "expected": "[[2,2,2],[2,2,2]]"}, {"input": "[[1]], 0, 0, 2", "expected": "[[2]]"}]
     },
 
     "50": {
@@ -1266,7 +1266,7 @@ def minWindow(s, t):
         "tags": ["\u6811", "BFS"],
         "description": '给定二叉树，返回层序遍历结果（按层分组）。',
         "template": 'def level_order(root):\n    pass',
-        "test_cases": [{"input": "[3,9,20,null,null,15,7]", "expected": "[[3],[9,20],[15,7]]"}]
+        "test_cases": [{"input": "[3,9,20,null,null,15,7]", "expected": "[[3],[9,20],[15,7]]"}, {"input": "[1]", "expected": "[[1]]"}, {"input": "[]", "expected": "[]"}, {"input": "[1,2,3,4,5]", "expected": "[[1],[2,3],[4,5]]"}]
     },
 
     "53": {
@@ -1296,7 +1296,7 @@ def minWindow(s, t):
         "tags": ["\u6811", "DFS"],
         "description": '翻转二叉树（交换每个节点的左右子树）。',
         "template": 'def invert_tree(root):\n    pass',
-        "test_cases": [{"input": "[4,2,7,1,3,6,9]", "expected": "[4,7,2,9,6,3,1]"}]
+        "test_cases": [{"input": "[4,2,7,1,3,6,9]", "expected": "[4,7,2,9,6,3,1]"}, {"input": "[1,2]", "expected": "[1,null,2]"}, {"input": "[]", "expected": "[]"}, {"input": "[1]", "expected": "[1]"}]
     },
 
     "56": {
@@ -1376,7 +1376,7 @@ def minWindow(s, t):
         "tags": ["\u52a8\u6001\u89c4\u5212"],
         "description": '给定三角形，从顶到底找最小路径和，每步只能移到下一行相邻位置。',
         "template": 'def minimum_total(triangle):\n    pass',
-        "test_cases": [{"input": "[[2],[3,4],[6,5,7],[4,1,8,3]]", "expected": "11"}]
+        "test_cases": [{"input": "[[2],[3,4],[6,5,7],[4,1,8,3]]", "expected": "11"}, {"input": "[[1]]", "expected": "1"}, {"input": "[[1],[2,3]]", "expected": "3"}, {"input": "[[-10]]", "expected": "-10"}]
     },
 
     "64": {
@@ -1416,7 +1416,7 @@ def minWindow(s, t):
         "tags": ["\u6808", "\u8bbe\u8ba1"],
         "description": '设计一个支持 push、pop、top 和在 O(1) 时间内获取最小元素的栈。',
         "template": 'class MinStack:\n    def __init__(self):\n        pass\n    def push(self, val):\n        pass\n    def pop(self):\n        pass\n    def top(self):\n        pass\n    def getMin(self):\n        pass',
-        "test_cases": [{"input": "push(-2), push(0), push(-3), getMin()", "expected": "-3"}]
+        "test_cases": [{"input": "push(-2), push(0), push(-3), getMin()", "expected": "-3"}, {"input": "push(1), push(2), getMin()", "expected": "1"}, {"input": "push(5), push(3), push(4), getMin()", "expected": "3"}]
     },
 
     "68": {
@@ -1446,7 +1446,7 @@ def minWindow(s, t):
         "tags": ["\u6808", "\u6392\u5e8f"],
         "description": 'N 辆车沿单行道行驶，给定位置和速度，后车追上前车会合并成车队。求到达目标时的车队数量。',
         "template": 'def car_fleet(target, position, speed):\n    pass',
-        "test_cases": [{"input": "12, [10, 8, 0, 5, 3], [2, 4, 1, 1, 3]", "expected": "3"}]
+        "test_cases": [{"input": "12, [10, 8, 0, 5, 3], [2, 4, 1, 1, 3]", "expected": "3"}, {"input": "10, [3], [3]", "expected": "1"}, {"input": "100, [0, 2, 4], [4, 2, 1]", "expected": "1"}, {"input": "10, [6, 8], [3, 2]", "expected": "2"}]
     },
 }
 def run_python_code(code, timeout=5):
