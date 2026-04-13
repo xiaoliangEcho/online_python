@@ -948,1033 +948,504 @@ def minWindow(s, t):
 """,
         "hints": ["记忆化搜索", "回溯生成所有可能的句子"]
     },
-    "20": {
-        "id": "20",
-        "title": "滑动窗口最大值",
-        "difficulty": "非常困难",
-        "tags": ["队列", "数组", "滑动窗口", "单调队列", "堆"],
-        "description": """给你一个整数数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。
 
-返回滑动窗口中的最大值。
-
-**示例：**
-```
-输入：nums = [1,3,-1,-3,5,3,6,7], k = 3
-输出：[3,3,5,5,6,7]
-解释：
-滑动窗口的位置                最大值
----------------               -----
-[1  3  -1] -3  5  3  6  7       3
- 1 [3  -1  -3] 5  3  6  7       3
- 1  3 [-1  -3  5] 3  6  7       5
- 1  3  -1 [-3  5  3] 6  7       5
- 1  3  -1  -3 [5  3  6] 7       6
- 1  3  -1  -3  5 [3  6  7]      7
-```
-""",
-        "template": """def maxSlidingWindow(nums, k):
-    \"\"\"
-    :type nums: List[int]
-    :type k: int
-    :rtype: List[int]
-    \"\"\"
-    # 在这里编写你的代码
-    pass
-""",
-        "test_cases": [
-            {"input": "maxSlidingWindow([1, 3, -1, -3, 5, 3, 6, 7], 3)", "expected": "[3, 3, 5, 5, 6, 7]"},
-            {"input": "maxSlidingWindow([1], 1)", "expected": "[1]"}
-        ],
-        "solution": """from collections import deque
-def maxSlidingWindow(nums, k):
-    dq = deque()
-    result = []
-    for i in range(len(nums)):
-        while dq and dq[0] < i - k + 1:
-            dq.popleft()
-        while dq and nums[dq[-1]] < nums[i]:
-            dq.pop()
-        dq.append(i)
-        if i >= k - 1:
-            result.append(nums[dq[0]])
-    return result
-""",
-        "hints": ["使用单调队列", "队列中存储索引，保持递减顺序"]
-    },
-    # ========== LeetCode 792: Binary Search ==========
     "21": {
         "id": "21",
-        "title": "Binary Search",
+        "title": "有序数组查找",
         "difficulty": "简单",
-        "tags": ['Array', 'Binary Search'],
-        "description": 'Given an array of integers `nums` which is sorted in ascending order, and an integer `target`, write a function to search `target` in `nums`. If `target` exists, then return its index. Otherwise, return `-1`.\n\nYou must write an algorithm with `O(log n)` runtime complexity.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [-1,0,3,5,9,12], target = 9\n**Output:** 4\n**Explanation:** 9 exists in nums and its index is 4\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [-1,0,3,5,9,12], target = 2\n**Output:** -1\n**Explanation:** 2 does not exist in nums so return -1\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &l',
-        "template": 'class Solution:\n    def search(self, nums: List[int], target: int) -> int:\n        ',
-        "test_cases": [{"input": "[-1,0,3,5,9,12]", "expected": "9"}, {"input": "[-1,0,3,5,9,12]", "expected": "2"}]
+        "tags": ["\u6570\u7ec4", "\u4e8c\u5206\u67e5\u627e"],
+        "description": '给定一个已排序的整数数组 nums 和目标值 target，返回目标值的索引。如果不存在，返回 -1。要求时间复杂度 O(log n)。',
+        "template": 'def binary_search(nums, target):\n    pass',
+        "test_cases": [{"input": "[1, 3, 5, 7, 9], 5", "expected": "2"}, {"input": "[1, 3, 5, 7, 9], 6", "expected": "-1"}, {"input": "[-1, 0, 3, 5, 9, 12], 9", "expected": "4"}]
     },
-    # ========== LeetCode 153: Find Minimum in Rotated Sorted Array ==========
+
     "22": {
         "id": "22",
-        "title": "Find Minimum in Rotated Sorted Array",
+        "title": "旋转数组找最小值",
         "difficulty": "中等",
-        "tags": ['Array', 'Binary Search'],
-        "description": 'Suppose an array of length `n` sorted in ascending order is **rotated** between `1` and `n` times. For example, the array `nums = [0,1,2,4,5,6,7]` might become:\n\n\t- `[4,5,6,7,0,1,2]` if it was rotated `4` times.\n\n\t- `[0,1,2,4,5,6,7]` if it was rotated `7` times.\n\nNotice that **rotating** an array `[a[0], a[1], a[2], ..., a[n-1]]` 1 time results in the array `[a[n-1], a[0], a[1], a[2], ..., a[n-2]]`.\n\nGiven the sorted rotated array `nums` of **unique** elements, return the minimum element of this array.\n\nYou must write an algorithm that runs in&nbsp;`O(log n) time`.\n\n&nbsp;\n\n**Example 1:**\n\n```',
-        "template": 'class Solution:\n    def findMin(self, nums: List[int]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u6570\u7ec4", "\u4e8c\u5206\u67e5\u627e"],
+        "description": '一个升序数组在某点被旋转了，例如 [0,1,2,4,5,6,7] 变成 [4,5,6,7,0,1,2]。找出旋转后数组中的最小元素。要求 O(log n)。',
+        "template": 'def find_min(nums):\n    pass',
+        "test_cases": [{"input": "[4, 5, 6, 7, 0, 1, 2]", "expected": "0"}, {"input": "[3, 4, 5, 1, 2]", "expected": "1"}, {"input": "[1]", "expected": "1"}]
     },
-    # ========== LeetCode 33: Search in Rotated Sorted Array ==========
+
     "23": {
         "id": "23",
-        "title": "Search in Rotated Sorted Array",
+        "title": "旋转数组查找",
         "difficulty": "中等",
-        "tags": ['Array', 'Binary Search'],
-        "description": 'There is an integer array `nums` sorted in ascending order (with **distinct** values).\n\nPrior to being passed to your function, `nums` is **possibly left rotated** at an unknown index `k` (`1 &lt;= k &lt; nums.length`) such that the resulting array is `[nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]]` (**0-indexed**). For example, `[0,1,2,4,5,6,7]` might be left rotated by&nbsp;`3`&nbsp;indices and become `[4,5,6,7,0,1,2]`.\n\nGiven the array `nums` **after** the possible rotation and an integer `target`, return the index of `target` if it is in `nums`, or `-1` if it is not',
-        "template": 'class Solution:\n    def search(self, nums: List[int], target: int) -> int:\n        ',
-        "test_cases": [{"input": "[4,5,6,7,0,1,2]", "expected": "0"}, {"input": "[4,5,6,7,0,1,2]", "expected": "3"}, {"input": "[1]", "expected": "0"}]
+        "tags": ["\u6570\u7ec4", "\u4e8c\u5206\u67e5\u627e"],
+        "description": '一个升序数组被旋转后，在其中查找目标值，返回索引，找不到返回 -1。要求 O(log n)。',
+        "template": 'def search_rotated(nums, target):\n    pass',
+        "test_cases": [{"input": "[4,5,6,7,0,1,2], 0", "expected": "4"}, {"input": "[4,5,6,7,0,1,2], 3", "expected": "-1"}, {"input": "[1], 1", "expected": "0"}]
     },
-    # ========== LeetCode 882: Peak Index in a Mountain Array ==========
+
     "24": {
         "id": "24",
-        "title": "Peak Index in a Mountain Array",
+        "title": "山脉数组峰值",
         "difficulty": "中等",
-        "tags": ['Array', 'Binary Search'],
-        "description": 'You are given an integer **mountain** array `arr` of length `n` where the values increase to a **peak element** and then decrease.\n\nReturn the index of the peak element.\n\nYour task is to solve it in `O(log(n))` time complexity.\n\n&nbsp;\n\n**Example 1:**\n\n**Input:** arr = [0,1,0]\n\n**Output:** 1\n\n**Example 2:**\n\n**Input:** arr = [0,2,1,0]\n\n**Output:** 1\n\n**Example 3:**\n\n**Input:** arr = [0,10,5,2]\n\n**Output:** 1\n\n&nbsp;\n\n**Constraints:**\n\n\t- `3 &lt;= arr.length &lt;= 105`\n\n\t- `0 &lt;= arr[i] &lt;= 106`\n\n\t- `arr` is **guaranteed** to be a mountain array.',
-        "template": 'class Solution:\n    def peakIndexInMountainArray(self, arr: List[int]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u6570\u7ec4", "\u4e8c\u5206\u67e5\u627e"],
+        "description": '山脉数组：先严格递增，后严格递减。给定山脉数组，返回峰值索引。要求 O(log n)。',
+        "template": 'def peak_index(arr):\n    pass',
+        "test_cases": [{"input": "[1, 3, 5, 4, 2]", "expected": "2"}, {"input": "[0, 2, 1, 0]", "expected": "1"}, {"input": "[0, 1, 0]", "expected": "1"}]
     },
-    # ========== LeetCode 278: First Bad Version ==========
+
     "25": {
         "id": "25",
-        "title": "First Bad Version",
+        "title": "查找第一个错误版本",
         "difficulty": "简单",
-        "tags": ['Binary Search', 'Interactive'],
-        "description": 'You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.\n\nSuppose you have `n` versions `[1, 2, ..., n]` and you want to find out the first bad one, which causes all the following ones to be bad.\n\nYou are given an API `bool isBadVersion(version)` which returns whether `version` is bad. Implement a function to find the first bad version. You should minimize the number of calls to the A',
-        "template": '# The isBadVersion API is already defined for you.\n# def isBadVersion(version: int) -> bool:\n\nclass Solution:\n    def firstBadVersion(self, n: int) -> int:\n        ',
+        "tags": ["\u4e8c\u5206\u67e5\u627e"],
+        "description": '产品从某个版本开始有 bug。给定版本总数 n 和函数 isBadVersion(version)，找出第一个出 bug 的版本。',
+        "template": 'def first_bad_version(n):\n    # 假设 isBadVersion(i) 可用\n    pass',
         "test_cases": [{"input": "5", "expected": "4"}, {"input": "1", "expected": "1"}]
     },
-    # ========== LeetCode 35: Search Insert Position ==========
+
     "26": {
         "id": "26",
-        "title": "Search Insert Position",
+        "title": "查找插入位置",
         "difficulty": "简单",
-        "tags": ['Array', 'Binary Search'],
-        "description": 'Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.\n\nYou must&nbsp;write an algorithm with&nbsp;`O(log n)` runtime complexity.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [1,3,5,6], target = 5\n**Output:** 2\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [1,3,5,6], target = 2\n**Output:** 1\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** nums = [1,3,5,6], target = 7\n**Output:** 4\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= nums.length &lt;= 104`\n\n\t- `-104 &lt;= nums[i] &lt;= 104`\n\n',
-        "template": 'class Solution:\n    def searchInsert(self, nums: List[int], target: int) -> int:\n        ',
-        "test_cases": [{"input": "[1,3,5,6]", "expected": "5"}, {"input": "[1,3,5,6]", "expected": "2"}, {"input": "[1,3,5,6]", "expected": "7"}]
+        "tags": ["\u6570\u7ec4", "\u4e8c\u5206\u67e5\u627e"],
+        "description": '给定已排序的不重复整数数组和目标值，如果找到返回索引，否则返回应该插入的位置。要求 O(log n)。',
+        "template": 'def search_insert(nums, target):\n    pass',
+        "test_cases": [{"input": "[1,3,5,6], 5", "expected": "2"}, {"input": "[1,3,5,6], 2", "expected": "1"}, {"input": "[1,3,5,6], 7", "expected": "4"}]
     },
-    # ========== LeetCode 69: Sqrt(x) ==========
+
     "27": {
         "id": "27",
-        "title": "Sqrt(x)",
+        "title": "整数平方根",
         "difficulty": "简单",
-        "tags": ['Math', 'Binary Search'],
-        "description": 'Given a non-negative integer `x`, return the square root of `x` rounded down to the nearest integer. The returned integer should be **non-negative** as well.\n\nYou **must not use** any built-in exponent function or operator.\n\n\t- For example, do not use `pow(x, 0.5)` in c++ or `x ** 0.5` in python.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** x = 4\n**Output:** 2\n**Explanation:** The square root of 4 is 2, so we return 2.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** x = 8\n**Output:** 2\n**Explanation:** The square root of 8 is 2.82842..., and since we round it down to the nearest integer, 2 is returned.\n\n```',
-        "template": 'class Solution:\n    def mySqrt(self, x: int) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u6570\u5b66", "\u4e8c\u5206\u67e5\u627e"],
+        "description": '给定非负整数 x，返回 x 的平方根的整数部分（向下取整）。不能使用内置 sqrt 函数。',
+        "template": 'def my_sqrt(x):\n    pass',
+        "test_cases": [{"input": "4", "expected": "2"}, {"input": "8", "expected": "2"}, {"input": "9", "expected": "3"}]
     },
-    # ========== LeetCode 367: Valid Perfect Square ==========
+
     "28": {
         "id": "28",
-        "title": "Valid Perfect Square",
+        "title": "判断完全平方数",
         "difficulty": "简单",
-        "tags": ['Math', 'Binary Search'],
-        "description": 'Given a positive integer num, return `true` if `num` is a perfect square or `false` otherwise.\n\nA **perfect square** is an integer that is the square of an integer. In other words, it is the product of some integer with itself.\n\nYou must not use any built-in library function, such as `sqrt`.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** num = 16\n**Output:** true\n**Explanation:** We return true because 4 * 4 = 16 and 4 is an integer.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** num = 14\n**Output:** false\n**Explanation:** We return false because 3.742 * 3.742 = 14 and 3.742 is not an integer.\n\n```\n\n&nbsp;\n\n',
-        "template": 'class Solution:\n    def isPerfectSquare(self, num: int) -> bool:\n        ',
-        "test_cases": []
+        "tags": ["\u6570\u5b66", "\u4e8c\u5206\u67e5\u627e"],
+        "description": '给定正整数 num，判断它是否是完全平方数。不能使用内置 sqrt 函数。',
+        "template": 'def is_perfect_square(num):\n    pass',
+        "test_cases": [{"input": "16", "expected": "True"}, {"input": "14", "expected": "False"}, {"input": "1", "expected": "True"}]
     },
-    # ========== LeetCode 374: Guess Number Higher or Lower ==========
+
     "29": {
         "id": "29",
-        "title": "Guess Number Higher or Lower",
+        "title": "猜数字游戏",
         "difficulty": "简单",
-        "tags": ['Binary Search', 'Interactive'],
-        "description": 'We are playing the Guess Game. The game is as follows:\n\nI pick a number from `1` to `n`. You have to guess which number I picked (the number I picked stays the same throughout the game).\n\nEvery time you guess wrong, I will tell you whether the number I picked is higher or lower than your guess.\n\nYou call a pre-defined API `int guess(int num)`, which returns three possible results:\n\n\t- `-1`: Your guess is higher than the number I picked (i.e. `num &gt; pick`).\n\n\t- `1`: Your guess is lower than the number I picked (i.e. `num &lt; pick`).\n\n\t- `0`: your guess is equal to the number I picked (i.e. ',
-        "template": '# The guess API is already defined for you.\n# @param num, your guess\n# @return -1 if num is higher than the picked number\n#          1 if num is lower than the picked number\n#          otherwise return 0\n# def guess(num: int) -> int:\n\nclass Solution:\n    def guessNumber(self, n: int) -> int:\n        ',
-        "test_cases": [{"input": "10", "expected": "6"}, {"input": "1", "expected": "1"}, {"input": "2", "expected": "1"}]
+        "tags": ["\u4e8c\u5206\u67e5\u627e"],
+        "description": '在 1 到 n 之间猜一个数字，每次猜测会返回 -1(大了)、1(小了)或 0(对了)。给定 n 和 guess 函数，找出答案。',
+        "template": 'def guess_number(n):\n    # 假设 guess(num) 可用\n    pass',
+        "test_cases": [{"input": "10", "expected": "6"}, {"input": "1", "expected": "1"}]
     },
-    # ========== LeetCode 74: Search a 2D Matrix ==========
+
     "30": {
         "id": "30",
-        "title": "Search a 2D Matrix",
+        "title": "二维矩阵查找",
         "difficulty": "中等",
-        "tags": ['Array', 'Binary Search', 'Matrix'],
-        "description": 'You are given an `m x n` integer matrix `matrix` with the following two properties:\n\n\t- Each row is sorted in non-decreasing order.\n\n\t- The first integer of each row is greater than the last integer of the previous row.\n\nGiven an integer `target`, return `true` if `target` is in `matrix` or `false` otherwise.\n\nYou must write a solution in `O(log(m * n))` time complexity.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3\n**Output:** true\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13\n**Outpu',
-        "template": 'class Solution:\n    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:\n        ',
-        "test_cases": [{"input": "[[1,3,5,7],[10,11,16,20],[23,30,34,60]]", "expected": "3"}, {"input": "[[1,3,5,7],[10,11,16,20],[23,30,34,60]]", "expected": "13"}]
+        "tags": ["\u6570\u7ec4", "\u4e8c\u5206\u67e5\u627e", "\u77e9\u9635"],
+        "description": '给定 m×n 矩阵，每行递增，每行第一个数大于上一行最后一个数。判断目标值是否在矩阵中。',
+        "template": 'def search_matrix(matrix, target):\n    pass',
+        "test_cases": [{"input": "[[1,3,5,7],[10,11,16,20],[23,30,34,50]], 3", "expected": "True"}, {"input": "[[1,3,5,7],[10,11,16,20],[23,30,34,50]], 13", "expected": "False"}]
     },
-    # ========== LeetCode 1: Two Sum ==========
+
     "31": {
         "id": "31",
-        "title": "Two Sum",
+        "title": "两数之和",
         "difficulty": "简单",
-        "tags": ['Array', 'Hash Table'],
-        "description": 'Given an array of integers `nums`&nbsp;and an integer `target`, return indices of the two numbers such that they add up to `target`.\n\nYou may assume that each input would have **exactly one solution**, and you may not use the same element twice.\n\nYou can return the answer in any order.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [2,7,11,15], target = 9\n**Output:** [0,1]\n**Explanation:** Because nums[0] + nums[1] == 9, we return [0, 1].\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [3,2,4], target = 6\n**Output:** [1,2]\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** nums = [3,3], target = 6\n**Output:*',
-        "template": 'class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        ',
-        "test_cases": [{"input": "[2,7,11,15]", "expected": "9"}, {"input": "[3,2,4]", "expected": "6"}, {"input": "[3,3]", "expected": "6"}]
+        "tags": ["\u6570\u7ec4", "\u54c8\u5e0c\u8868"],
+        "description": '给定整数数组和目标值，找出数组中和为目标值的两个数的索引。假设只有一个答案。',
+        "template": 'def two_sum(nums, target):\n    pass',
+        "test_cases": [{"input": "[2, 7, 11, 15], 9", "expected": "[0, 1]"}, {"input": "[3, 2, 4], 6", "expected": "[1, 2]"}, {"input": "[3, 3], 6", "expected": "[0, 1]"}]
     },
-    # ========== LeetCode 167: Two Sum II - Input Array Is Sorted ==========
+
     "32": {
         "id": "32",
-        "title": "Two Sum II - Input Array Is Sorted",
+        "title": "有序数组两数之和",
         "difficulty": "中等",
-        "tags": ['Array', 'Two Pointers', 'Binary Search'],
-        "description": 'Given a **1-indexed** array of integers `numbers` that is already **sorted in non-decreasing order**, find two numbers such that they add up to a specific `target` number. Let these two numbers be `numbers[index1]` and `numbers[index2]` where `1 &lt;= index1 &lt; index2 &lt;= numbers.length`.\n\nReturn the indices of the two numbers&nbsp;`index1` and `index2`, **each incremented by one,** as an integer array `[index1, index2]` of length 2.\n\nThe tests are generated such that there is **exactly one solution**. You **may not** use the same element twice.\n\nYour solution must use only constant extra ',
-        "template": 'class Solution:\n    def twoSum(self, numbers: List[int], target: int) -> List[int]:\n        ',
-        "test_cases": [{"input": "[2,7,11,15]", "expected": "9"}, {"input": "[2,3,4]", "expected": "6"}, {"input": "[-1,0]", "expected": "-1"}]
+        "tags": ["\u6570\u7ec4", "\u53cc\u6307\u9488"],
+        "description": '给定已排序的整数数组和目标值，找出两个数使其和等于目标值。返回索引（从1开始）。',
+        "template": 'def two_sum_sorted(numbers, target):\n    pass',
+        "test_cases": [{"input": "[2, 7, 11, 15], 9", "expected": "[1, 2]"}, {"input": "[2, 3, 4], 6", "expected": "[1, 3]"}]
     },
-    # ========== LeetCode 15: 3Sum ==========
+
     "33": {
         "id": "33",
-        "title": "3Sum",
+        "title": "三数之和",
         "difficulty": "中等",
-        "tags": ['Array', 'Two Pointers', 'Sorting'],
-        "description": 'Given an integer array nums, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.\n\nNotice that the solution set must not contain duplicate triplets.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [-1,0,1,2,-1,-4]\n**Output:** [[-1,-1,2],[-1,0,1]]\n**Explanation:** \nnums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0.\nnums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0.\nnums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0.\nThe distinct triplets are [-1,0,1] and [-1,-1,2].\nNotice that the order of the output and the order of ',
-        "template": 'class Solution:\n    def threeSum(self, nums: list[int]) -> list[list[int]]:\n        ',
-        "test_cases": []
+        "tags": ["\u6570\u7ec4", "\u53cc\u6307\u9488"],
+        "description": '给定整数数组，找出所有和为 0 的三元组。结果中不能有重复。',
+        "template": 'def three_sum(nums):\n    pass',
+        "test_cases": [{"input": "[-1, 0, 1, 2, -1, -4]", "expected": "[[-1, -1, 2], [-1, 0, 1]]"}, {"input": "[0, 0, 0]", "expected": "[[0, 0, 0]]"}]
     },
-    # ========== LeetCode 11: Container With Most Water ==========
+
     "34": {
         "id": "34",
-        "title": "Container With Most Water",
+        "title": "盛最多水的容器",
         "difficulty": "中等",
-        "tags": ['Array', 'Two Pointers', 'Greedy'],
-        "description": 'You are given an integer array `height` of length `n`. There are `n` vertical lines drawn such that the two endpoints of the `ith` line are `(i, 0)` and `(i, height[i])`.\n\nFind two lines that together with the x-axis form a container, such that the container contains the most water.\n\nReturn the maximum amount of water a container can store.\n\n**Notice** that you may not slant the container.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** height = [1,8,6,2,5,4,8,3,7]\n**Output:** 49\n**Explanation:** The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of wate',
-        "template": 'class Solution:\n    def maxArea(self, height: List[int]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u6570\u7ec4", "\u53cc\u6307\u9488"],
+        "description": '给定柱子高度数组，找出两个柱子使其与 x 轴构成的容器能盛最多水。',
+        "template": 'def max_area(height):\n    pass',
+        "test_cases": [{"input": "[1, 8, 6, 2, 5, 4, 8, 3, 7]", "expected": "49"}, {"input": "[1, 1]", "expected": "1"}]
     },
-    # ========== LeetCode 125: Valid Palindrome ==========
+
     "35": {
         "id": "35",
-        "title": "Valid Palindrome",
+        "title": "验证回文串",
         "difficulty": "简单",
-        "tags": ['Two Pointers', 'String'],
-        "description": 'A phrase is a **palindrome** if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.\n\nGiven a string `s`, return `true` if it is a **palindrome**, or `false` otherwise.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** s = &quot;A man, a plan, a canal: Panama&quot;\n**Output:** true\n**Explanation:** &quot;amanaplanacanalpanama&quot; is a palindrome.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** s = &quot;race a car&quot;\n**Output:** false\n**Explanation:** &quot;rac',
-        "template": 'class Solution:\n    def isPalindrome(self, s: str) -> bool:\n        ',
-        "test_cases": []
+        "tags": ["\u5b57\u7b26\u4e32", "\u53cc\u6307\u9488"],
+        "description": '判断字符串是否是回文串，忽略大小写和非字母数字字符。',
+        "template": 'def is_palindrome(s):\n    pass',
+        "test_cases": [{"input": "\"A man, a plan, a canal: Panama\"", "expected": "True"}, {"input": "\"race a car\"", "expected": "False"}]
     },
-    # ========== LeetCode 283: Move Zeroes ==========
+
     "36": {
         "id": "36",
-        "title": "Move Zeroes",
+        "title": "移动零",
         "difficulty": "简单",
-        "tags": ['Array', 'Two Pointers'],
-        "description": 'Given an integer array `nums`, move all `0`&#39;s to the end of it while maintaining the relative order of the non-zero elements.\n\n**Note** that you must do this in-place without making a copy of the array.\n\n&nbsp;\n\n**Example 1:**\n\n```\n**Input:** nums = [0,1,0,3,12]\n**Output:** [1,3,12,0,0]\n\n```\n\n**Example 2:**\n\n```\n**Input:** nums = [0]\n**Output:** [0]\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= nums.length &lt;= 104`\n\n\t- `-231 &lt;= nums[i] &lt;= 231 - 1`\n\n&nbsp;\n\n**Follow up:** Could you minimize the total number of operations done?',
-        "template": 'class Solution:\n    def moveZeroes(self, nums: List[int]) -> None:\n        """\n        Do not return anything, modify nums in-place instead.\n        """\n        ',
-        "test_cases": []
+        "tags": ["\u6570\u7ec4", "\u53cc\u6307\u9488"],
+        "description": '将数组中的所有 0 移到末尾，保持非零元素的相对顺序。原地操作。',
+        "template": 'def move_zeroes(nums):\n    pass',
+        "test_cases": [{"input": "[0, 1, 0, 3, 12]", "expected": "[1, 3, 12, 0, 0]"}, {"input": "[0]", "expected": "[0]"}]
     },
-    # ========== LeetCode 26: Remove Duplicates from Sorted Array ==========
+
     "37": {
         "id": "37",
-        "title": "Remove Duplicates from Sorted Array",
+        "title": "删除有序数组重复项",
         "difficulty": "简单",
-        "tags": ['Array', 'Two Pointers'],
-        "description": 'Given an integer array `nums` sorted in **non-decreasing order**, remove the duplicates **in-place** such that each unique element appears only **once**. The **relative order** of the elements should be kept the **same**.\n\nConsider the number of unique elements in&nbsp;`nums` to be `k**\u200b\u200b\u200b\u200b\u200b\u200b\u200b**`\u200b\u200b\u200b\u200b\u200b\u200b\u200b. After removing duplicates, return the number of unique elements&nbsp;`k`.\n\nThe first&nbsp;`k`&nbsp;elements of&nbsp;`nums`&nbsp;should contain the unique numbers in **sorted order**. The remaining elements beyond index&nbsp;`k - 1`&nbsp;can be ignored.\n\n**Custom Judge:**\n\nThe judge will test y',
-        "template": 'class Solution:\n    def removeDuplicates(self, nums: List[int]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u6570\u7ec4", "\u53cc\u6307\u9488"],
+        "description": '给定有序数组，原地删除重复元素，使每个元素只出现一次。返回新长度。',
+        "template": 'def remove_duplicates(nums):\n    pass',
+        "test_cases": [{"input": "[1, 1, 2]", "expected": "2"}, {"input": "[0, 0, 1, 1, 1, 2, 2, 3, 3, 4]", "expected": "5"}]
     },
-    # ========== LeetCode 27: Remove Element ==========
+
     "38": {
         "id": "38",
-        "title": "Remove Element",
+        "title": "移除元素",
         "difficulty": "简单",
-        "tags": ['Array', 'Two Pointers'],
-        "description": 'Given an integer array `nums` and an integer `val`, remove all occurrences of `val` in `nums` **in-place**. The order of the elements may be changed. Then return the number of elements in `nums` which are not equal to `val`.\n\nConsider the number of elements in `nums` which are not equal to `val` be `k`, to get accepted, you need to do the following things:\n\n\t- Change the array `nums` such that the first `k` elements of `nums` contain the elements which are not equal to `val`. The remaining elements of `nums` are not important as well as the size of `nums`.\n\n\t- Return `k`.\n\n**Custom Judge:**\n\nT',
-        "template": 'class Solution:\n    def removeElement(self, nums: List[int], val: int) -> int:\n        ',
-        "test_cases": [{"input": "[3,2,2,3]", "expected": "3"}, {"input": "[0,1,2,2,3,0,4,2]", "expected": "2"}]
+        "tags": ["\u6570\u7ec4", "\u53cc\u6307\u9488"],
+        "description": '原地移除数组中所有等于 val 的元素。返回新长度。',
+        "template": 'def remove_element(nums, val):\n    pass',
+        "test_cases": [{"input": "[3, 2, 2, 3], 3", "expected": "2"}, {"input": "[0, 1, 2, 2, 3, 0, 4, 2], 2", "expected": "5"}]
     },
-    # ========== LeetCode 75: Sort Colors ==========
+
     "39": {
         "id": "39",
-        "title": "Sort Colors",
+        "title": "颜色分类",
         "difficulty": "中等",
-        "tags": ['Array', 'Two Pointers', 'Sorting'],
-        "description": 'Given an array `nums` with `n` objects colored red, white, or blue, sort them **in-place **so that objects of the same color are adjacent, with the colors in the order red, white, and blue.\n\nWe will use the integers `0`, `1`, and `2` to represent the color red, white, and blue, respectively.\n\nYou must solve this problem without using the library&#39;s sort function.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [2,0,2,1,1,0]\n**Output:** [0,0,1,1,2,2]\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [2,0,1]\n**Output:** [0,1,2]\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `n == nums.length`\n\n\t- `1 &lt;= n &',
-        "template": 'class Solution:\n    def sortColors(self, nums: List[int]) -> None:\n        """\n        Do not return anything, modify nums in-place instead.\n        """\n        ',
-        "test_cases": []
+        "tags": ["\u6570\u7ec4", "\u6392\u5e8f"],
+        "description": '给定包含 0、1、2 的数组，原地排序。要求一趟扫描。',
+        "template": 'def sort_colors(nums):\n    pass',
+        "test_cases": [{"input": "[2, 0, 2, 1, 1, 0]", "expected": "[0, 0, 1, 1, 2, 2]"}, {"input": "[2, 0, 1]", "expected": "[0, 1, 2]"}]
     },
-    # ========== LeetCode 344: Reverse String ==========
+
     "40": {
         "id": "40",
-        "title": "Reverse String",
+        "title": "反转字符串",
         "difficulty": "简单",
-        "tags": ['Two Pointers', 'String'],
-        "description": 'Write a function that reverses a string. The input string is given as an array of characters `s`.\n\nYou must do this by modifying the input array in-place with `O(1)` extra memory.\n\n&nbsp;\n\n**Example 1:**\n\n```\n**Input:** s = ["h","e","l","l","o"]\n**Output:** ["o","l","l","e","h"]\n\n```\n\n**Example 2:**\n\n```\n**Input:** s = ["H","a","n","n","a","h"]\n**Output:** ["h","a","n","n","a","H"]\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= s.length &lt;= 105`\n\n\t- `s[i]` is a printable ascii character.',
-        "template": 'class Solution:\n    def reverseString(self, s: List[str]) -> None:\n        """\n        Do not return anything, modify s in-place instead.\n        """\n        ',
-        "test_cases": []
+        "tags": ["\u5b57\u7b26\u4e32", "\u53cc\u6307\u9488"],
+        "description": '原地反转字符数组。',
+        "template": 'def reverse_string(s):\n    pass',
+        "test_cases": [{"input": "[\"h\", \"e\", \"l\", \"l\", \"o\"]", "expected": "[\"o\", \"l\", \"l\", \"e\", \"h\"]"}]
     },
-    # ========== LeetCode 3: Longest Substring Without Repeating Characters ==========
+
     "41": {
         "id": "41",
-        "title": "Longest Substring Without Repeating Characters",
+        "title": "无重复字符最长子串",
         "difficulty": "中等",
-        "tags": ['Hash Table', 'String', 'Sliding Window'],
-        "description": 'Given a string `s`, find the length of the **longest** **substring** without duplicate characters.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** s = &quot;abcabcbb&quot;\n**Output:** 3\n**Explanation:** The answer is &quot;abc&quot;, with the length of 3. Note that `&quot;bca&quot;` and `&quot;cab&quot;` are also correct answers.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** s = &quot;bbbbb&quot;\n**Output:** 1\n**Explanation:** The answer is &quot;b&quot;, with the length of 1.\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** s = &quot;pwwkew&quot;\n**Output:** 3\n**Explanation:** The answer is &quot;wke&quot;, with the l',
-        "template": 'class Solution:\n    def lengthOfLongestSubstring(self, s: str) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u5b57\u7b26\u4e32", "\u6ed1\u52a8\u7a97\u53e3"],
+        "description": '给定字符串，找出不含重复字符的最长子串的长度。',
+        "template": 'def length_of_longest_substring(s):\n    pass',
+        "test_cases": [{"input": "\"abcabcbb\"", "expected": "3"}, {"input": "\"bbbbb\"", "expected": "1"}, {"input": "\"pwwkew\"", "expected": "3"}]
     },
-    # ========== LeetCode 209: Minimum Size Subarray Sum ==========
+
     "42": {
         "id": "42",
-        "title": "Minimum Size Subarray Sum",
+        "title": "长度最小子数组",
         "difficulty": "中等",
-        "tags": ['Array', 'Binary Search', 'Sliding Window', 'Prefix Sum'],
-        "description": 'Given an array of positive integers `nums` and a positive integer `target`, return the **minimal length** of a subarray whose sum is greater than or equal to `target`. If there is no such subarray, return `0` instead.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** target = 7, nums = [2,3,1,2,4,3]\n**Output:** 2\n**Explanation:** The subarray [4,3] has the minimal length under the problem constraint.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** target = 4, nums = [1,4,4]\n**Output:** 1\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** target = 11, nums = [1,1,1,1,1,1,1,1]\n**Output:** 0\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `',
-        "template": 'class Solution:\n    def minSubArrayLen(self, target: int, nums: List[int]) -> int:\n        ',
-        "test_cases": [{"input": "7", "expected": "[2,3,1,2,4,3]"}, {"input": "4", "expected": "[1,4,4]"}, {"input": "11", "expected": "[1,1,1,1,1,1,1,1]"}]
+        "tags": ["\u6570\u7ec4", "\u6ed1\u52a8\u7a97\u53e3"],
+        "description": '给定正整数数组和目标值，找出和≥目标值的最短连续子数组长度。不存在返回0。',
+        "template": 'def min_subarray_len(target, nums):\n    pass',
+        "test_cases": [{"input": "7, [2, 3, 1, 2, 4, 3]", "expected": "2"}, {"input": "4, [1, 4, 4]", "expected": "1"}, {"input": "11, [1, 1, 1, 1, 1, 1, 1, 1]", "expected": "0"}]
     },
-    # ========== LeetCode 438: Find All Anagrams in a String ==========
+
     "43": {
         "id": "43",
-        "title": "Find All Anagrams in a String",
+        "title": "找到字符串中所有字母异位词",
         "difficulty": "中等",
-        "tags": ['Hash Table', 'String', 'Sliding Window'],
-        "description": 'Given two strings `s` and `p`, return an array of all the start indices of `p`&#39;s anagrams in `s`. You may return the answer in **any order**.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** s = &quot;cbaebabacd&quot;, p = &quot;abc&quot;\n**Output:** [0,6]\n**Explanation:**\nThe substring with start index = 0 is &quot;cba&quot;, which is an anagram of &quot;abc&quot;.\nThe substring with start index = 6 is &quot;bac&quot;, which is an anagram of &quot;abc&quot;.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** s = &quot;abab&quot;, p = &quot;ab&quot;\n**Output:** [0,1,2]\n**Explanation:**\nThe substring with start',
-        "template": 'class Solution:\n    def findAnagrams(self, s: str, p: str) -> List[int]:\n        ',
-        "test_cases": [{"input": "\"cbaebabacd\"", "expected": "\"abc\""}, {"input": "\"abab\"", "expected": "\"ab\""}]
+        "tags": ["\u5b57\u7b26\u4e32", "\u6ed1\u52a8\u7a97\u53e3"],
+        "description": '给定字符串 s 和 p，找出 s 中所有 p 的字母异位词（排列相同）的起始索引。',
+        "template": 'def find_anagrams(s, p):\n    pass',
+        "test_cases": [{"input": "\"cbaebabacd\", \"abc\"", "expected": "[0, 6]"}, {"input": "\"abab\", \"ab\"", "expected": "[0, 1, 2]"}]
     },
-    # ========== LeetCode 567: Permutation in String ==========
+
     "44": {
         "id": "44",
-        "title": "Permutation in String",
+        "title": "字符串排列",
         "difficulty": "中等",
-        "tags": ['Hash Table', 'Two Pointers', 'String', 'Sliding Window'],
-        "description": 'Given two strings `s1` and `s2`, return `true` if `s2` contains a permutation of `s1`, or `false` otherwise.\n\nIn other words, return `true` if one of `s1`&#39;s permutations is the substring of `s2`.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** s1 = &quot;ab&quot;, s2 = &quot;eidbaooo&quot;\n**Output:** true\n**Explanation:** s2 contains one permutation of s1 (&quot;ba&quot;).\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** s1 = &quot;ab&quot;, s2 = &quot;eidboaoo&quot;\n**Output:** false\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= s1.length, s2.length &lt;= 104`\n\n\t- `s1` and `s2` consist of lowercase English ',
-        "template": 'class Solution:\n    def checkInclusion(self, s1: str, s2: str) -> bool:\n        ',
-        "test_cases": [{"input": "\"ab\"", "expected": "\"eidbaooo\""}, {"input": "\"ab\"", "expected": "\"eidboaoo\""}]
+        "tags": ["\u5b57\u7b26\u4e32", "\u6ed1\u52a8\u7a97\u53e3"],
+        "description": '判断 s2 是否包含 s1 的某个排列。',
+        "template": 'def check_inclusion(s1, s2):\n    pass',
+        "test_cases": [{"input": "\"ab\", \"eidbaooo\"", "expected": "True"}, {"input": "\"ab\", \"eidboaoo\"", "expected": "False"}]
     },
-    # ========== LeetCode 643: Maximum Average Subarray I ==========
+
     "45": {
         "id": "45",
-        "title": "Maximum Average Subarray I",
+        "title": "最大平均子数组",
         "difficulty": "简单",
-        "tags": ['Array', 'Sliding Window'],
-        "description": 'You are given an integer array `nums` consisting of `n` elements, and an integer `k`.\n\nFind a contiguous subarray whose **length is equal to** `k` that has the maximum average value and return this value. Any answer with a calculation error less than `10-5` will be accepted.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [1,12,-5,-6,50,3], k = 4\n**Output:** 12.75000\n**Explanation:** Maximum average is (12 - 5 - 6 + 50) / 4 = 51 / 4 = 12.75\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [5], k = 1\n**Output:** 5.00000\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `n == nums.length`\n\n\t- `1 &lt;= k &lt;= n &l',
-        "template": 'class Solution:\n    def findMaxAverage(self, nums: List[int], k: int) -> float:\n        ',
-        "test_cases": [{"input": "[1,12,-5,-6,50,3]", "expected": "4"}, {"input": "[5]", "expected": "1"}]
+        "tags": ["\u6570\u7ec4", "\u6ed1\u52a8\u7a97\u53e3"],
+        "description": '给定整数数组和整数 k，找出长度为 k 的连续子数组的最大平均值。',
+        "template": 'def find_max_average(nums, k):\n    pass',
+        "test_cases": [{"input": "[1, 12, -5, -6, 50, 3], 4", "expected": "12.75"}, {"input": "[5], 1", "expected": "5.0"}]
     },
-    # ========== LeetCode 200: Number of Islands ==========
+
     "46": {
         "id": "46",
-        "title": "Number of Islands",
+        "title": "岛屿数量",
         "difficulty": "中等",
-        "tags": ['Array', 'Depth-First Search', 'Breadth-First Search', 'Union-Find', 'Matrix'],
-        "description": 'Given an `m x n` 2D binary grid `grid` which represents a map of `&#39;1&#39;`s (land) and `&#39;0&#39;`s (water), return the number of islands.\n\nAn **island** is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** grid = [\n  [&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;0&quot;],\n  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;],\n  [&quot;1&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;0&quot;],\n',
-        "template": 'class Solution:\n    def numIslands(self, grid: List[List[str]]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u56fe", "DFS", "BFS"],
+        "description": "给定二维网格，'1'表示陆地，'0'表示水，计算岛屿数量。",
+        "template": 'def num_islands(grid):\n    pass',
+        "test_cases": [{"input": "[[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]", "expected": "1"}, {"input": "[[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"1\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"1\",\"1\"]]", "expected": "3"}]
     },
-    # ========== LeetCode 695: Max Area of Island ==========
+
     "47": {
         "id": "47",
-        "title": "Max Area of Island",
+        "title": "岛屿最大面积",
         "difficulty": "中等",
-        "tags": ['Array', 'Depth-First Search', 'Breadth-First Search', 'Union-Find', 'Matrix'],
-        "description": 'You are given an `m x n` binary matrix `grid`. An island is a group of `1`&#39;s (representing land) connected **4-directionally** (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.\n\nThe **area** of an island is the number of cells with a value `1` in the island.\n\nReturn the maximum **area** of an island in `grid`. If there is no island, return `0`.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,',
-        "template": 'class Solution:\n    def maxAreaOfIsland(self, grid: List[List[int]]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u56fe", "DFS", "BFS"],
+        "description": '给定二维网格，计算最大岛屿的面积。',
+        "template": 'def max_area_of_island(grid):\n    pass',
+        "test_cases": [{"input": "[[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]", "expected": "6"}]
     },
-    # ========== LeetCode 79: Word Search ==========
+
     "48": {
         "id": "48",
-        "title": "Word Search",
+        "title": "单词搜索",
         "difficulty": "中等",
-        "tags": ['Array', 'String', 'Backtracking', 'Depth-First Search', 'Matrix'],
-        "description": 'Given an `m x n` grid of characters `board` and a string `word`, return `true` if `word` exists in the grid.\n\nThe word can be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** board = [[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;E&quot;],[&quot;S&quot;,&quot;F&quot;,&quot;C&quot;,&quot;S&quot;],[&quot;A&quot;,&quot;D&quot;,&quot;E&quot;,&quot;E&quot;]], word = &quot;ABCCED&quot;\n**Output:** true\n\n```\n\n**Example 2:**\n\n```\n\n**I',
-        "template": 'class Solution:\n    def exist(self, board: List[List[str]], word: str) -> bool:\n        ',
-        "test_cases": [{"input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]", "expected": "\"ABCCED\""}, {"input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]", "expected": "\"SEE\""}, {"input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]]", "expected": "\"ABCB\""}]
+        "tags": ["\u56fe", "DFS", "\u56de\u6eaf"],
+        "description": '给定二维字符网格和单词，判断单词是否存在于网格中。单词由相邻单元格组成。',
+        "template": 'def exist(board, word):\n    pass',
+        "test_cases": [{"input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], \"ABCCED\"", "expected": "True"}, {"input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], \"SEE\"", "expected": "True"}, {"input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], \"ABCB\"", "expected": "False"}]
     },
-    # ========== LeetCode 733: Flood Fill ==========
+
     "49": {
         "id": "49",
-        "title": "Flood Fill",
+        "title": "图像渲染",
         "difficulty": "简单",
-        "tags": ['Array', 'Depth-First Search', 'Breadth-First Search', 'Matrix'],
-        "description": 'You are given an image represented by an `m x n` grid of integers `image`, where `image[i][j]` represents the pixel value of the image. You are also given three integers `sr`, `sc`, and `color`. Your task is to perform a **flood fill** on the image starting from the pixel `image[sr][sc]`.\n\nTo perform a **flood fill**:\n\n\t- Begin with the starting pixel and change its color to `color`.\n\n\t- Perform the same process for each pixel that is **directly adjacent** (pixels that share a side with the original pixel, either horizontally or vertically) and shares the **same color** as the starting pixel.\n',
-        "template": 'class Solution:\n    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:\n        ',
-        "test_cases": [{"input": "[[1,1,1],[1,1,0],[1,0,1]]", "expected": "1"}, {"input": "[[0,0,0],[0,0,0]]", "expected": "0"}]
+        "tags": ["\u56fe", "DFS", "BFS"],
+        "description": '给定图像和起始点，将与起始点相连的相同颜色区域染成新颜色。',
+        "template": 'def flood_fill(image, sr, sc, color):\n    pass',
+        "test_cases": [{"input": "[[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2", "expected": "[[2,2,2],[2,2,0],[2,0,1]]"}]
     },
-    # ========== LeetCode 133: Clone Graph ==========
+
     "50": {
         "id": "50",
-        "title": "Clone Graph",
+        "title": "克隆图",
         "difficulty": "中等",
-        "tags": ['Hash Table', 'Depth-First Search', 'Breadth-First Search', 'Graph Theory'],
-        "description": 'Given a reference of a node in a **connected** undirected graph.\n\nReturn a **deep copy** (clone) of the graph.\n\nEach node in the graph contains a value (`int`) and a list (`List[Node]`) of its neighbors.\n\n```\n\nclass Node {\n    public int val;\n    public List&lt;Node&gt; neighbors;\n}\n\n```\n\n&nbsp;\n\n**Test case format:**\n\nFor simplicity, each node&#39;s value is the same as the node&#39;s index (1-indexed). For example, the first node with `val == 1`, the second node with `val == 2`, and so on. The graph is represented in the test case using an adjacency list.\n\nAn adjacency list is a collection o',
-        "template": '"""\n# Definition for a Node.\nclass Node:\n    def __init__(self, val = 0, neighbors = None):\n        self.val = val\n        self.neighbors = neighbors if neighbors is not None else []\n"""\n\nfrom typing import Optional\nclass Solution:\n    def cloneGraph(self, node: Optional[\'Node\']) -> Optional[\'Node\']:\n        ',
-        "test_cases": []
+        "tags": ["\u56fe", "DFS", "BFS"],
+        "description": '给定无向连通图的节点，返回图的深拷贝。',
+        "template": 'def clone_graph(node):\n    pass',
+        "test_cases": [{"input": "Node(1)", "expected": "clone"}]
     },
-    # ========== LeetCode 207: Course Schedule ==========
+
     "51": {
         "id": "51",
-        "title": "Course Schedule",
+        "title": "课程安排",
         "difficulty": "中等",
-        "tags": ['Depth-First Search', 'Breadth-First Search', 'Graph Theory', 'Topological Sort'],
-        "description": 'There are a total of `numCourses` courses you have to take, labeled from `0` to `numCourses - 1`. You are given an array `prerequisites` where `prerequisites[i] = [ai, bi]` indicates that you **must** take course `bi` first if you want to take course `ai`.\n\n\t- For example, the pair `[0, 1]`, indicates that to take course `0` you have to first take course `1`.\n\nReturn `true` if you can finish all courses. Otherwise, return `false`.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** numCourses = 2, prerequisites = [[1,0]]\n**Output:** true\n**Explanation:** There are a total of 2 courses to take. \nTo take c',
-        "template": 'class Solution:\n    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:\n        ',
-        "test_cases": [{"input": "2", "expected": "[[1,0]]"}, {"input": "2", "expected": "[[1,0],[0,1]]"}]
+        "tags": ["\u56fe", "DFS", "\u62d3\u6251\u6392\u5e8f"],
+        "description": '给定课程数和先修要求，判断能否完成所有课程。',
+        "template": 'def can_finish(num_courses, prerequisites):\n    pass',
+        "test_cases": [{"input": "2, [[1,0]]", "expected": "True"}, {"input": "2, [[1,0],[0,1]]", "expected": "False"}]
     },
-    # ========== LeetCode 102: Binary Tree Level Order Traversal ==========
+
     "52": {
         "id": "52",
-        "title": "Binary Tree Level Order Traversal",
+        "title": "二叉树层序遍历",
         "difficulty": "中等",
-        "tags": ['Tree', 'Breadth-First Search', 'Binary Tree'],
-        "description": 'Given the `root` of a binary tree, return the level order traversal of its nodes&#39; values. (i.e., from left to right, level by level).\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** root = [3,9,20,null,null,15,7]\n**Output:** [[3],[9,20],[15,7]]\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** root = [1]\n**Output:** [[1]]\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** root = []\n**Output:** []\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- The number of nodes in the tree is in the range `[0, 2000]`.\n\n\t- `-1000 &lt;= Node.val &lt;= 1000`',
-        "template": '# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:\n        ',
-        "test_cases": []
+        "tags": ["\u6811", "BFS"],
+        "description": '给定二叉树，返回层序遍历结果（按层分组）。',
+        "template": 'def level_order(root):\n    pass',
+        "test_cases": [{"input": "[3,9,20,null,null,15,7]", "expected": "[[3],[9,20],[15,7]]"}]
     },
-    # ========== LeetCode 104: Maximum Depth of Binary Tree ==========
+
     "53": {
         "id": "53",
-        "title": "Maximum Depth of Binary Tree",
+        "title": "二叉树最大深度",
         "difficulty": "简单",
-        "tags": ['Tree', 'Depth-First Search', 'Breadth-First Search', 'Binary Tree'],
-        "description": 'Given the `root` of a binary tree, return its maximum depth.\n\nA binary tree&#39;s **maximum depth**&nbsp;is the number of nodes along the longest path from the root node down to the farthest leaf node.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** root = [3,9,20,null,null,15,7]\n**Output:** 3\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** root = [1,null,2]\n**Output:** 2\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- The number of nodes in the tree is in the range `[0, 104]`.\n\n\t- `-100 &lt;= Node.val &lt;= 100`',
-        "template": '# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def maxDepth(self, root: Optional[TreeNode]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u6811", "DFS"],
+        "description": '给定二叉树，返回其最大深度。',
+        "template": 'def max_depth(root):\n    pass',
+        "test_cases": [{"input": "[3,9,20,null,null,15,7]", "expected": "3"}, {"input": "[1]", "expected": "1"}]
     },
-    # ========== LeetCode 101: Symmetric Tree ==========
+
     "54": {
         "id": "54",
-        "title": "Symmetric Tree",
+        "title": "对称二叉树",
         "difficulty": "简单",
-        "tags": ['Tree', 'Depth-First Search', 'Breadth-First Search', 'Binary Tree'],
-        "description": 'Given the `root` of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** root = [1,2,2,3,4,4,3]\n**Output:** true\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** root = [1,2,2,null,3,null,3]\n**Output:** false\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- The number of nodes in the tree is in the range `[1, 1000]`.\n\n\t- `-100 &lt;= Node.val &lt;= 100`\n\n&nbsp;\n\n**Follow up:** Could you solve it both recursively and iteratively?',
-        "template": '# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isSymmetric(self, root: Optional[TreeNode]) -> bool:\n        ',
-        "test_cases": []
+        "tags": ["\u6811", "DFS"],
+        "description": '判断二叉树是否左右对称。',
+        "template": 'def is_symmetric(root):\n    pass',
+        "test_cases": [{"input": "[1,2,2,3,4,4,3]", "expected": "True"}, {"input": "[1,2,2,null,3,null,3]", "expected": "False"}]
     },
-    # ========== LeetCode 226: Invert Binary Tree ==========
+
     "55": {
         "id": "55",
-        "title": "Invert Binary Tree",
+        "title": "翻转二叉树",
         "difficulty": "简单",
-        "tags": ['Tree', 'Depth-First Search', 'Breadth-First Search', 'Binary Tree'],
-        "description": 'Given the `root` of a binary tree, invert the tree, and return its root.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** root = [4,2,7,1,3,6,9]\n**Output:** [4,7,2,9,6,3,1]\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** root = [2,1,3]\n**Output:** [2,3,1]\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** root = []\n**Output:** []\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- The number of nodes in the tree is in the range `[0, 100]`.\n\n\t- `-100 &lt;= Node.val &lt;= 100`',
-        "template": '# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:\n        ',
-        "test_cases": []
+        "tags": ["\u6811", "DFS"],
+        "description": '翻转二叉树（交换每个节点的左右子树）。',
+        "template": 'def invert_tree(root):\n    pass',
+        "test_cases": [{"input": "[4,2,7,1,3,6,9]", "expected": "[4,7,2,9,6,3,1]"}]
     },
-    # ========== LeetCode 70: Climbing Stairs ==========
+
     "56": {
         "id": "56",
-        "title": "Climbing Stairs",
+        "title": "爬楼梯",
         "difficulty": "简单",
-        "tags": ['Math', 'Dynamic Programming', 'Memoization'],
-        "description": 'You are climbing a staircase. It takes `n` steps to reach the top.\n\nEach time you can either climb `1` or `2` steps. In how many distinct ways can you climb to the top?\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** n = 2\n**Output:** 2\n**Explanation:** There are two ways to climb to the top.\n1. 1 step + 1 step\n2. 2 steps\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** n = 3\n**Output:** 3\n**Explanation:** There are three ways to climb to the top.\n1. 1 step + 1 step + 1 step\n2. 1 step + 2 steps\n3. 2 steps + 1 step\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= n &lt;= 45`',
-        "template": 'class Solution:\n    def climbStairs(self, n: int) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u52a8\u6001\u89c4\u5212"],
+        "description": '每次可以爬 1 或 2 个台阶，问爬到第 n 阶有多少种方法。',
+        "template": 'def climb_stairs(n):\n    pass',
+        "test_cases": [{"input": "2", "expected": "2"}, {"input": "3", "expected": "3"}, {"input": "5", "expected": "8"}]
     },
-    # ========== LeetCode 198: House Robber ==========
+
     "57": {
         "id": "57",
-        "title": "House Robber",
+        "title": "打家劫舍",
         "difficulty": "中等",
-        "tags": ['Array', 'Dynamic Programming'],
-        "description": 'You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, the only constraint stopping you from robbing each of them is that adjacent houses have security systems connected and it will automatically contact the police if two adjacent houses were broken into on the same night.\n\nGiven an integer array `nums` representing the amount of money of each house, return the maximum amount of money you can rob tonight without alerting the police.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [1,2,3,1]\n**Output:** 4\n**Explanation:** Rob house ',
-        "template": 'class Solution:\n    def rob(self, nums: List[int]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u52a8\u6001\u89c4\u5212"],
+        "description": '给定数组表示每间房屋的金额，相邻房屋不能同时被盗，求最大金额。',
+        "template": 'def rob(nums):\n    pass',
+        "test_cases": [{"input": "[1, 2, 3, 1]", "expected": "4"}, {"input": "[2, 7, 9, 3, 1]", "expected": "12"}]
     },
-    # ========== LeetCode 62: Unique Paths ==========
+
     "58": {
         "id": "58",
-        "title": "Unique Paths",
+        "title": "不同路径",
         "difficulty": "中等",
-        "tags": ['Math', 'Dynamic Programming', 'Combinatorics'],
-        "description": 'There is a robot on an `m x n` grid. The robot is initially located at the **top-left corner** (i.e., `grid[0][0]`). The robot tries to move to the **bottom-right corner** (i.e., `grid[m - 1][n - 1]`). The robot can only move either down or right at any point in time.\n\nGiven the two integers `m` and `n`, return the number of possible unique paths that the robot can take to reach the bottom-right corner.\n\nThe test cases are generated so that the answer will be less than or equal to `2 * 109`.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** m = 3, n = 7\n**Output:** 28\n\n```\n\n**Example 2:**\n\n```\n\n**Input',
-        "template": 'class Solution:\n    def uniquePaths(self, m: int, n: int) -> int:\n        ',
-        "test_cases": [{"input": "3", "expected": "7"}, {"input": "3", "expected": "2"}]
+        "tags": ["\u52a8\u6001\u89c4\u5212"],
+        "description": '机器人从 m×n 网格左上角走到右下角，只能向右或向下，问有多少种路径。',
+        "template": 'def unique_paths(m, n):\n    pass',
+        "test_cases": [{"input": "3, 7", "expected": "28"}, {"input": "3, 2", "expected": "3"}]
     },
-    # ========== LeetCode 322: Coin Change ==========
+
     "59": {
         "id": "59",
-        "title": "Coin Change",
+        "title": "零钱兑换",
         "difficulty": "中等",
-        "tags": ['Array', 'Dynamic Programming', 'Breadth-First Search'],
-        "description": 'You are given an integer array `coins` representing coins of different denominations and an integer `amount` representing a total amount of money.\n\nReturn the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return `-1`.\n\nYou may assume that you have an infinite number of each kind of coin.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** coins = [1,2,5], amount = 11\n**Output:** 3\n**Explanation:** 11 = 5 + 5 + 1\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** coins = [2], amount = 3\n**Output:** -1\n\n```\n\n**Example 3:**\n\n```\n\n*',
-        "template": 'class Solution:\n    def coinChange(self, coins: List[int], amount: int) -> int:\n        ',
-        "test_cases": [{"input": "[1,2,5]", "expected": "11"}, {"input": "[2]", "expected": "3"}, {"input": "[1]", "expected": "0"}]
+        "tags": ["\u52a8\u6001\u89c4\u5212"],
+        "description": '给定硬币面额和目标金额，计算凑成目标金额的最少硬币数。',
+        "template": 'def coin_change(coins, amount):\n    pass',
+        "test_cases": [{"input": "[1, 2, 5], 11", "expected": "3"}, {"input": "[2], 3", "expected": "-1"}]
     },
-    # ========== LeetCode 300: Longest Increasing Subsequence ==========
+
     "60": {
         "id": "60",
-        "title": "Longest Increasing Subsequence",
+        "title": "最长递增子序列",
         "difficulty": "中等",
-        "tags": ['Array', 'Binary Search', 'Dynamic Programming'],
-        "description": 'Given an integer array `nums`, return the length of the longest **strictly increasing ****subsequence**.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [10,9,2,5,3,7,101,18]\n**Output:** 4\n**Explanation:** The longest increasing subsequence is [2,3,7,101], therefore the length is 4.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [0,1,0,3,2,3]\n**Output:** 4\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** nums = [7,7,7,7,7,7,7]\n**Output:** 1\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= nums.length &lt;= 2500`\n\n\t- `-104 &lt;= nums[i] &lt;= 104`\n\n&nbsp;\n\nFollow up:&nbsp;Can you come up with an algorithm that r',
-        "template": 'class Solution:\n    def lengthOfLIS(self, nums: List[int]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u52a8\u6001\u89c4\u5212"],
+        "description": '给定数组，找出最长严格递增子序列的长度。',
+        "template": 'def length_of_lis(nums):\n    pass',
+        "test_cases": [{"input": "[10, 9, 2, 5, 3, 7, 101, 18]", "expected": "4"}, {"input": "[0, 1, 0, 3, 2, 3]", "expected": "4"}]
     },
-    # ========== LeetCode 53: Maximum Subarray ==========
+
     "61": {
         "id": "61",
-        "title": "Maximum Subarray",
+        "title": "最大子数组和",
         "difficulty": "中等",
-        "tags": ['Array', 'Divide and Conquer', 'Dynamic Programming'],
-        "description": 'Given an integer array `nums`, find the subarray with the largest sum, and return its sum.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [-2,1,-3,4,-1,2,1,-5,4]\n**Output:** 6\n**Explanation:** The subarray [4,-1,2,1] has the largest sum 6.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [1]\n**Output:** 1\n**Explanation:** The subarray [1] has the largest sum 1.\n\n```\n\n**Example 3:**\n\n```\n\n**Input:** nums = [5,4,-1,7,8]\n**Output:** 23\n**Explanation:** The subarray [5,4,-1,7,8] has the largest sum 23.\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= nums.length &lt;= 105`\n\n\t- `-104 &lt;= nums[i] &lt;= 10',
-        "template": 'class Solution:\n    def maxSubArray(self, nums: List[int]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u52a8\u6001\u89c4\u5212"],
+        "description": '给定整数数组，找出具有最大和的连续子数组。',
+        "template": 'def max_sub_array(nums):\n    pass',
+        "test_cases": [{"input": "[-2, 1, -3, 4, -1, 2, 1, -5, 4]", "expected": "6"}, {"input": "[1]", "expected": "1"}]
     },
-    # ========== LeetCode 121: Best Time to Buy and Sell Stock ==========
+
     "62": {
         "id": "62",
-        "title": "Best Time to Buy and Sell Stock",
+        "title": "买卖股票最佳时机",
         "difficulty": "简单",
-        "tags": ['Array', 'Dynamic Programming'],
-        "description": 'You are given an array `prices` where `prices[i]` is the price of a given stock on the `ith` day.\n\nYou want to maximize your profit by choosing a **single day** to buy one stock and choosing a **different day in the future** to sell that stock.\n\nReturn the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return `0`.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** prices = [7,1,5,3,6,4]\n**Output:** 5\n**Explanation:** Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.\nNote that buying on day 2 and selling on day 1 is not allowed because you ',
-        "template": 'class Solution:\n    def maxProfit(self, prices: List[int]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u52a8\u6001\u89c4\u5212"],
+        "description": '给定股价数组，选择某天买入和某天卖出，计算最大利润。',
+        "template": 'def max_profit(prices):\n    pass',
+        "test_cases": [{"input": "[7, 1, 5, 3, 6, 4]", "expected": "5"}, {"input": "[7, 6, 4, 3, 1]", "expected": "0"}]
     },
-    # ========== LeetCode 120: Triangle ==========
+
     "63": {
         "id": "63",
-        "title": "Triangle",
+        "title": "三角形最小路径和",
         "difficulty": "中等",
-        "tags": ['Array', 'Dynamic Programming'],
-        "description": 'Given a `triangle` array, return the minimum path sum from top to bottom.\n\nFor each step, you may move to an adjacent number of the row below. More formally, if you are on index `i` on the current row, you may move to either index `i` or index `i + 1` on the next row.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]\n**Output:** 11\n**Explanation:** The triangle looks like:\n   2\n  3 4\n 6 5 7\n4 1 8 3\nThe minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above).\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** triangle = [[-10]]\n**Output:** -10\n\n```\n\n&nbsp',
-        "template": 'class Solution:\n    def minimumTotal(self, triangle: List[List[int]]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u52a8\u6001\u89c4\u5212"],
+        "description": '给定三角形，从顶到底找最小路径和，每步只能移到下一行相邻位置。',
+        "template": 'def minimum_total(triangle):\n    pass',
+        "test_cases": [{"input": "[[2],[3,4],[6,5,7],[4,1,8,3]]", "expected": "11"}]
     },
-    # ========== LeetCode 747: Min Cost Climbing Stairs ==========
+
     "64": {
         "id": "64",
-        "title": "Min Cost Climbing Stairs",
+        "title": "最小花费爬楼梯",
         "difficulty": "简单",
-        "tags": ['Array', 'Dynamic Programming'],
-        "description": 'You are given an integer array `cost` where `cost[i]` is the cost of `ith` step on a staircase. Once you pay the cost, you can either climb one or two steps.\n\nYou can either start from the step with index `0`, or the step with index `1`.\n\nReturn the minimum cost to reach the top of the floor.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** cost = [10,15,20]\n**Output:** 15\n**Explanation:** You will start at index 1.\n- Pay 15 and climb two steps to reach the top.\nThe total cost is 15.\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** cost = [1,100,1,1,1,100,1,1,100,1]\n**Output:** 6\n**Explanation:** You will start ',
-        "template": 'class Solution:\n    def minCostClimbingStairs(self, cost: List[int]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u52a8\u6001\u89c4\u5212"],
+        "description": '给定数组表示爬每阶的花费，可从下标 0 或 1 开始，求到达顶部的最小花费。',
+        "template": 'def min_cost_climbing_stairs(cost):\n    pass',
+        "test_cases": [{"input": "[10, 15, 20]", "expected": "15"}, {"input": "[1, 100, 1, 1, 1, 100, 1, 1, 100, 1]", "expected": "6"}]
     },
-    # ========== LeetCode 416: Partition Equal Subset Sum ==========
+
     "65": {
         "id": "65",
-        "title": "Partition Equal Subset Sum",
+        "title": "分割等和子集",
         "difficulty": "中等",
-        "tags": ['Array', 'Dynamic Programming'],
-        "description": 'Given an integer array `nums`, return `true` if you can partition the array into two subsets such that the sum of the elements in both subsets is equal or `false` otherwise.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input:** nums = [1,5,11,5]\n**Output:** true\n**Explanation:** The array can be partitioned as [1, 5, 5] and [11].\n\n```\n\n**Example 2:**\n\n```\n\n**Input:** nums = [1,2,3,5]\n**Output:** false\n**Explanation:** The array cannot be partitioned into equal sum subsets.\n\n```\n\n&nbsp;\n\n**Constraints:**\n\n\t- `1 &lt;= nums.length &lt;= 200`\n\n\t- `1 &lt;= nums[i] &lt;= 100`',
-        "template": 'class Solution:\n    def canPartition(self, nums: List[int]) -> bool:\n        ',
-        "test_cases": []
+        "tags": ["\u52a8\u6001\u89c4\u5212"],
+        "description": '给定数组，判断能否分成两个和相等的子集。',
+        "template": 'def can_partition(nums):\n    pass',
+        "test_cases": [{"input": "[1, 5, 11, 5]", "expected": "True"}, {"input": "[1, 2, 3, 5]", "expected": "False"}]
     },
-    # ========== LeetCode 20: Valid Parentheses ==========
+
     "66": {
         "id": "66",
-        "title": "Valid Parentheses",
+        "title": "有效括号",
         "difficulty": "简单",
-        "tags": ['String', 'Stack'],
-        "description": 'Given a string `s` containing just the characters `&#39;(&#39;`, `&#39;)&#39;`, `&#39;{&#39;`, `&#39;}&#39;`, `&#39;[&#39;` and `&#39;]&#39;`, determine if the input string is valid.\n\nAn input string is valid if:\n\n\t- Open brackets must be closed by the same type of brackets.\n\n\t- Open brackets must be closed in the correct order.\n\n\t- Every close bracket has a corresponding open bracket of the same type.\n\n&nbsp;\n\n**Example 1:**\n\n**Input:** s = &quot;()&quot;\n\n**Output:** true\n\n**Example 2:**\n\n**Input:** s = &quot;()[]{}&quot;\n\n**Output:** true\n\n**Example 3:**\n\n**Input:** s = &quot;(]&quot;\n\n**Ou',
-        "template": 'class Solution:\n    def isValid(self, s: str) -> bool:\n        ',
-        "test_cases": []
+        "tags": ["\u6808", "\u5b57\u7b26\u4e32"],
+        "description": '给定只含括号的字符串，判断括号是否有效配对。',
+        "template": 'def is_valid(s):\n    pass',
+        "test_cases": [{"input": "\"()\"", "expected": "True"}, {"input": "\"()[]{}\"", "expected": "True"}, {"input": "\"(]\"", "expected": "False"}, {"input": "\"([)]\"", "expected": "False"}]
     },
-    # ========== LeetCode 155: Min Stack ==========
+
     "67": {
         "id": "67",
-        "title": "Min Stack",
+        "title": "最小栈",
         "difficulty": "中等",
-        "tags": ['Stack', 'Design'],
-        "description": 'Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.\n\nImplement the `MinStack` class:\n\n\t- `MinStack()` initializes the stack object.\n\n\t- `void push(int val)` pushes the element `val` onto the stack.\n\n\t- `void pop()` removes the element on the top of the stack.\n\n\t- `int top()` gets the top element of the stack.\n\n\t- `int getMin()` retrieves the minimum element in the stack.\n\nYou must implement a solution with `O(1)` time complexity for each function.\n\n&nbsp;\n\n**Example 1:**\n\n```\n\n**Input**\n[&quot;MinStack&quot;,&quot;push&quot;,&quot;push&quot;,&quot;',
-        "template": 'class MinStack:\n\n    def __init__(self):\n        \n\n    def push(self, val: int) -> None:\n        \n\n    def pop(self) -> None:\n        \n\n    def top(self) -> int:\n        \n\n    def getMin(self) -> int:\n        \n\n\n# Your MinStack object will be instantiated and called as such:\n# obj = MinStack()\n# obj.push(val)\n# obj.pop()\n# param_3 = obj.top()\n# param_4 = obj.getMin()',
-        "test_cases": [{"input": "[\"MinStack\",\"push\",\"push\",\"push\",\"getMin\",\"pop\",\"top\",\"getMin\"]", "expected": "[[],[-2],[0],[-3],[],[],[],[]]"}]
+        "tags": ["\u6808", "\u8bbe\u8ba1"],
+        "description": '设计一个支持 push、pop、top 和在 O(1) 时间内获取最小元素的栈。',
+        "template": 'class MinStack:\n    def __init__(self):\n        pass\n    def push(self, val):\n        pass\n    def pop(self):\n        pass\n    def top(self):\n        pass\n    def getMin(self):\n        pass',
+        "test_cases": [{"input": "push(-2), push(0), push(-3), getMin()", "expected": "-3"}]
     },
-    # ========== LeetCode 150: Evaluate Reverse Polish Notation ==========
+
     "68": {
         "id": "68",
-        "title": "Evaluate Reverse Polish Notation",
+        "title": "逆波兰表达式求值",
         "difficulty": "中等",
-        "tags": ['Array', 'Math', 'Stack'],
-        "description": 'You are given an array of strings `tokens` that represents an arithmetic expression in a Reverse Polish Notation.\n\nEvaluate the expression. Return an integer that represents the value of the expression.\n\n**Note** that:\n\n\t- The valid operators are `&#39;+&#39;`, `&#39;-&#39;`, `&#39;*&#39;`, and `&#39;/&#39;`.\n\n\t- Each operand may be an integer or another expression.\n\n\t- The division between two integers always **truncates toward zero**.\n\n\t- There will not be any division by zero.\n\n\t- The input represents a valid arithmetic expression in a reverse polish notation.\n\n\t- The answer and all the int',
-        "template": 'class Solution:\n    def evalRPN(self, tokens: List[str]) -> int:\n        ',
-        "test_cases": []
+        "tags": ["\u6808"],
+        "description": '给定逆波兰表达式（后缀表达式），求其值。',
+        "template": 'def eval_rpn(tokens):\n    pass',
+        "test_cases": [{"input": "[\"2\",\"1\",\"+\",\"3\",\"*\"]", "expected": "9"}, {"input": "[\"4\",\"13\",\"5\",\"/\",\"+\"]", "expected": "6"}]
     },
-    # ========== LeetCode 739: Daily Temperatures ==========
+
     "69": {
         "id": "69",
-        "title": "Daily Temperatures",
+        "title": "每日温度",
         "difficulty": "中等",
-        "tags": ['Array', 'Stack', 'Monotonic Stack'],
-        "description": 'Given an array of integers `temperatures` represents the daily temperatures, return an array `answer` such that `answer[i]` is the number of days you have to wait after the `ith` day to get a warmer temperature. If there is no future day for which this is possible, keep `answer[i] == 0` instead.\n\n&nbsp;\n\n**Example 1:**\n\n```\n**Input:** temperatures = [73,74,75,71,69,72,76,73]\n**Output:** [1,1,4,2,1,1,0,0]\n\n```\n\n**Example 2:**\n\n```\n**Input:** temperatures = [30,40,50,60]\n**Output:** [1,1,1,0]\n\n```\n\n**Example 3:**\n\n```\n**Input:** temperatures = [30,60,90]\n**Output:** [1,1,0]\n\n```\n\n&nbsp;\n\n**Const',
-        "template": 'class Solution:\n    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:\n        ',
-        "test_cases": []
+        "tags": ["\u6808", "\u6570\u7ec4"],
+        "description": '给定每日温度数组，返回数组 answer，answer[i] 表示要等几天才能有更高温度。',
+        "template": 'def daily_temperatures(temperatures):\n    pass',
+        "test_cases": [{"input": "[73, 74, 75, 71, 69, 72, 76, 73]", "expected": "[1, 1, 4, 2, 1, 1, 0, 0]"}, {"input": "[30, 40, 50, 60]", "expected": "[1, 1, 1, 0]"}]
     },
-    # ========== LeetCode 883: Car Fleet ==========
+
     "70": {
         "id": "70",
-        "title": "Car Fleet",
+        "title": "车队",
         "difficulty": "中等",
-        "tags": ['Array', 'Stack', 'Sorting', 'Monotonic Stack'],
-        "description": 'There are `n` cars at given miles away from the starting mile 0, traveling to reach the mile `target`.\n\nYou are given two integer arrays&nbsp;`position` and `speed`, both of length `n`, where `position[i]` is the starting mile of the `ith` car and `speed[i]` is the speed of the `ith` car in miles per hour.\n\nA car cannot pass another car, but it can catch up and then travel next to it at the speed of the slower car.\n\nA **car fleet** is a single car or a group of cars driving next to each other. The speed of the car fleet is the **minimum** speed of any car in the fleet.\n\nIf a car catches up to ',
-        "template": 'class Solution:\n    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:\n        ',
-        "test_cases": [{"input": "12", "expected": "[10,8,0,5,3]"}, {"input": "10", "expected": "[3]"}, {"input": "100", "expected": "[0,2,4]"}]
-    }
-
+        "tags": ["\u6808", "\u6392\u5e8f"],
+        "description": 'N 辆车沿单行道行驶，给定位置和速度，后车追上前车会合并成车队。求到达目标时的车队数量。',
+        "template": 'def car_fleet(target, position, speed):\n    pass',
+        "test_cases": [{"input": "12, [10, 8, 0, 5, 3], [2, 4, 1, 1, 3]", "expected": "3"}]
+    },
 }
-
-def run_python_code(code, timeout=5):
-    """安全执行 Python 代码（Docker 沙箱）"""
-    try:
-        # 使用 Docker 沙箱执行代码
-        result = subprocess.run(
-            [
-                'docker', 'run', '--rm',
-                '--network=none',           # 禁止网络访问
-                '--memory=128m',            # 内存限制 128MB
-                '--cpus=0.5',               # CPU 限制 0.5 核
-                '--pids-limit=50',          # 进程数限制
-                '--security-opt=no-new-privileges',  # 禁止提权
-                '--cap-drop=ALL',           # 移除所有 Linux capabilities
-                '--security-opt', 'seccomp=unconfined',  # 使用默认 seccomp 配置
-                '--read-only',              # 只读文件系统（仅允许 /tmp）
-                '--tmpfs', '/tmp:size=10M,mode=1777',  # 临时目录
-                '-i',                       # 交互模式
-                'python-sandbox:latest',    # 沙箱镜像
-            ],
-            input=code,
-            capture_output=True,
-            text=True,
-            timeout=timeout + 2  # Docker 额外给 2 秒
-        )
-        
-        if result.returncode == 0:
-            return {"success": True, "output": result.stdout.strip()}
-        else:
-            return {"success": False, "output": result.stderr.strip()}
-    except subprocess.TimeoutExpired:
-        return {"success": False, "output": f"代码执行超时（{timeout}秒）"}
-    except Exception as e:
-        return {"success": False, "output": str(e)}
-
-def analyze_code(code, problem_id):
-    """分析代码质量"""
-    analysis = {
-        "score": 100,  # 从100分开始扣
-        "comments": [],
-        "suggestions": []
-    }
-    
-    # 基本检查
-    if not code.strip():
-        analysis["score"] = 0
-        analysis["comments"].append("❌ 代码为空")
-        return analysis
-    
-    # 检查是否有注释 - 没有注释扣50分
-    has_comment = False
-    if "#" in code:
-        # 检查是否是真正的注释（不是字符串内的#）
-        lines = code.split('\n')
-        for line in lines:
-            stripped = line.strip()
-            if stripped.startswith('#'):
-                has_comment = True
-                break
-    if '"""' in code or "'''" in code:
-        has_comment = True
-    
-    if has_comment:
-        analysis["comments"].append("✅ 代码包含注释")
-    else:
-        analysis["score"] -= 50
-        analysis["comments"].append("❌ 代码缺少注释 (-50分)")
-        analysis["suggestions"].append("💡 建议添加代码注释，说明函数功能和关键逻辑")
-    
-    # 检查是否有pass
-    if "pass" in code and "def " in code:
-        analysis["score"] -= 30
-        analysis["comments"].append("⚠️ 函数中包含 pass，可能未完成实现 (-30分)")
-    
-    # 检查代码长度
-    lines = [l for l in code.split('\n') if l.strip()]
-    if len(lines) < 3:
-        analysis["comments"].append("⚠️ 代码行数较少，可能实现不完整")
-    
-    # 检查是否使用了数据结构
-    if "dict" in code or "{" in code:
-        analysis["comments"].append("✅ 使用了字典/哈希表")
-    
-    if "for" in code or "while" in code:
-        analysis["comments"].append("✅ 使用了循环结构")
-    
-    # 针对题目的特定建议
-    if problem_id in PROBLEMS:
-        problem = PROBLEMS[problem_id]
-        tags = problem.get("tags", [])
-        
-        if "动态规划" in tags and "dp" not in code.lower():
-            analysis["suggestions"].append("💡 本题可用动态规划优化，建议尝试使用 dp 数组")
-        
-        if "双指针" in tags and "left" not in code.lower() and "right" not in code.lower():
-            analysis["suggestions"].append("💡 本题可用双指针方法，建议尝试左右指针")
-        
-        if "递归" in tags and "return" not in code:
-            analysis["suggestions"].append("💡 递归解法需要有返回值")
-    
-    # 确保分数在0-100之间
-    analysis["score"] = min(100, max(0, analysis["score"]))
-    
-    if analysis["score"] >= 80:
-        analysis["comments"].insert(0, "🎉 代码质量优秀！")
-    elif analysis["score"] >= 60:
-        analysis["comments"].insert(0, "📝 代码质量良好")
-    else:
-        analysis["comments"].insert(0, "⚠️ 代码需要改进")
-    
-    return analysis
-
-@app.route('/')
-def index():
-    return render_template('index.html', problems=PROBLEMS)
-
-@app.route('/api/problems')
-def get_problems():
-    difficulty_filter = request.args.get('difficulty', 'all')
-    
-    problems = []
-    for p in PROBLEMS.values():
-        if difficulty_filter == 'all' or p["difficulty"] == difficulty_filter:
-            problems.append({
-                "id": p["id"],
-                "title": p["title"],
-                "difficulty": p["difficulty"],
-                "tags": p.get("tags", [])
-            })
-    
-    return jsonify(problems)
-
-@app.route('/api/problem/<problem_id>')
-def get_problem(problem_id):
-    if problem_id in PROBLEMS:
-        problem = PROBLEMS[problem_id]
-        
-        # 获取函数名（从 template 中提取）
-        template = problem["template"]
-        func_match = re.search(r'def (\w+)\(', template)
-        func_name = func_match.group(1) if func_match else "solution"
-        
-        # 生成测试用例调用代码
-        test_calls = []
-        for tc in problem["test_cases"]:
-            # input 格式如 "twoSum([2, 7, 11, 15], 9)"
-            test_calls.append(f"    print({tc['input']})  # 预期: {tc['expected']}")
-        
-        main_code = f'''
-
-if __name__ == "__main__":
-    # 测试用例
-{chr(10).join(test_calls)}
-'''
-        full_template = template.rstrip() + main_code
-        
-        return jsonify({
-            "id": problem["id"],
-            "title": problem["title"],
-            "difficulty": problem["difficulty"],
-            "description": problem["description"],
-            "template": full_template,
-            "test_cases": problem["test_cases"],
-            "tags": problem.get("tags", []),
-            "hints": problem.get("hints", [])
-        })
-    return jsonify({"error": "题目不存在"}), 404
-
-@app.route('/api/run', methods=['POST'])
-def run_code():
-    code = request.json.get('code', '')
-    result = run_python_code(code)
-    return jsonify(result)
-
-@app.route('/api/submit/<problem_id>', methods=['POST'])
-def submit_code(problem_id):
-    if problem_id not in PROBLEMS:
-        return jsonify({"error": "题目不存在"}), 404
-    
-    code = request.json.get('code', '')
-    
-    # 过滤掉 if __name__ == "__main__" 部分，只保留函数定义
-    main_index = code.find('if __name__ == "__main__"')
-    if main_index != -1:
-        code = code[:main_index].rstrip()
-    
-    problem = PROBLEMS[problem_id]
-    
-    results = []
-    all_passed = True
-    
-    for test_case in problem["test_cases"]:
-        test_code = f"{code}\nprint({test_case['input']})"
-        result = run_python_code(test_code)
-        
-        if result["success"]:
-            actual = result["output"]
-            expected = test_case["expected"]
-            passed = actual == expected
-            if not passed:
-                all_passed = False
-            results.append({
-                "input": test_case["input"],
-                "expected": expected,
-                "actual": actual,
-                "passed": passed
-            })
-        else:
-            all_passed = False
-            results.append({
-                "input": test_case["input"],
-                "expected": test_case["expected"],
-                "actual": result["output"],
-                "passed": False,
-                "error": True
-            })
-    
-    return jsonify({
-        "all_passed": all_passed,
-        "results": results
-    })
-
-@app.route('/api/analyze/<problem_id>', methods=['POST'])
-def analyze(problem_id):
-    """分析代码质量"""
-    if problem_id not in PROBLEMS:
-        return jsonify({"error": "题目不存在"}), 404
-    
-    code = request.json.get('code', '')
-    analysis = analyze_code(code, problem_id)
-    
-    return jsonify(analysis)
-
-@app.route('/api/solution/<problem_id>')
-def get_solution(problem_id):
-    if problem_id in PROBLEMS:
-        problem = PROBLEMS[problem_id]
-        solution = problem["solution"]
-        
-        # 获取函数名
-        func_match = re.search(r'def (\w+)\(', solution)
-        func_name = func_match.group(1) if func_match else "solution"
-        
-        # 生成测试用例调用
-        test_calls = []
-        for tc in problem["test_cases"]:
-            test_calls.append(f"    print({tc['input']})  # 预期: {tc['expected']}")
-        
-        main_code = f'''
-
-if __name__ == "__main__":
-    # 测试用例
-{chr(10).join(test_calls)}
-'''
-        full_solution = solution.rstrip() + main_code
-        
-        return jsonify({
-            "solution": full_solution,
-            "hints": problem.get("hints", [])
-        })
-    return jsonify({"error": "题目不存在"}), 404
-
-@app.route('/api/hints/<problem_id>')
-def get_hints(problem_id):
-    if problem_id in PROBLEMS:
-        return jsonify({"hints": PROBLEMS[problem_id].get("hints", [])})
-    return jsonify({"error": "题目不存在"}), 404
-
-@app.route('/free')
-def free_editor():
-    """自由编辑模式"""
-    return render_template('free.html')
-
-# ========== 访问统计功能 ==========
-
-# 统计页面密码（从环境变量读取）
-import os
-STATS_PASSWORD = os.environ.get('STATS_PASSWORD', 'admin123')
-STATS_TOKEN = os.environ.get('STATS_TOKEN', 'python_stats_2026')
-
-def check_stats_auth():
-    """检查统计页面权限"""
-    token = request.cookies.get('stats_token')
-    return token == STATS_TOKEN
-
-@app.route('/stats')
-def stats_page():
-    """统计页面"""
-    if not check_stats_auth():
-        return render_template('stats_login.html')
-    return render_template('stats.html')
-
-@app.route('/api/stats/login', methods=['POST'])
-def stats_login():
-    """统计页面登录"""
-    password = request.json.get('password', '')
-    if password == STATS_PASSWORD:
-        response = jsonify({'success': True})
-        response.set_cookie('stats_token', STATS_TOKEN, max_age=86400*30)  # 30天有效
-        return response
-    return jsonify({'success': False, 'error': '密码错误'})
-
-@app.route('/api/stats/logout')
-def stats_logout():
-    """退出登录"""
-    response = jsonify({'success': True})
-    response.delete_cookie('stats_token')
-    return response
-
-@app.route('/api/stats/check_auth')
-def stats_check_auth():
-    """检查登录状态"""
-    return jsonify({'authenticated': check_stats_auth()})
-
-@app.route('/api/stats/overview')
-def stats_overview():
-    """总览统计"""
-    if not check_stats_auth():
-        return jsonify({'error': '未授权'}), 401
-    
-    db = get_db()
-    
-    # 总访问量
-    total = db.execute('SELECT COUNT(*) as count FROM visits').fetchone()['count']
-    
-    # 今日访问量
-    today = db.execute(
-        "SELECT COUNT(*) as count FROM visits WHERE date(timestamp) = date('now', 'localtime')"
-    ).fetchone()['count']
-    
-    # 独立IP数
-    unique_ips = db.execute('SELECT COUNT(DISTINCT ip) as count FROM visits').fetchone()['count']
-    
-    # 页面访问量
-    page_views = db.execute(
-        'SELECT path, COUNT(*) as count FROM visits GROUP BY path ORDER BY count DESC LIMIT 10'
-    ).fetchall()
-    
-    return jsonify({
-        'total': total,
-        'today': today,
-        'unique_ips': unique_ips,
-        'page_views': [dict(row) for row in page_views]
-    })
-
-@app.route('/api/stats/daily')
-def stats_daily():
-    """每日访问统计"""
-    if not check_stats_auth():
-        return jsonify({'error': '未授权'}), 401
-    db = get_db()
-    
-    days = request.args.get('days', 7, type=int)
-    
-    daily = db.execute(f'''
-        SELECT date(timestamp) as date, COUNT(*) as count
-        FROM visits
-        WHERE timestamp >= date('now', '-{days} days', 'localtime')
-        GROUP BY date(timestamp)
-        ORDER BY date DESC
-    ''').fetchall()
-    
-    return jsonify([dict(row) for row in daily])
-
-@app.route('/api/stats/hourly')
-def stats_hourly():
-    """今日每小时访问统计"""
-    if not check_stats_auth():
-        return jsonify({'error': '未授权'}), 401
-    db = get_db()
-    
-    hourly = db.execute('''
-        SELECT strftime('%H', timestamp) as hour, COUNT(*) as count
-        FROM visits
-        WHERE date(timestamp) = date('now', 'localtime')
-        GROUP BY hour
-        ORDER BY hour
-    ''').fetchall()
-    
-    return jsonify([dict(row) for row in hourly])
-
-@app.route('/api/stats/sources')
-def stats_sources():
-    """访问来源统计"""
-    if not check_stats_auth():
-        return jsonify({'error': '未授权'}), 401
-    db = get_db()
-    
-    # IP 来源
-    ip_stats = db.execute('''
-        SELECT ip, COUNT(*) as count,
-               MIN(timestamp) as first_visit,
-               MAX(timestamp) as last_visit
-        FROM visits
-        GROUP BY ip
-        ORDER BY count DESC
-        LIMIT 20
-    ''').fetchall()
-    
-    # Referer 来源
-    referer_stats = db.execute('''
-        SELECT 
-            CASE 
-                WHEN referer = '' OR referer IS NULL THEN '直接访问'
-                ELSE referer
-            END as source,
-            COUNT(*) as count
-        FROM visits
-        GROUP BY source
-        ORDER BY count DESC
-        LIMIT 10
-    ''').fetchall()
-    
-    # User-Agent 统计
-    ua_stats = db.execute('''
-        SELECT 
-            CASE 
-                WHEN user_agent LIKE '%Mobile%' THEN '移动端'
-                WHEN user_agent LIKE '%Windows%' THEN 'Windows'
-                WHEN user_agent LIKE '%Mac%' THEN 'Mac'
-                WHEN user_agent LIKE '%Linux%' THEN 'Linux'
-                ELSE '其他'
-            END as platform,
-            COUNT(*) as count
-        FROM visits
-        GROUP BY platform
-        ORDER BY count DESC
-    ''').fetchall()
-    
-    return jsonify({
-        'ip_stats': [dict(row) for row in ip_stats],
-        'referer_stats': [dict(row) for row in referer_stats],
-        'platform_stats': [dict(row) for row in ua_stats]
-    })
-
-@app.route('/api/stats/recent')
-def stats_recent():
-    """最近访问记录"""
-    if not check_stats_auth():
-        return jsonify({'error': '未授权'}), 401
-    db = get_db()
-    
-    limit = request.args.get('limit', 50, type=int)
-    
-    recent = db.execute(f'''
-        SELECT ip, path, user_agent, referer, timestamp
-        FROM visits
-        ORDER BY timestamp DESC
-        LIMIT {limit}
-    ''').fetchall()
-    
-    return jsonify([dict(row) for row in recent])
-
-if __name__ == '__main__':
-    # 初始化数据库
-    init_db()
-    
-    print("🚀 Python 在线练习平台启动中...")
-    print(f"📖 访问地址: http://localhost:5088")
-    print(f"🆓 自由模式: http://localhost:5088/free")
-    print(f"📊 访问统计: http://localhost:5088/stats")
-    print(f"📚 已加载 {len(PROBLEMS)} 道题目")
-    
-    # 统计各难度题目数量
-    difficulties = {}
-    for p in PROBLEMS.values():
-        d = p["difficulty"]
-        difficulties[d] = difficulties.get(d, 0) + 1
-    
-    for d, count in difficulties.items():
-        print(f"   - {d}: {count} 道")
-    
-    # 生产环境不使用 debug 模式
-    debug_mode = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
-    app.run(host='0.0.0.0', port=5088, debug=debug_mode)
