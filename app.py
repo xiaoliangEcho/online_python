@@ -957,8 +957,20 @@ def minWindow(s, t):
         "description": '给定一个已排序的整数数组 nums 和目标值 target，返回目标值的索引。如果不存在，返回 -1。要求时间复杂度 O(log n)。',
         "template": 'def binary_search(nums, target):\n    pass',
         "test_cases": [{"input": "[1, 3, 5, 7, 9], 5", "expected": "2"}, {"input": "[1, 3, 5, 7, 9], 6", "expected": "-1"}, {"input": "[-1, 0, 3, 5, 9, 12], 9", "expected": "4"}]
+    ,
+        "solution": """def binary_search(nums, target):
+    left, right = 0, len(nums) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1""",
+        "hints": ["经典二分查找", "时间O(logn)，空间O(1)"]
     },
-
     "22": {
         "id": "22",
         "title": "旋转数组找最小值",
@@ -967,8 +979,18 @@ def minWindow(s, t):
         "description": '一个升序数组在某点被旋转了，例如 [0,1,2,4,5,6,7] 变成 [4,5,6,7,0,1,2]。找出旋转后数组中的最小元素。要求 O(log n)。',
         "template": 'def find_min(nums):\n    pass',
         "test_cases": [{"input": "[4, 5, 6, 7, 0, 1, 2]", "expected": "0"}, {"input": "[3, 4, 5, 1, 2]", "expected": "1"}, {"input": "[1]", "expected": "1"}]
+    ,
+        "solution": """def find_min(nums):
+    left, right = 0, len(nums) - 1
+    while left < right:
+        mid = (left + right) // 2
+        if nums[mid] > nums[right]:
+            left = mid + 1
+        else:
+            right = mid
+    return nums[left]""",
+        "hints": ["旋转数组最小值在右侧无序部分", "时间O(logn)"]
     },
-
     "23": {
         "id": "23",
         "title": "旋转数组查找",
@@ -977,8 +999,26 @@ def minWindow(s, t):
         "description": '一个升序数组被旋转后，在其中查找目标值，返回索引，找不到返回 -1。要求 O(log n)。',
         "template": 'def search_rotated(nums, target):\n    pass',
         "test_cases": [{"input": "[4,5,6,7,0,1,2], 0", "expected": "4"}, {"input": "[4,5,6,7,0,1,2], 3", "expected": "-1"}, {"input": "[1], 1", "expected": "0"}]
+    ,
+        "solution": """def search_rotated(nums, target):
+    left, right = 0, len(nums) - 1
+    while left <= right:
+        mid = (left + right) // 2
+        if nums[mid] == target:
+            return mid
+        if nums[left] <= nums[mid]:
+            if nums[left] <= target < nums[mid]:
+                right = mid - 1
+            else:
+                left = mid + 1
+        else:
+            if nums[mid] < target <= nums[right]:
+                left = mid + 1
+            else:
+                right = mid - 1
+    return -1""",
+        "hints": ["先判断哪半边有序", "根据target位置决定搜索方向"]
     },
-
     "24": {
         "id": "24",
         "title": "山脉数组峰值",
@@ -987,8 +1027,18 @@ def minWindow(s, t):
         "description": '山脉数组：先严格递增，后严格递减。给定山脉数组，返回峰值索引。要求 O(log n)。',
         "template": 'def peak_index(arr):\n    pass',
         "test_cases": [{"input": "[1, 3, 5, 4, 2]", "expected": "2"}, {"input": "[0, 2, 1, 0]", "expected": "1"}, {"input": "[0, 1, 0]", "expected": "1"}]
+    ,
+        "solution": """def find_peak(nums):
+    left, right = 0, len(nums) - 1
+    while left < right:
+        mid = (left + right) // 2
+        if nums[mid] > nums[mid + 1]:
+            right = mid
+        else:
+            left = mid + 1
+    return left""",
+        "hints": ["峰值元素比相邻元素大", "二分往较大方向移动"]
     },
-
     "25": {
         "id": "25",
         "title": "查找第一个错误版本",
@@ -997,8 +1047,18 @@ def minWindow(s, t):
         "description": '产品从某个版本开始有 bug。给定版本总数 n 和函数 isBadVersion(version)，找出第一个出 bug 的版本。',
         "template": 'def first_bad_version(n):\n    # 假设 isBadVersion(i) 可用\n    pass',
         "test_cases": [{"input": "5", "expected": "4"}, {"input": "1", "expected": "1"}]
+    ,
+        "solution": """def first_bad_version(n):
+    left, right = 1, n
+    while left < right:
+        mid = (left + right) // 2
+        if isBadVersion(mid):
+            right = mid
+        else:
+            left = mid + 1
+    return left""",
+        "hints": ["找第一个True，用左边界二分", "时间O(logn)"]
     },
-
     "26": {
         "id": "26",
         "title": "查找插入位置",
@@ -1007,8 +1067,20 @@ def minWindow(s, t):
         "description": '给定已排序的不重复整数数组和目标值，如果找到返回索引，否则返回应该插入的位置。要求 O(log n)。',
         "template": 'def search_insert(nums, target):\n    pass',
         "test_cases": [{"input": "[1,3,5,6], 5", "expected": "2"}, {"input": "[1,3,5,6], 2", "expected": "1"}, {"input": "[1,3,5,6], 7", "expected": "4"}]
+    ,
+        "solution": """def two_sum_sorted(numbers, target):
+    left, right = 0, len(numbers) - 1
+    while left < right:
+        s = numbers[left] + numbers[right]
+        if s == target:
+            return [left + 1, right + 1]
+        elif s < target:
+            left += 1
+        else:
+            right -= 1
+    return []""",
+        "hints": ["双指针从两端逼近", "利用有序性"]
     },
-
     "27": {
         "id": "27",
         "title": "整数平方根",
@@ -1017,8 +1089,18 @@ def minWindow(s, t):
         "description": '给定非负整数 x，返回 x 的平方根的整数部分（向下取整）。不能使用内置 sqrt 函数。',
         "template": 'def my_sqrt(x):\n    pass',
         "test_cases": [{"input": "4", "expected": "2"}, {"input": "8", "expected": "2"}, {"input": "9", "expected": "3"}]
+    ,
+        "solution": """def remove_duplicates(nums):
+    if not nums:
+        return 0
+    slow = 0
+    for fast in range(1, len(nums)):
+        if nums[fast] != nums[slow]:
+            slow += 1
+            nums[slow] = nums[fast]
+    return slow + 1""",
+        "hints": ["快慢指针", "时间O(n)，空间O(1)"]
     },
-
     "28": {
         "id": "28",
         "title": "判断完全平方数",
@@ -1027,8 +1109,16 @@ def minWindow(s, t):
         "description": '给定正整数 num，判断它是否是完全平方数。不能使用内置 sqrt 函数。',
         "template": 'def is_perfect_square(num):\n    pass',
         "test_cases": [{"input": "16", "expected": "True"}, {"input": "14", "expected": "False"}, {"input": "1", "expected": "True"}]
+    ,
+        "solution": """def remove_element(nums, val):
+    slow = 0
+    for fast in range(len(nums)):
+        if nums[fast] != val:
+            nums[slow] = nums[fast]
+            slow += 1
+    return slow""",
+        "hints": ["快慢指针过滤元素", "原地修改"]
     },
-
     "29": {
         "id": "29",
         "title": "猜数字游戏",
@@ -1037,8 +1127,21 @@ def minWindow(s, t):
         "description": '在 1 到 n 之间猜一个数字，每次猜测会返回 -1(大了)、1(小了)或 0(对了)。给定 n 和 guess 函数，找出答案。',
         "template": 'def guess_number(n):\n    # 假设 guess(num) 可用\n    pass',
         "test_cases": [{"input": "10", "expected": "6"}, {"input": "1", "expected": "1"}]
+    ,
+        "solution": """def guess_number(n):
+    left, right = 1, n
+    while left <= right:
+        mid = (left + right) // 2
+        res = guess(mid)
+        if res == 0:
+            return mid
+        elif res == -1:
+            right = mid - 1
+        else:
+            left = mid + 1
+    return -1""",
+        "hints": ["标准二分查找", "guess返回-1偏大，1偏小"]
     },
-
     "30": {
         "id": "30",
         "title": "二维矩阵查找",
@@ -1047,8 +1150,24 @@ def minWindow(s, t):
         "description": '给定 m×n 矩阵，每行递增，每行第一个数大于上一行最后一个数。判断目标值是否在矩阵中。',
         "template": 'def search_matrix(matrix, target):\n    pass',
         "test_cases": [{"input": "[[1,3,5,7],[10,11,16,20],[23,30,34,50]], 3", "expected": "True"}, {"input": "[[1,3,5,7],[10,11,16,20],[23,30,34,50]], 13", "expected": "False"}]
+    ,
+        "solution": """def search_matrix(matrix, target):
+    if not matrix or not matrix[0]:
+        return False
+    m, n = len(matrix), len(matrix[0])
+    left, right = 0, m * n - 1
+    while left <= right:
+        mid = (left + right) // 2
+        val = matrix[mid // n][mid % n]
+        if val == target:
+            return True
+        elif val < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return False""",
+        "hints": ["二维转一维索引", "mid // n 得行，mid % n 得列"]
     },
-
     "31": {
         "id": "31",
         "title": "两数之和",
@@ -1057,8 +1176,29 @@ def minWindow(s, t):
         "description": '给定整数数组和目标值，找出数组中和为目标值的两个数的索引。假设只有一个答案。',
         "template": 'def two_sum(nums, target):\n    pass',
         "test_cases": [{"input": "[2, 7, 11, 15], 9", "expected": "[0, 1]"}, {"input": "[3, 2, 4], 6", "expected": "[1, 2]"}, {"input": "[3, 3], 6", "expected": "[0, 1]"}]
+    ,
+        "solution": """def three_sum(nums):
+    nums.sort()
+    result = []
+    for i in range(len(nums) - 2):
+        if i > 0 and nums[i] == nums[i - 1]:
+            continue
+        left, right = i + 1, len(nums) - 1
+        while left < right:
+            s = nums[i] + nums[left] + nums[right]
+            if s == 0:
+                result.append([nums[i], nums[left], nums[right]])
+                while left < right and nums[left] == nums[left + 1]:
+                    left += 1
+                left += 1
+                right -= 1
+            elif s < 0:
+                left += 1
+            else:
+                right -= 1
+    return result""",
+        "hints": ["排序后双指针", "固定一个数，另两个双指针"]
     },
-
     "32": {
         "id": "32",
         "title": "有序数组两数之和",
@@ -1067,8 +1207,20 @@ def minWindow(s, t):
         "description": '给定已排序的整数数组和目标值，找出两个数使其和等于目标值。返回索引（从1开始）。',
         "template": 'def two_sum_sorted(numbers, target):\n    pass',
         "test_cases": [{"input": "[2, 7, 11, 15], 9", "expected": "[1, 2]"}, {"input": "[2, 3, 4], 6", "expected": "[1, 3]"}]
+    ,
+        "solution": """def two_sum_sorted(nums, target):
+    left, right = 0, len(nums) - 1
+    while left < right:
+        s = nums[left] + nums[right]
+        if s == target:
+            return [left, right]
+        elif s < target:
+            left += 1
+        else:
+            right -= 1
+    return []""",
+        "hints": ["双指针两端逼近", "时间O(n)"]
     },
-
     "33": {
         "id": "33",
         "title": "三数之和",
@@ -1077,8 +1229,25 @@ def minWindow(s, t):
         "description": '给定整数数组，找出所有和为 0 的三元组。结果中不能有重复。',
         "template": 'def three_sum(nums):\n    pass',
         "test_cases": [{"input": "[-1, 0, 1, 2, -1, -4]", "expected": "[[-1, -1, 2], [-1, 0, 1]]"}, {"input": "[0, 0, 0]", "expected": "[[0, 0, 0]]"}]
+    ,
+        "solution": """def three_sum_closest(nums, target):
+    nums.sort()
+    closest = float('inf')
+    for i in range(len(nums) - 2):
+        left, right = i + 1, len(nums) - 1
+        while left < right:
+            s = nums[i] + nums[left] + nums[right]
+            if abs(s - target) < abs(closest - target):
+                closest = s
+            if s == target:
+                return s
+            elif s < target:
+                left += 1
+            else:
+                right -= 1
+    return closest""",
+        "hints": ["排序后双指针", "记录最接近的和"]
     },
-
     "34": {
         "id": "34",
         "title": "盛最多水的容器",
@@ -1087,8 +1256,20 @@ def minWindow(s, t):
         "description": '给定柱子高度数组，找出两个柱子使其与 x 轴构成的容器能盛最多水。',
         "template": 'def max_area(height):\n    pass',
         "test_cases": [{"input": "[1, 8, 6, 2, 5, 4, 8, 3, 7]", "expected": "49"}, {"input": "[1, 1]", "expected": "1"}]
+    ,
+        "solution": """def max_area(height):
+    left, right = 0, len(height) - 1
+    max_water = 0
+    while left < right:
+        water = (right - left) * min(height[left], height[right])
+        max_water = max(max_water, water)
+        if height[left] < height[right]:
+            left += 1
+        else:
+            right -= 1
+    return max_water""",
+        "hints": ["双指针从两端开始", "移动较矮的指针"]
     },
-
     "35": {
         "id": "35",
         "title": "验证回文串",
@@ -1097,8 +1278,27 @@ def minWindow(s, t):
         "description": '判断字符串是否是回文串，忽略大小写和非字母数字字符。',
         "template": 'def is_palindrome(s):\n    pass',
         "test_cases": [{"input": "\"A man, a plan, a canal: Panama\"", "expected": "True"}, {"input": "\"race a car\"", "expected": "False"}]
+    ,
+        "solution": """def trap(height):
+    left, right = 0, len(height) - 1
+    left_max = right_max = 0
+    water = 0
+    while left < right:
+        if height[left] < height[right]:
+            if height[left] >= left_max:
+                left_max = height[left]
+            else:
+                water += left_max - height[left]
+            left += 1
+        else:
+            if height[right] >= right_max:
+                right_max = height[right]
+            else:
+                water += right_max - height[right]
+            right -= 1
+    return water""",
+        "hints": ["双指针维护左右最大高度", "当前柱子能接水量取决于较小边"]
     },
-
     "36": {
         "id": "36",
         "title": "移动零",
@@ -1107,8 +1307,19 @@ def minWindow(s, t):
         "description": '将数组中的所有 0 移到末尾，保持非零元素的相对顺序。原地操作。',
         "template": 'def move_zeroes(nums):\n    pass',
         "test_cases": [{"input": "[0, 1, 0, 3, 12]", "expected": "[1, 3, 12, 0, 0]"}, {"input": "[0]", "expected": "[0]"}]
+    ,
+        "solution": """def length_of_longest_substring(s):
+    char_set = set()
+    left = max_len = 0
+    for right in range(len(s)):
+        while s[right] in char_set:
+            char_set.remove(s[left])
+            left += 1
+        char_set.add(s[right])
+        max_len = max(max_len, right - left + 1)
+    return max_len""",
+        "hints": ["滑动窗口维护无重复子串", "用set快速判断重复"]
     },
-
     "37": {
         "id": "37",
         "title": "删除有序数组重复项",
@@ -1117,8 +1328,29 @@ def minWindow(s, t):
         "description": '给定有序数组，原地删除重复元素，使每个元素只出现一次。返回新长度。',
         "template": 'def remove_duplicates(nums):\n    pass',
         "test_cases": [{"input": "[1, 1, 2]", "expected": "2"}, {"input": "[0, 0, 1, 1, 1, 2, 2, 3, 3, 4]", "expected": "5"}]
+    ,
+        "solution": """def min_window(s, t):
+    from collections import Counter
+    need = Counter(t)
+    missing = len(t)
+    left = 0
+    min_start, min_len = 0, float('inf')
+    for right in range(len(s)):
+        if s[right] in need:
+            if need[s[right]] > 0:
+                missing -= 1
+            need[s[right]] -= 1
+        while missing == 0:
+            if right - left + 1 < min_len:
+                min_start, min_len = left, right - left + 1
+            if s[left] in need:
+                need[s[left]] += 1
+                if need[s[left]] > 0:
+                    missing += 1
+            left += 1
+    return s[min_start:min_start + min_len] if min_len != float('inf') else """"",
+        "hints": ["滑动窗口+Counter统计", "找到包含所有字符后收缩左边界"]
     },
-
     "38": {
         "id": "38",
         "title": "移除元素",
@@ -1127,8 +1359,24 @@ def minWindow(s, t):
         "description": '原地移除数组中所有等于 val 的元素。返回新长度。',
         "template": 'def remove_element(nums, val):\n    pass',
         "test_cases": [{"input": "[3, 2, 2, 3], 3", "expected": "2"}, {"input": "[0, 1, 2, 2, 3, 0, 4, 2], 2", "expected": "5"}]
+    ,
+        "solution": """def find_anagrams(s, p):
+    from collections import Counter
+    need = Counter(p)
+    left = 0
+    result = []
+    for right in range(len(s)):
+        if s[right] in need:
+            need[s[right]] -= 1
+        if right - left + 1 > len(p):
+            if s[left] in need:
+                need[s[left]] += 1
+            left += 1
+        if right - left + 1 == len(p) and all(v == 0 for v in need.values()):
+            result.append(left)
+    return result""",
+        "hints": ["固定窗口大小为len(p)", "用Counter判断异位词"]
     },
-
     "39": {
         "id": "39",
         "title": "颜色分类",
@@ -1137,8 +1385,22 @@ def minWindow(s, t):
         "description": '给定包含 0、1、2 的数组，原地排序。要求一趟扫描。',
         "template": 'def sort_colors(nums):\n    pass',
         "test_cases": [{"input": "[2, 0, 2, 1, 1, 0]", "expected": "[0, 0, 1, 1, 2, 2]"}, {"input": "[2, 0, 1]", "expected": "[0, 1, 2]"}]
+    ,
+        "solution": """def character_replacement(s, k):
+    count = {}
+    left = 0
+    max_count = 0
+    max_len = 0
+    for right in range(len(s)):
+        count[s[right]] = count.get(s[right], 0) + 1
+        max_count = max(max_count, count[s[right]])
+        while right - left + 1 - max_count > k:
+            count[s[left]] -= 1
+            left += 1
+        max_len = max(max_len, right - left + 1)
+    return max_len""",
+        "hints": ["窗口大小减最多字符数<=k", "可以扩展窗口"]
     },
-
     "40": {
         "id": "40",
         "title": "反转字符串",
@@ -1147,8 +1409,16 @@ def minWindow(s, t):
         "description": '原地反转字符数组。',
         "template": 'def reverse_string(s):\n    pass',
         "test_cases": [{"input": "[\"h\", \"e\", \"l\", \"l\", \"o\"]", "expected": "[\"o\", \"l\", \"l\", \"e\", \"h\"]"}, {"input": "[\"H\", \"a\", \"n\", \"n\", \"a\", \"h\"]", "expected": "[\"h\", \"a\", \"n\", \"n\", \"a\", \"H\"]"}, {"input": "[\"a\"]", "expected": "[\"a\"]"}, {"input": "[]", "expected": "[]"}]
+    ,
+        "solution": """def reverse_string(s):
+    left, right = 0, len(s) - 1
+    while left < right:
+        s[left], s[right] = s[right], s[left]
+        left += 1
+        right -= 1
+    return s""",
+        "hints": ["双指针原地交换", "时间O(n)，空间O(1)"]
     },
-
     "41": {
         "id": "41",
         "title": "无重复字符最长子串",
@@ -1157,8 +1427,19 @@ def minWindow(s, t):
         "description": '给定字符串，找出不含重复字符的最长子串的长度。',
         "template": 'def length_of_longest_substring(s):\n    pass',
         "test_cases": [{"input": "\"abcabcbb\"", "expected": "3"}, {"input": "\"bbbbb\"", "expected": "1"}, {"input": "\"pwwkew\"", "expected": "3"}]
+    ,
+        "solution": """def length_of_longest_substring(s):
+    char_set = set()
+    left = max_len = 0
+    for right, ch in enumerate(s):
+        while ch in char_set:
+            char_set.remove(s[left])
+            left += 1
+        char_set.add(ch)
+        max_len = max(max_len, right - left + 1)
+    return max_len""",
+        "hints": ["滑动窗口", "用set维护无重复字符"]
     },
-
     "42": {
         "id": "42",
         "title": "长度最小子数组",
@@ -1167,8 +1448,20 @@ def minWindow(s, t):
         "description": '给定正整数数组和目标值，找出和≥目标值的最短连续子数组长度。不存在返回0。',
         "template": 'def min_subarray_len(target, nums):\n    pass',
         "test_cases": [{"input": "7, [2, 3, 1, 2, 4, 3]", "expected": "2"}, {"input": "4, [1, 4, 4]", "expected": "1"}, {"input": "11, [1, 1, 1, 1, 1, 1, 1, 1]", "expected": "0"}]
+    ,
+        "solution": """def num_islands(grid):
+    if not grid: return 0
+    count = 0
+    def dfs(g, i, j):
+        if i < 0 or j < 0 or i >= len(g) or j >= len(g[0]) or g[i][j] != '1': return
+        g[i][j] = '#'
+        dfs(g, i+1, j); dfs(g, i-1, j); dfs(g, i, j+1); dfs(g, i, j-1)
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j] == '1': dfs(grid, i, j); count += 1
+    return count""",
+        "hints": ["DFS或BFS遍历岛屿", "访问过的标记为#"]
     },
-
     "43": {
         "id": "43",
         "title": "找到字符串中所有字母异位词",
@@ -1177,8 +1470,18 @@ def minWindow(s, t):
         "description": '给定字符串 s 和 p，找出 s 中所有 p 的字母异位词（排列相同）的起始索引。',
         "template": 'def find_anagrams(s, p):\n    pass',
         "test_cases": [{"input": "\"cbaebabacd\", \"abc\"", "expected": "[0, 6]"}, {"input": "\"abab\", \"ab\"", "expected": "[0, 1, 2]"}]
+    ,
+        "solution": """def num_enclaves(grid):
+    m, n = len(grid), len(grid[0])
+    def dfs(i, j):
+        if i < 0 or j < 0 or i >= m or j >= n or grid[i][j] != 1: return
+        grid[i][j] = 0
+        dfs(i+1, j); dfs(i-1, j); dfs(i, j+1); dfs(i, j-1)
+    for i in range(m): dfs(i, 0); dfs(i, n-1)
+    for j in range(n): dfs(0, j); dfs(m-1, j)
+    return sum(sum(row) for row in grid)""",
+        "hints": ["先从边界DFS标记连通的1", "剩余的1就是封闭的"]
     },
-
     "44": {
         "id": "44",
         "title": "字符串排列",
@@ -1187,8 +1490,19 @@ def minWindow(s, t):
         "description": '判断 s2 是否包含 s1 的某个排列。',
         "template": 'def check_inclusion(s1, s2):\n    pass',
         "test_cases": [{"input": "\"ab\", \"eidbaooo\"", "expected": "True"}, {"input": "\"ab\", \"eidboaoo\"", "expected": "False"}]
+    ,
+        "solution": """def pacific_atlantic(heights):
+    m, n = len(heights), len(heights[0])
+    pacific, atlantic = set(), set()
+    def dfs(i, j, visited, prev):
+        if i < 0 or j < 0 or i >= m or j >= n or (i,j) in visited or heights[i][j] < prev: return
+        visited.add((i, j))
+        for di, dj in [(1,0),(-1,0),(0,1),(0,-1)]: dfs(i+di, j+dj, visited, heights[i][j])
+    for i in range(m): dfs(i, 0, pacific, 0); dfs(i, n-1, atlantic, 0)
+    for j in range(n): dfs(0, j, pacific, 0); dfs(m-1, j, atlantic, 0)
+    return list(pacific & atlantic)""",
+        "hints": ["从两个大洋边界反向DFS", "求交集"]
     },
-
     "45": {
         "id": "45",
         "title": "最大平均子数组",
@@ -1197,8 +1511,22 @@ def minWindow(s, t):
         "description": '给定整数数组和整数 k，找出长度为 k 的连续子数组的最大平均值。',
         "template": 'def find_max_average(nums, k):\n    pass',
         "test_cases": [{"input": "[1, 12, -5, -6, 50, 3], 4", "expected": "12.75"}, {"input": "[5], 1", "expected": "5.0"}]
+    ,
+        "solution": """def can_finish(numCourses, prerequisites):
+    from collections import defaultdict, deque
+    graph = defaultdict(list)
+    indegree = [0] * numCourses
+    for c, p in prerequisites: graph[p].append(c); indegree[c] += 1
+    queue = deque([i for i in range(numCourses) if indegree[i] == 0])
+    count = 0
+    while queue:
+        node = queue.popleft(); count += 1
+        for n in graph[node]:
+            indegree[n] -= 1
+            if indegree[n] == 0: queue.append(n)
+    return count == numCourses""",
+        "hints": ["拓扑排序检测环", "BFS入度为0的节点"]
     },
-
     "46": {
         "id": "46",
         "title": "岛屿数量",
@@ -1207,8 +1535,22 @@ def minWindow(s, t):
         "description": "给定二维网格，'1'表示陆地，'0'表示水，计算岛屿数量。",
         "template": 'def num_islands(grid):\n    pass',
         "test_cases": [{"input": "[[\"1\",\"1\",\"1\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"1\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"0\",\"0\"]]", "expected": "1"}, {"input": "[[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"1\",\"1\",\"0\",\"0\",\"0\"],[\"0\",\"0\",\"1\",\"0\",\"0\"],[\"0\",\"0\",\"0\",\"1\",\"1\"]]", "expected": "3"}]
+    ,
+        "solution": """def find_order(numCourses, prerequisites):
+    from collections import defaultdict, deque
+    graph = defaultdict(list)
+    indegree = [0] * numCourses
+    for c, p in prerequisites: graph[p].append(c); indegree[c] += 1
+    queue = deque([i for i in range(numCourses) if indegree[i] == 0])
+    result = []
+    while queue:
+        node = queue.popleft(); result.append(node)
+        for n in graph[node]:
+            indegree[n] -= 1
+            if indegree[n] == 0: queue.append(n)
+    return result if len(result) == numCourses else []""",
+        "hints": ["拓扑排序", "BFS按入度顺序"]
     },
-
     "47": {
         "id": "47",
         "title": "岛屿最大面积",
@@ -1217,8 +1559,19 @@ def minWindow(s, t):
         "description": '给定二维网格，计算最大岛屿的面积。',
         "template": 'def max_area_of_island(grid):\n    pass',
         "test_cases": [{"input": "[[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]", "expected": "6"}, {"input": "[[0,0,0,0,0,0,0,0]]", "expected": "0"}, {"input": "[[1,1,1],[1,1,1]]", "expected": "6"}, {"input": "[[1]]", "expected": "1"}]
+    ,
+        "solution": """def max_area_of_island(grid):
+    max_area = 0
+    def dfs(g, i, j):
+        if i < 0 or j < 0 or i >= len(g) or j >= len(g[0]) or g[i][j] != 1: return 0
+        g[i][j] = 0
+        return 1 + dfs(g, i+1, j) + dfs(g, i-1, j) + dfs(g, i, j+1) + dfs(g, i, j-1)
+    for i in range(len(grid)):
+        for j in range(len(grid[0])):
+            if grid[i][j] == 1: max_area = max(max_area, dfs(grid, i, j))
+    return max_area""",
+        "hints": ["DFS计算岛屿面积", "访问过的标记为0"]
     },
-
     "48": {
         "id": "48",
         "title": "单词搜索",
@@ -1227,8 +1580,22 @@ def minWindow(s, t):
         "description": '给定二维字符网格和单词，判断单词是否存在于网格中。单词由相邻单元格组成。',
         "template": 'def exist(board, word):\n    pass',
         "test_cases": [{"input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], \"ABCCED\"", "expected": "True"}, {"input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], \"SEE\"", "expected": "True"}, {"input": "[[\"A\",\"B\",\"C\",\"E\"],[\"S\",\"F\",\"C\",\"S\"],[\"A\",\"D\",\"E\",\"E\"]], \"ABCB\"", "expected": "False"}]
+    ,
+        "solution": """def exist(board, word):
+    m, n = len(board), len(board[0])
+    def dfs(i, j, k):
+        if k == len(word): return True
+        if i < 0 or j < 0 or i >= m or j >= n or board[i][j] != word[k]: return False
+        temp = board[i][j]; board[i][j] = '#'
+        found = dfs(i+1, j, k+1) or dfs(i-1, j, k+1) or dfs(i, j+1, k+1) or dfs(i, j-1, k+1)
+        board[i][j] = temp
+        return found
+    for i in range(m):
+        for j in range(n):
+            if dfs(i, j, 0): return True
+    return False""",
+        "hints": ["DFS回溯搜索", "临时标记防止重复访问"]
     },
-
     "49": {
         "id": "49",
         "title": "图像渲染",
@@ -1237,8 +1604,18 @@ def minWindow(s, t):
         "description": '给定图像和起始点，将与起始点相连的相同颜色区域染成新颜色。',
         "template": 'def flood_fill(image, sr, sc, color):\n    pass',
         "test_cases": [{"input": "[[1,1,1],[1,1,0],[1,0,1]], 1, 1, 2", "expected": "[[2,2,2],[2,2,0],[2,0,1]]"}, {"input": "[[0,0,0],[0,0,0]], 0, 0, 2", "expected": "[[2,2,2],[2,2,2]]"}, {"input": "[[1]], 0, 0, 2", "expected": "[[2]]"}]
+    ,
+        "solution": """def flood_fill(image, sr, sc, color):
+    if image[sr][sc] == color: return image
+    old = image[sr][sc]
+    def dfs(i, j):
+        if i < 0 or j < 0 or i >= len(image) or j >= len(image[0]) or image[i][j] != old: return
+        image[i][j] = color
+        dfs(i+1, j); dfs(i-1, j); dfs(i, j+1); dfs(i, j-1)
+    dfs(sr, sc)
+    return image""",
+        "hints": ["DFS/BFS填充", "注意颜色相同的情况"]
     },
-
     "50": {
         "id": "50",
         "title": "克隆图",
@@ -1247,8 +1624,19 @@ def minWindow(s, t):
         "description": '给定无向连通图的节点，返回图的深拷贝。',
         "template": 'def clone_graph(node):\n    pass',
         "test_cases": [{"input": "Node(1)", "expected": "clone"}]
+    ,
+        "solution": """def clone_graph(node):
+    if not node: return None
+    visited = {}
+    def dfs(n):
+        if n in visited: return visited[n]
+        clone = Node(n.val)
+        visited[n] = clone
+        for neighbor in n.neighbors: clone.neighbors.append(dfs(neighbor))
+        return clone
+    return dfs(node)""",
+        "hints": ["DFS深拷贝", "用字典记录已克隆节点"]
     },
-
     "51": {
         "id": "51",
         "title": "课程安排",
@@ -1257,8 +1645,25 @@ def minWindow(s, t):
         "description": '给定课程数和先修要求，判断能否完成所有课程。',
         "template": 'def can_finish(num_courses, prerequisites):\n    pass',
         "test_cases": [{"input": "2, [[1,0]]", "expected": "True"}, {"input": "2, [[1,0],[0,1]]", "expected": "False"}]
+    ,
+        "solution": """def can_finish_dfs(numCourses, prerequisites):
+    from collections import defaultdict
+    graph = defaultdict(list)
+    for c, p in prerequisites: graph[p].append(c)
+    visited = [0] * numCourses
+    def has_cycle(node):
+        if visited[node] == 1: return True
+        if visited[node] == 2: return False
+        visited[node] = 1
+        for n in graph[node]:
+            if has_cycle(n): return True
+        visited[node] = 2
+        return False
+    for i in range(numCourses):
+        if has_cycle(i): return False
+    return True""",
+        "hints": ["DFS检测环", "三色标记法"]
     },
-
     "52": {
         "id": "52",
         "title": "二叉树层序遍历",
@@ -1267,8 +1672,23 @@ def minWindow(s, t):
         "description": '给定二叉树，返回层序遍历结果（按层分组）。',
         "template": 'def level_order(root):\n    pass',
         "test_cases": [{"input": "[3,9,20,null,null,15,7]", "expected": "[[3],[9,20],[15,7]]"}, {"input": "[1]", "expected": "[[1]]"}, {"input": "[]", "expected": "[]"}, {"input": "[1,2,3,4,5]", "expected": "[[1],[2,3],[4,5]]"}]
+    ,
+        "solution": """def level_order(root):
+    if not root: return []
+    from collections import deque
+    result = []
+    queue = deque([root])
+    while queue:
+        level = []
+        for _ in range(len(queue)):
+            node = queue.popleft()
+            level.append(node.val)
+            if node.left: queue.append(node.left)
+            if node.right: queue.append(node.right)
+        result.append(level)
+    return result""",
+        "hints": ["BFS层序遍历", "每层单独记录"]
     },
-
     "53": {
         "id": "53",
         "title": "二叉树最大深度",
@@ -1277,8 +1697,12 @@ def minWindow(s, t):
         "description": '给定二叉树，返回其最大深度。',
         "template": 'def max_depth(root):\n    pass',
         "test_cases": [{"input": "[3,9,20,null,null,15,7]", "expected": "3"}, {"input": "[1]", "expected": "1"}]
+    ,
+        "solution": """def max_depth(root):
+    if not root: return 0
+    return 1 + max(max_depth(root.left), max_depth(root.right))""",
+        "hints": ["DFS递归", "最大深度=1+max(左,右)"]
     },
-
     "54": {
         "id": "54",
         "title": "对称二叉树",
@@ -1287,8 +1711,13 @@ def minWindow(s, t):
         "description": '判断二叉树是否左右对称。',
         "template": 'def is_symmetric(root):\n    pass',
         "test_cases": [{"input": "[1,2,2,3,4,4,3]", "expected": "True"}, {"input": "[1,2,2,null,3,null,3]", "expected": "False"}]
+    ,
+        "solution": """def is_same_tree(p, q):
+    if not p and not q: return True
+    if not p or not q: return False
+    return p.val == q.val and is_same_tree(p.left, q.left) and is_same_tree(p.right, q.right)""",
+        "hints": ["递归比较", "同时为空则相同"]
     },
-
     "55": {
         "id": "55",
         "title": "翻转二叉树",
@@ -1297,8 +1726,15 @@ def minWindow(s, t):
         "description": '翻转二叉树（交换每个节点的左右子树）。',
         "template": 'def invert_tree(root):\n    pass',
         "test_cases": [{"input": "[4,2,7,1,3,6,9]", "expected": "[4,7,2,9,6,3,1]"}, {"input": "[1,2]", "expected": "[1,null,2]"}, {"input": "[]", "expected": "[]"}, {"input": "[1]", "expected": "[1]"}]
+    ,
+        "solution": """def invert_tree(root):
+    if not root: return None
+    root.left, root.right = root.right, root.left
+    invert_tree(root.left)
+    invert_tree(root.right)
+    return root""",
+        "hints": ["递归交换左右子树", "时间O(n)"]
     },
-
     "56": {
         "id": "56",
         "title": "爬楼梯",
@@ -1307,8 +1743,15 @@ def minWindow(s, t):
         "description": '每次可以爬 1 或 2 个台阶，问爬到第 n 阶有多少种方法。',
         "template": 'def climb_stairs(n):\n    pass',
         "test_cases": [{"input": "2", "expected": "2"}, {"input": "3", "expected": "3"}, {"input": "5", "expected": "8"}]
+    ,
+        "solution": """def climb_stairs(n):
+    if n <= 2: return n
+    a, b = 1, 2
+    for _ in range(3, n + 1):
+        a, b = b, a + b
+    return b""",
+        "hints": ["动态规划，dp[i]=dp[i-1]+dp[i-2]", "空间优化用两个变量"]
     },
-
     "57": {
         "id": "57",
         "title": "打家劫舍",
@@ -1317,8 +1760,17 @@ def minWindow(s, t):
         "description": '给定数组表示每间房屋的金额，相邻房屋不能同时被盗，求最大金额。',
         "template": 'def rob(nums):\n    pass',
         "test_cases": [{"input": "[1, 2, 3, 1]", "expected": "4"}, {"input": "[2, 7, 9, 3, 1]", "expected": "12"}]
+    ,
+        "solution": """def rob(nums):
+    if not nums: return 0
+    if len(nums) == 1: return nums[0]
+    prev2, prev1 = 0, nums[0]
+    for i in range(1, len(nums)):
+        curr = max(prev1, prev2 + nums[i])
+        prev2, prev1 = prev1, curr
+    return prev1""",
+        "hints": ["dp[i]=max(dp[i-1], dp[i-2]+nums[i])", "不能偷相邻的房子"]
     },
-
     "58": {
         "id": "58",
         "title": "不同路径",
@@ -1327,8 +1779,16 @@ def minWindow(s, t):
         "description": '机器人从 m×n 网格左上角走到右下角，只能向右或向下，问有多少种路径。',
         "template": 'def unique_paths(m, n):\n    pass',
         "test_cases": [{"input": "3, 7", "expected": "28"}, {"input": "3, 2", "expected": "3"}]
+    ,
+        "solution": """def coin_change(coins, amount):
+    dp = [float('inf')] * (amount + 1)
+    dp[0] = 0
+    for coin in coins:
+        for i in range(coin, amount + 1):
+            dp[i] = min(dp[i], dp[i - coin] + 1)
+    return dp[amount] if dp[amount] != float('inf') else -1""",
+        "hints": ["完全背包问题", "dp[i]表示凑成金额i的最少硬币数"]
     },
-
     "59": {
         "id": "59",
         "title": "零钱兑换",
@@ -1337,8 +1797,16 @@ def minWindow(s, t):
         "description": '给定硬币面额和目标金额，计算凑成目标金额的最少硬币数。',
         "template": 'def coin_change(coins, amount):\n    pass',
         "test_cases": [{"input": "[1, 2, 5], 11", "expected": "3"}, {"input": "[2], 3", "expected": "-1"}]
+    ,
+        "solution": """def length_of_lis(nums):
+    dp = [1] * len(nums)
+    for i in range(1, len(nums)):
+        for j in range(i):
+            if nums[i] > nums[j]:
+                dp[i] = max(dp[i], dp[j] + 1)
+    return max(dp) if dp else 0""",
+        "hints": ["dp[i]表示以i结尾的最长递增子序列", "时间O(n²)"]
     },
-
     "60": {
         "id": "60",
         "title": "最长递增子序列",
@@ -1347,8 +1815,15 @@ def minWindow(s, t):
         "description": '给定数组，找出最长严格递增子序列的长度。',
         "template": 'def length_of_lis(nums):\n    pass',
         "test_cases": [{"input": "[10, 9, 2, 5, 3, 7, 101, 18]", "expected": "4"}, {"input": "[0, 1, 0, 3, 2, 3]", "expected": "4"}]
+    ,
+        "solution": """def unique_paths(m, n):
+    dp = [[1] * n for _ in range(m)]
+    for i in range(1, m):
+        for j in range(1, n):
+            dp[i][j] = dp[i-1][j] + dp[i][j-1]
+    return dp[m-1][n-1]""",
+        "hints": ["dp[i][j]=dp[i-1][j]+dp[i][j-1]", "从左上到右下的路径数"]
     },
-
     "61": {
         "id": "61",
         "title": "最大子数组和",
@@ -1357,8 +1832,15 @@ def minWindow(s, t):
         "description": '给定整数数组，找出具有最大和的连续子数组。',
         "template": 'def max_sub_array(nums):\n    pass',
         "test_cases": [{"input": "[-2, 1, -3, 4, -1, 2, 1, -5, 4]", "expected": "6"}, {"input": "[1]", "expected": "1"}]
+    ,
+        "solution": """def max_sub_array(nums):
+    max_sum = current_sum = nums[0]
+    for i in range(1, len(nums)):
+        current_sum = max(nums[i], current_sum + nums[i])
+        max_sum = max(max_sum, current_sum)
+    return max_sum""",
+        "hints": ["Kadane算法", "当前和为负则重新开始"]
     },
-
     "62": {
         "id": "62",
         "title": "买卖股票最佳时机",
@@ -1367,8 +1849,16 @@ def minWindow(s, t):
         "description": '给定股价数组，选择某天买入和某天卖出，计算最大利润。',
         "template": 'def max_profit(prices):\n    pass',
         "test_cases": [{"input": "[7, 1, 5, 3, 6, 4]", "expected": "5"}, {"input": "[7, 6, 4, 3, 1]", "expected": "0"}]
+    ,
+        "solution": """def max_profit(prices):
+    min_price = float('inf')
+    max_profit = 0
+    for price in prices:
+        min_price = min(min_price, price)
+        max_profit = max(max_profit, price - min_price)
+    return max_profit""",
+        "hints": ["记录最低买入价", "计算最大利润"]
     },
-
     "63": {
         "id": "63",
         "title": "三角形最小路径和",
@@ -1377,8 +1867,15 @@ def minWindow(s, t):
         "description": '给定三角形，从顶到底找最小路径和，每步只能移到下一行相邻位置。',
         "template": 'def minimum_total(triangle):\n    pass',
         "test_cases": [{"input": "[[2],[3,4],[6,5,7],[4,1,8,3]]", "expected": "11"}, {"input": "[[1]]", "expected": "1"}, {"input": "[[1],[2,3]]", "expected": "3"}, {"input": "[[-10]]", "expected": "-10"}]
+    ,
+        "solution": """def minimum_total(triangle):
+    dp = triangle[-1][:]
+    for i in range(len(triangle) - 2, -1, -1):
+        for j in range(len(triangle[i])):
+            dp[j] = triangle[i][j] + min(dp[j], dp[j + 1])
+    return dp[0]""",
+        "hints": ["从底向上DP", "dp[j]表示到当前位置的最小路径和"]
     },
-
     "64": {
         "id": "64",
         "title": "最小花费爬楼梯",
@@ -1387,8 +1884,15 @@ def minWindow(s, t):
         "description": '给定数组表示爬每阶的花费，可从下标 0 或 1 开始，求到达顶部的最小花费。',
         "template": 'def min_cost_climbing_stairs(cost):\n    pass',
         "test_cases": [{"input": "[10, 15, 20]", "expected": "15"}, {"input": "[1, 100, 1, 1, 1, 100, 1, 1, 100, 1]", "expected": "6"}]
+    ,
+        "solution": """def min_cost_climbing_stairs(cost):
+    n = len(cost)
+    dp = [0] * (n + 1)
+    for i in range(2, n + 1):
+        dp[i] = min(dp[i-1] + cost[i-1], dp[i-2] + cost[i-2])
+    return dp[n]""",
+        "hints": ["dp[i]=min(dp[i-1]+cost[i-1], dp[i-2]+cost[i-2])", "可以从0或1开始"]
     },
-
     "65": {
         "id": "65",
         "title": "分割等和子集",
@@ -1397,8 +1901,19 @@ def minWindow(s, t):
         "description": '给定数组，判断能否分成两个和相等的子集。',
         "template": 'def can_partition(nums):\n    pass',
         "test_cases": [{"input": "[1, 5, 11, 5]", "expected": "True"}, {"input": "[1, 2, 3, 5]", "expected": "False"}]
+    ,
+        "solution": """def can_partition(nums):
+    total = sum(nums)
+    if total % 2 != 0: return False
+    target = total // 2
+    dp = [False] * (target + 1)
+    dp[0] = True
+    for num in nums:
+        for i in range(target, num - 1, -1):
+            dp[i] = dp[i] or dp[i - num]
+    return dp[target]""",
+        "hints": ["01背包问题", "目标和为sum/2"]
     },
-
     "66": {
         "id": "66",
         "title": "有效括号",
@@ -1407,8 +1922,18 @@ def minWindow(s, t):
         "description": '给定只含括号的字符串，判断括号是否有效配对。',
         "template": 'def is_valid(s):\n    pass',
         "test_cases": [{"input": "\"()\"", "expected": "True"}, {"input": "\"()[]{}\"", "expected": "True"}, {"input": "\"(]\"", "expected": "False"}, {"input": "\"([)]\"", "expected": "False"}]
+    ,
+        "solution": """def is_valid(s):
+    stack = []
+    mapping = {')': '(', ']': '[', '}': '{'}
+    for ch in s:
+        if ch in mapping:
+            if not stack or stack.pop() != mapping[ch]: return False
+        else:
+            stack.append(ch)
+    return not stack""",
+        "hints": ["栈匹配括号", "右括号检查栈顶"]
     },
-
     "67": {
         "id": "67",
         "title": "最小栈",
@@ -1417,8 +1942,24 @@ def minWindow(s, t):
         "description": '设计一个支持 push、pop、top 和在 O(1) 时间内获取最小元素的栈。',
         "template": 'class MinStack:\n    def __init__(self):\n        pass\n    def push(self, val):\n        pass\n    def pop(self):\n        pass\n    def top(self):\n        pass\n    def getMin(self):\n        pass',
         "test_cases": [{"input": "push(-2), push(0), push(-3), getMin()", "expected": "-3"}, {"input": "push(1), push(2), getMin()", "expected": "1"}, {"input": "push(5), push(3), push(4), getMin()", "expected": "3"}]
+    ,
+        "solution": """class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.min_stack = []
+    def push(self, val):
+        self.stack.append(val)
+        if not self.min_stack or val <= self.min_stack[-1]:
+            self.min_stack.append(val)
+    def pop(self):
+        if self.stack.pop() == self.min_stack[-1]:
+            self.min_stack.pop()
+    def top(self):
+        return self.stack[-1]
+    def getMin(self):
+        return self.min_stack[-1]""",
+        "hints": ["辅助栈存储最小值", "push/pop时同步维护"]
     },
-
     "68": {
         "id": "68",
         "title": "逆波兰表达式求值",
@@ -1427,8 +1968,21 @@ def minWindow(s, t):
         "description": '给定逆波兰表达式（后缀表达式），求其值。',
         "template": 'def eval_rpn(tokens):\n    pass',
         "test_cases": [{"input": "[\"2\",\"1\",\"+\",\"3\",\"*\"]", "expected": "9"}, {"input": "[\"4\",\"13\",\"5\",\"/\",\"+\"]", "expected": "6"}]
+    ,
+        "solution": """def eval_rpn(tokens):
+    stack = []
+    for token in tokens:
+        if token in '+-*/':
+            b, a = stack.pop(), stack.pop()
+            if token == '+': stack.append(a + b)
+            elif token == '-': stack.append(a - b)
+            elif token == '*': stack.append(a * b)
+            else: stack.append(int(a / b))
+        else:
+            stack.append(int(token))
+    return stack[0]""",
+        "hints": ["栈计算后缀表达式", "遇到数字入栈，遇到运算符计算"]
     },
-
     "69": {
         "id": "69",
         "title": "每日温度",
@@ -1437,8 +1991,19 @@ def minWindow(s, t):
         "description": '给定每日温度数组，返回数组 answer，answer[i] 表示要等几天才能有更高温度。',
         "template": 'def daily_temperatures(temperatures):\n    pass',
         "test_cases": [{"input": "[73, 74, 75, 71, 69, 72, 76, 73]", "expected": "[1, 1, 4, 2, 1, 1, 0, 0]"}, {"input": "[30, 40, 50, 60]", "expected": "[1, 1, 1, 0]"}]
+    ,
+        "solution": """def daily_temperatures(temperatures):
+    n = len(temperatures)
+    result = [0] * n
+    stack = []
+    for i in range(n):
+        while stack and temperatures[i] > temperatures[stack[-1]]:
+            prev = stack.pop()
+            result[prev] = i - prev
+        stack.append(i)
+    return result""",
+        "hints": ["单调栈存储下标", "遇到更高温度则计算天数"]
     },
-
     "70": {
         "id": "70",
         "title": "车队",
@@ -1447,6 +2012,16 @@ def minWindow(s, t):
         "description": 'N 辆车沿单行道行驶，给定位置和速度，后车追上前车会合并成车队。求到达目标时的车队数量。',
         "template": 'def car_fleet(target, position, speed):\n    pass',
         "test_cases": [{"input": "12, [10, 8, 0, 5, 3], [2, 4, 1, 1, 3]", "expected": "3"}, {"input": "10, [3], [3]", "expected": "1"}, {"input": "100, [0, 2, 4], [4, 2, 1]", "expected": "1"}, {"input": "10, [6, 8], [3, 2]", "expected": "2"}]
+    ,
+        "solution": """def car_fleet(target, position, speed):
+    cars = sorted(zip(position, speed), reverse=True)
+    stack = []
+    for pos, spd in cars:
+        time = (target - pos) / spd
+        if not stack or time > stack[-1]:
+            stack.append(time)
+    return len(stack)""",
+        "hints": ["按位置排序，计算到达时间", "时间短的车会追上时间长的"]
     },
 }
 def run_python_code(code, timeout=5):
