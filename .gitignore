@@ -25,5 +25,15 @@ Thumbs.db
 # Logs
 *.log
 
-# Agent workspace
-workspace/
+# Agent workspace - only track custom configs
+workspace/.openclaw/
+workspace/.agents/
+workspace/.clawhub/
+workspace/media/
+workspace/state/
+workspace/memory/
+workspace/skills/
+workspace/AGENTS.md
+workspace/SOUL.md
+workspace/TOOLS.md
+workspace/HEARTBEAT.md
